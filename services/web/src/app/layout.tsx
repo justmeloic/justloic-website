@@ -22,9 +22,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Loïc Muhirwa — AI Solutions, Mathematics & Art",
+  title: "Loïc",
   description:
-    "Personal website and portfolio of Loïc Muhirwa. AI Solutions at Google, former ML lead for the Government of Canada, researcher in computer vision & neuroimaging.",
+    "I design and develop AI solutions at Google. Before joining Google, I led a team of Machine Learning Engineers, Data Engineers and Data Scientists for the Government of Canada.",
   keywords: [
     "Loïc Muhirwa",
     "AI",

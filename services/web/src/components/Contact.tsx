@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -33,62 +34,92 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="border-t border-stone-200 dark:border-stone-800 pt-16 space-y-8">
-      <div className="max-w-xl space-y-3">
-        <span className="font-mono text-xs text-red-800 dark:text-red-400 uppercase tracking-widest font-semibold">
-          05 / Conversation
-        </span>
+    <section id="contact" className="border-t border-stone-200 dark:border-stone-800 pt-16 space-y-10">
+      <div className="space-y-2">
         <h2 className="font-serif text-3xl md:text-4xl text-stone-950 dark:text-stone-50">
           Get in touch
         </h2>
-        <p className="text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed">
-          Open to research discussions, machine learning systems architecture, or scientific collaborations.
-        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-xl space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100 placeholder:text-stone-400"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100 placeholder:text-stone-400"
-          />
+          <div className="space-y-1">
+            <label htmlFor="name" className="block text-xs font-mono uppercase tracking-wider text-stone-500">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              required
+              className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100"
+            />
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-stone-500">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              required
+              className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100"
+            />
+          </div>
         </div>
-        <textarea
-          name="message"
-          rows={4}
-          placeholder="Your message..."
-          required
-          className="w-full px-4 py-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100 placeholder:text-stone-400"
-        ></textarea>
+
+        <div className="space-y-1">
+          <label htmlFor="message" className="block text-xs font-mono uppercase tracking-wider text-stone-500">
+            Message
+          </label>
+          <textarea
+            name="message"
+            id="message"
+            rows={6}
+            required
+            className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100"
+          ></textarea>
+        </div>
+
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="w-full py-3 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 font-medium text-xs font-mono rounded-lg hover:opacity-90 transition disabled:opacity-50"
+          className="px-6 py-2.5 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 font-medium text-xs font-mono rounded-lg hover:opacity-90 transition disabled:opacity-50"
         >
-          {status === "submitting" ? "Transmitting..." : "Send Message →"}
+          {status === "submitting" ? "Sending..." : "Send Message"}
         </button>
 
         {status === "success" && (
           <p className="text-xs font-mono text-emerald-600 dark:text-emerald-400 pt-1">
-            ✓ Message received. Thank you for reaching out!
+            ✓ Message sent successfully.
           </p>
         )}
         {status === "error" && (
           <p className="text-xs font-mono text-red-600 dark:text-red-400 pt-1">
-            ✕ Could not deliver message. Please reach out via LinkedIn.
+            ✕ Could not deliver message. Please try again or reach out on LinkedIn.
           </p>
         )}
       </form>
+
+      {/* Back to section links from original site */}
+      <div className="flex flex-wrap gap-2 pt-6 border-t border-stone-200 dark:border-stone-800 text-xs font-mono">
+        <Link href="#projects" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+          back to Projects
+        </Link>
+        <Link href="#awards" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+          back to Awards
+        </Link>
+        <Link href="#art" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+          back to art
+        </Link>
+        <Link href="#philosophy" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+          back to philosophy
+        </Link>
+        <Link href="#publications" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+          back to publications
+        </Link>
+      </div>
     </section>
   );
 }

@@ -6,60 +6,53 @@ interface Project {
   tags: string[];
   image: string;
   link: string;
-  linkLabel: string;
 }
 
 const projects: Project[] = [
   {
-    title: "Diffeomorphic Registration & Lesion Segmentation",
+    title: "Diffeomorphic Registration and Lesion Segmentation of Neuroimages",
     description:
-      "M.Sc. Thesis at the University of Ottawa. Generative approach to simultaneous diffeomorphic registration and stroke lesion segmentation of neuroimages, integrated via hierarchical Bayesian latent variables and deep learning inference.",
-    tags: ["Computer Vision", "Bayesian Latent Models", "Deep Learning"],
+      "My thesis research considered a generative approach to simultaneous diffeomorphic registration and stroke lesion segmentation of neuroimages. Image registration and segmentation were integrated by parameterizing them as latent variables of a hierarchical Bayesian model. I also proposed an efficient deep learning algorithm to infer these latent variables.",
+    tags: ["computer vision", "image segmentation", "image registration", "deep learning"],
     image: "/images/projects/brain2.png",
     link: "https://ruor.uottawa.ca/handle/10393/43733",
-    linkLabel: "Read Thesis Publication ↗",
   },
   {
-    title: "Dynamic Topic Modelling for Public Health",
+    title: "Dynamic Topic Modelling",
     description:
-      "Led the system applying topic modeling to the Canadian Coroner and Medical Examiner Database (CCMED) to identify emerging circumstances of mortality across the Canadian population in real time.",
-    tags: ["NLP", "Topic Modelling", "Epidemiology"],
+      "I led a project in which we applied topic modelling to the Canadian Coroner and Medical Examiner Database (CCMED) in order to detect emerging death circumstances in the Canadian population. I was the sole developer and maintainer for the initial releases and the methodology was entirely designed by me. The system includes an end-to-end data pipeline and an interactive dashboard front-end.",
+    tags: ["natural language processing", "topic modelling", "data visualization"],
     image: "/images/projects/docs2.png",
     link: "https://www.statcan.gc.ca/en/data-science/network/topic-modelling",
-    linkLabel: "View Technical Review ↗",
   },
   {
-    title: "Responsible Machine Learning Framework",
+    title: "Statistics Canada’s Responsible Machine Learning Framework",
     description:
-      "Major contributor to Statistics Canada’s national framework ensuring the ethical, transparent, and auditable deployment of production Machine Learning systems across federal departments.",
-    tags: ["AI Governance", "Explainable AI", "Ethics"],
+      "I am a major contributor to a framework that aims to promote responsible Machine Learning (ML) system development at Statistics Canada. The framework consists of guidelines for responsible ML development and independent ethical and technical peer reviews. In addition, I am involved in explainable and interpretable ML research to help support the framework.",
+    tags: ["responsible ml", "data ethics", "explainable & interpretable"],
     image: "/images/projects/rml-logo2.png",
     link: "https://www.statcan.gc.ca/en/data-science/network/machine-learning",
-    linkLabel: "Explore Framework Guidelines ↗",
   },
   {
-    title: "Large-Scale Data Collection Optimization",
+    title: "Data Collection Optimization",
     description:
-      "Engineered algorithmic prioritization for Canadian business surveys, maximizing statistical estimate quality across 65 economic sectors without inflating collection costs.",
-    tags: ["Optimization", "Economic Statistics"],
+      "I made significant contributions to a data collection optimization system that aims to prioritize collection units (Canadian businesses) by optimizing the quality of the estimates (economic statistics) produced. This was a large-scale system that was used by 65 federal business surveys that cover four major sectors: manufacturing, wholesale and retail trade, services (including culture) and capital expenditures.",
+    tags: ["economic statistics", "data collection", "business survey", "optimization"],
     image: "/images/projects/data-collection.png",
     link: "https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf",
-    linkLabel: "View FCSM Conference Paper ↗",
   },
 ];
 
 export function Projects() {
   return (
     <section id="projects" className="space-y-10 border-t border-stone-200 dark:border-stone-800 pt-16">
-      <div className="flex justify-between items-baseline">
-        <div>
-          <span className="font-mono text-xs text-red-800 dark:text-red-400 uppercase tracking-widest font-semibold">
-            01 / Engineering & Research
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl mt-1 text-stone-950 dark:text-stone-50">
-            Selected Systems & Research
-          </h2>
-        </div>
+      <div className="space-y-2">
+        <h2 className="font-serif text-3xl md:text-4xl text-stone-950 dark:text-stone-50">
+          Professional Projects
+        </h2>
+        <p className="text-sm text-stone-500 dark:text-stone-400 font-light">
+          selected professional projects that I either led or made major contributions to
+        </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
@@ -98,7 +91,7 @@ export function Projects() {
               rel="noopener noreferrer"
               className="text-xs font-mono font-medium text-red-800 dark:text-red-400 inline-flex items-center gap-1 hover:underline pt-2 border-t border-stone-100 dark:border-stone-800"
             >
-              {proj.linkLabel}
+              see more
             </a>
           </article>
         ))}
