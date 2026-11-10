@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design 1: Editorial Atelier — Loïc Muhirwa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Newsreader', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            atelier: {
+              accent: '#991B1B', // deep crimson
+              bg: '#FAFAF9',
+              darkbg: '#0F0E0E',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .font-serif-italic { font-family: 'Newsreader', serif; font-style: italic; }
+  </style>
+</head>
+<body class="bg-[#FAFAF9] dark:bg-[#0F0E0E] text-[#1C1917] dark:text-[#E7E5E4] font-sans antialiased transition-colors duration-300">
+
+  <!-- Design Switcher Banner -->
+  <div class="fixed top-0 inset-x-0 z-50 bg-stone-900/90 text-stone-200 text-xs py-2 px-4 backdrop-blur flex justify-between items-center border-b border-stone-800">
+    <div class="flex items-center space-x-2">
+      <span class="font-mono bg-stone-800 px-2 py-0.5 rounded text-amber-400">DESIGN 1</span>
+      <span class="font-medium">Editorial Atelier (Minimalist & Literary)</span>
+    </div>
+    <div class="flex items-center space-x-3">
+      <a href="index.html" class="hover:text-white underline">All Designs</a>
+      <a href="design-2-technologist.html" class="hover:text-white">Design 2 →</a>
+      <button onclick="document.documentElement.classList.toggle('dark')" class="bg-stone-800 hover:bg-stone-700 px-2 py-1 rounded text-stone-300">
+        🌓 Toggle Dark/Light
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <header class="pt-16 pb-6 px-6 max-w-5xl mx-auto flex items-center justify-between">
+    <a href="#" class="font-serif text-2xl tracking-tight font-medium">Loïc Muhirwa</a>
+    <nav class="hidden md:flex items-center space-x-8 text-sm text-stone-600 dark:text-stone-400">
+      <a href="#about" class="hover:text-stone-900 dark:hover:text-stone-100 transition">About</a>
+      <a href="#projects" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Projects</a>
+      <a href="#art" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Art</a>
+      <a href="#philosophy" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Philosophy</a>
+      <a href="#publications" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Publications</a>
+      <a href="#contact" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Contact</a>
+    </nav>
+    <a href="https://linkedin.com/in/loïc-muhirwa-b3a940242/" target="_blank" class="text-xs uppercase tracking-wider font-mono border border-stone-300 dark:border-stone-700 px-3 py-1.5 rounded-full hover:bg-stone-900 hover:text-white dark:hover:bg-stone-100 dark:hover:text-stone-900 transition">
+      LinkedIn ↗
+    </a>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pt-12 pb-24 space-y-28">
+
+    <!-- Hero / Intro -->
+    <section id="about" class="grid md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-stone-200/60 dark:bg-stone-800/80 text-stone-700 dark:text-stone-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          AI Solutions @ Google
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1] text-stone-950 dark:text-stone-50 font-normal">
+          Building intelligence, exploring <span class="italic font-serif">geometry</span>, drawing the human form.
+        </h1>
+        <p class="text-lg text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+          I design and develop AI solutions at <strong class="font-medium text-stone-900 dark:text-stone-100">Google</strong>. Previously, I led Machine Learning Engineers, Data Engineers, and Data Scientists for the <strong class="font-medium text-stone-900 dark:text-stone-100">Government of Canada</strong> on cutting-edge research and federal advisory.
+        </p>
+        <p class="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
+          My academic training is in Mathematics and Computer Vision applied to Medical Neuroimaging at uOttawa. Beyond engineering, my time is committed to reading, writing, figurative drawing, and philosophy.
+        </p>
+        <div class="flex items-center gap-4 pt-2">
+          <a href="#projects" class="px-5 py-2.5 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 text-sm font-medium rounded-lg hover:opacity-90 transition">
+            Explore Selected Projects
+          </a>
+          <a href="#art" class="px-5 py-2.5 border border-stone-300 dark:border-stone-700 text-sm font-medium rounded-lg hover:border-stone-900 dark:hover:border-stone-100 transition">
+            View Artwork
+          </a>
+        </div>
+      </div>
+      <div class="md:col-span-5">
+        <div class="relative group">
+          <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-xl border border-stone-200/60 dark:border-stone-800">
+            <img src="images/homepage/cave_hike.JPEG" alt="Loïc Muhirwa" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700 scale-100 group-hover:scale-105">
+          </div>
+          <p class="text-xs font-mono text-stone-400 mt-3 text-right">Hiking Expedition • Loïc</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Projects -->
+    <section id="projects" class="space-y-10 border-t border-stone-200 dark:border-stone-800 pt-16">
+      <div class="flex justify-between items-baseline">
+        <div>
+          <span class="font-mono text-xs text-red-800 dark:text-red-400 uppercase tracking-widest font-semibold">01 / Engineering & Research</span>
+          <h2 class="font-serif text-3xl md:text-4xl mt-1">Selected Systems & Research</h2>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Project 1 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 hover:shadow-lg transition duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800 flex items-center justify-center p-4">
+              <img src="images/projects/brain2.png" alt="Neuroimaging" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Computer Vision</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Bayesian Latent Models</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Deep Learning</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium">Diffeomorphic Registration & Lesion Segmentation</h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              M.Sc. Thesis at University of Ottawa. Generative approach to simultaneous diffeomorphic registration and stroke lesion segmentation of neuroimages, integrated via hierarchical Bayesian inference.
+            </p>
+          </div>
+          <a href="https://ruor.uottawa.ca/handle/10393/43733" target="_blank" class="text-xs font-mono font-medium text-red-800 dark:text-red-400 inline-flex items-center gap-1 hover:underline">
+            Read Thesis Publication ↗
+          </a>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 hover:shadow-lg transition duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800 flex items-center justify-center p-4">
+              <img src="images/projects/docs2.png" alt="Dynamic Topic Modelling" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">NLP</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Topic Modelling</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Epidemiology</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium">Dynamic Topic Modelling for Public Health</h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              Led the system applying topic modeling to the Canadian Coroner and Medical Examiner Database (CCMED) to identify emerging death circumstances across the Canadian population in real time.
+            </p>
+          </div>
+          <a href="https://www.statcan.gc.ca/en/data-science/network/topic-modelling" target="_blank" class="text-xs font-mono font-medium text-red-800 dark:text-red-400 inline-flex items-center gap-1 hover:underline">
+            View Methodology & Technical Review ↗
+          </a>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 hover:shadow-lg transition duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800 flex items-center justify-center p-4">
+              <img src="images/projects/rml-logo2.png" alt="Responsible ML" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">AI Governance</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Explainable AI</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Ethics</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium">Responsible Machine Learning Framework</h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              Major contributor to Statistics Canada’s national framework ensuring the ethical, transparent, and auditable deployment of production Machine Learning systems across federal departments.
+            </p>
+          </div>
+          <a href="https://www.statcan.gc.ca/en/data-science/network/machine-learning" target="_blank" class="text-xs font-mono font-medium text-red-800 dark:text-red-400 inline-flex items-center gap-1 hover:underline">
+            Explore Framework Guidelines ↗
+          </a>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 hover:shadow-lg transition duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800 flex items-center justify-center p-4">
+              <img src="images/projects/data-collection.png" alt="Data Collection Optimization" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Mathematical Optimization</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Economic Statistics</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium">Large-Scale Data Collection Optimization</h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              Engineered algorithmic prioritization for Canadian business surveys, maximizing statistical estimate quality across 65 economic sectors without inflating collection costs.
+            </p>
+          </div>
+          <a href="https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf" target="_blank" class="text-xs font-mono font-medium text-red-800 dark:text-red-400 inline-flex items-center gap-1 hover:underline">
+            View FCSM Conference Paper ↗
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Art Gallery -->
+    <section id="art" class="space-y-8 border-t border-stone-200 dark:border-stone-800 pt-16">
+      <div>
+        <span class="font-mono text-xs text-red-800 dark:text-red-400 uppercase tracking-widest font-semibold">02 / Creative Practice</span>
+        <h2 class="font-serif text-3xl md:text-4xl mt-1">Drawings, Portraits & Forms</h2>
+        <p class="text-sm text-stone-500 dark:text-stone-400 mt-2 max-w-xl">
+          Figurative drawing and experimental art exploring the face and posture through charcoal, ink, and digital studies.
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/faces/1-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Portrait I</div>
+        </div>
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/faces/2-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Portrait II</div>
+        </div>
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/forms/1-low-res.jpg" alt="Figure" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Figure Study I</div>
+        </div>
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/experimental/1-low-res.jpg" alt="Experimental" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Experimental I</div>
+        </div>
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/faces/3-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Portrait III</div>
+        </div>
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/faces/6-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Portrait IV</div>
+        </div>
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/forms/3-low-res.jpg" alt="Figure" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Figure Study II</div>
+        </div>
+        <div class="group relative aspect-square rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+          <img src="images/art/experimental/4-low-res.jpg" alt="Experimental" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-mono">Experimental II</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Philosophy & Thinking -->
+    <section id="philosophy" class="space-y-10 border-t border-stone-200 dark:border-stone-800 pt-16">
+      <div class="max-w-2xl space-y-4">
+        <span class="font-mono text-xs text-red-800 dark:text-red-400 uppercase tracking-widest font-semibold">03 / Reflections & Philosophy</span>
+        <h2 class="font-serif text-3xl md:text-4xl">Epistemology, Intuition & Code</h2>
+        <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+          Influenced by modern texts on pragmatism, self-actualization, and the philosophy of science—especially Jaynes' <em>Probability Theory: The Logic of Science</em> and Harris' <em>The Moral Landscape</em>.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <blockquote class="p-6 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 flex flex-col justify-between space-y-4">
+          <p class="font-serif text-lg italic text-stone-800 dark:text-stone-200 leading-snug">
+            “Intuition is not inherited, it is acquired. General Relativity is unintuitive for the same reason a probability distribution is unintuitive in first-year Statistics: you were simply not in the business of thinking about numbers this way.”
+          </p>
+          <cite class="text-xs font-mono text-stone-400 not-italic block">— Loïc Muhirwa, <em>Geometric Intuition</em></cite>
+        </blockquote>
+
+        <blockquote class="p-6 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 flex flex-col justify-between space-y-4">
+          <p class="font-serif text-lg italic text-stone-800 dark:text-stone-200 leading-snug">
+            “A mathematician is a person who can find analogies between theorems; a better mathematician between proofs; the best between theories... the ultimate between analogies.”
+          </p>
+          <cite class="text-xs font-mono text-stone-400 not-italic block">— Stefan Banach</cite>
+        </blockquote>
+
+        <blockquote class="p-6 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 flex flex-col justify-between space-y-4">
+          <p class="font-serif text-lg italic text-stone-800 dark:text-stone-200 leading-snug">
+            “Code is more often read than written.”
+          </p>
+          <cite class="text-xs font-mono text-stone-400 not-italic block">— Guido van Rossum</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Awards & Honors -->
+    <section class="border-t border-stone-200 dark:border-stone-800 pt-16 space-y-8">
+      <div>
+        <span class="font-mono text-xs text-red-800 dark:text-red-400 uppercase tracking-widest font-semibold">04 / Recognition</span>
+        <h2 class="font-serif text-3xl mt-1">Honors & Awards</h2>
+      </div>
+
+      <div class="divide-y divide-stone-200 dark:divide-stone-800">
+        <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="font-serif text-xl font-medium">Agatha Chapman Innovation Award</div>
+            <p class="text-sm text-stone-500 mt-1">Awarded for outstanding commitment to the development of innovative ideas advancing access, relevance, and efficiency.</p>
+          </div>
+          <span class="font-mono text-xs text-stone-400 border border-stone-300 dark:border-stone-700 px-3 py-1 rounded-full w-fit">2021 • Federal Government</span>
+        </div>
+        <div class="py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="font-serif text-xl font-medium">Performance Recognition Award</div>
+            <p class="text-sm text-stone-500 mt-1">Awarded to an employee for exemplary execution and outstanding organizational performance.</p>
+          </div>
+          <span class="font-mono text-xs text-stone-400 border border-stone-300 dark:border-stone-700 px-3 py-1 rounded-full w-fit">2020 • Statistics Canada</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <section id="contact" class="border-t border-stone-200 dark:border-stone-800 pt-16 pb-8 space-y-10">
+      <div class="max-w-xl space-y-4">
+        <span class="font-mono text-xs text-red-800 dark:text-red-400 uppercase tracking-widest font-semibold">05 / Conversation</span>
+        <h2 class="font-serif text-4xl">Get in touch</h2>
+        <p class="text-sm text-stone-500 leading-relaxed">
+          Open to scientific discussions, technical collaborations, and interesting conversations around AI, mathematics, and philosophy.
+        </p>
+      </div>
+
+      <form action="https://formspree.io/f/xbjwkzqv" method="POST" class="max-w-xl space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <input type="text" name="name" placeholder="Your Name" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100">
+          <input type="email" name="email" placeholder="Your Email" required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100">
+        </div>
+        <textarea name="message" rows="4" placeholder="Your message..." required class="w-full px-4 py-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100"></textarea>
+        <button type="submit" class="w-full py-3 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 font-medium text-sm rounded-lg hover:opacity-90 transition">
+          Send Message
+        </button>
+      </form>
+
+      <footer class="pt-16 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row justify-between items-center text-xs text-stone-400 gap-4">
+        <p>© 2026 Loïc Muhirwa. Authored from first principles.</p>
+        <div class="flex items-center space-x-6">
+          <a href="https://linkedin.com/in/loïc-muhirwa-b3a940242/" target="_blank" class="hover:text-stone-900 dark:hover:text-stone-100">LinkedIn</a>
+          <a href="https://gitlab.com/justloic" target="_blank" class="hover:text-stone-900 dark:hover:text-stone-100">GitLab</a>
+          <a href="https://github.com/justmeloic" target="_blank" class="hover:text-stone-900 dark:hover:text-stone-100">GitHub</a>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+</body>
+</html>

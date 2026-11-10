@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Hybrid: The Editorial Polymath — Loïc Muhirwa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Newsreader', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            paper: {
+              50: '#FDFCF7',
+              100: '#F7F4EC',
+              200: '#EFECE0',
+            },
+            ink: {
+              900: '#1A1816',
+              800: '#2C2825',
+              700: '#48433E',
+            },
+            crimson: {
+              DEFAULT: '#881337',
+              muted: '#9F1239',
+              light: '#F43F5E',
+            },
+            bronze: {
+              DEFAULT: '#B4884D',
+              light: '#D4AF37',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF] font-sans antialiased transition-colors duration-300">
+
+  <!-- Top Switcher -->
+  <div class="fixed top-0 inset-x-0 z-50 bg-[#1A1816]/95 text-stone-300 text-xs py-2 px-4 backdrop-blur flex justify-between items-center border-b border-stone-800">
+    <div class="flex items-center space-x-2">
+      <span class="font-mono bg-red-950/80 text-rose-300 px-2 py-0.5 rounded border border-rose-800/60 font-semibold">SYNTHESIS</span>
+      <span class="font-medium text-stone-200">The Editorial Polymath (Best of 1 & 3)</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="design-1-editorial.html" class="hover:text-white">Design 1</a>
+      <a href="design-3-polymath.html" class="hover:text-white">Design 3</a>
+      <a href="index.html" class="hover:text-white underline">Hub</a>
+      <button onclick="document.documentElement.classList.toggle('dark')" class="bg-stone-800 hover:bg-stone-700 px-2.5 py-1 rounded text-stone-200 font-mono">
+        🌓 Toggle Theme
+      </button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="pt-20 pb-8 px-6 max-w-5xl mx-auto flex items-center justify-between border-b border-stone-200/80 dark:border-stone-800/80">
+    <div>
+      <a href="#" class="font-serif text-3xl md:text-4xl tracking-tight text-ink-900 dark:text-stone-100 font-normal">
+        Loïc Muhirwa
+      </a>
+      <p class="text-[11px] font-mono tracking-widest uppercase text-stone-500 dark:text-stone-400 mt-1">
+        AI Solutions @ Google • Mathematics • Fine Art
+      </p>
+    </div>
+    <nav class="hidden md:flex items-center space-x-7 text-xs font-mono tracking-wider text-stone-600 dark:text-stone-400">
+      <a href="#about" class="hover:text-stone-900 dark:hover:text-stone-100 transition">About</a>
+      <a href="#projects" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Research</a>
+      <a href="#gallery" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Studio</a>
+      <a href="#philosophy" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Philosophy</a>
+      <a href="#publications" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Publications</a>
+      <a href="#contact" class="hover:text-stone-900 dark:hover:text-stone-100 transition">Contact</a>
+    </nav>
+    <a href="https://linkedin.com/in/loïc-muhirwa-b3a940242/" target="_blank" class="text-xs font-mono text-stone-600 dark:text-stone-300 border border-stone-300 dark:border-stone-700 px-3 py-1.5 rounded-full hover:border-stone-900 dark:hover:border-stone-100 transition">
+      LinkedIn ↗
+    </a>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pt-12 pb-28 space-y-28">
+
+    <!-- Hero Section -->
+    <section id="about" class="grid md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-stone-200/70 dark:bg-stone-800/80 text-stone-700 dark:text-stone-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          AI Solutions @ Google
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.08] text-ink-900 dark:text-stone-100 font-normal">
+          Building intelligence, exploring <span class="italic font-serif text-rose-900 dark:text-rose-400">geometry</span>, and observing the human form.
+        </h1>
+        <p class="text-lg text-stone-700 dark:text-stone-300 leading-relaxed font-light">
+          I design and develop AI solutions at <strong class="font-medium text-stone-950 dark:text-stone-50">Google</strong>. Prior to Google, I led Machine Learning Engineers, Data Engineers, and Data Scientists for the <strong class="font-medium text-stone-950 dark:text-stone-50">Government of Canada</strong>, delivering cutting-edge AI research and federal consultancy.
+        </p>
+        <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+          My academic foundation is in Mathematics and Computer Vision applied to Medical Neuroimaging at the University of Ottawa. Outside research, I dedicate my focus to reading, writing, figurative drawing, and philosophy.
+        </p>
+        <div class="flex items-center gap-4 pt-2">
+          <a href="#projects" class="px-5 py-2.5 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 text-xs font-mono rounded-lg hover:opacity-90 transition">
+            Explore Research Projects →
+          </a>
+          <a href="#gallery" class="px-5 py-2.5 border border-stone-300 dark:border-stone-700 text-xs font-mono rounded-lg hover:border-stone-900 dark:hover:border-stone-100 transition">
+            View Studio Drawings
+          </a>
+        </div>
+      </div>
+
+      <div class="md:col-span-5 relative">
+        <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-xl border border-stone-300/60 dark:border-stone-800">
+          <img src="images/homepage/cave_hike.JPEG" alt="Loïc Muhirwa" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-4 -left-4 bg-[#FBF9F5] dark:bg-[#1A1816] p-4 rounded-xl border border-stone-200 dark:border-stone-800 shadow-md max-w-xs text-xs font-serif italic text-stone-700 dark:text-stone-300">
+          “Intuition is not inherited, it is acquired.”
+          <span class="block font-mono text-[10px] text-stone-400 not-italic mt-1">— Loïc Muhirwa</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Research & Projects -->
+    <section id="projects" class="space-y-10 border-t border-stone-200 dark:border-stone-800 pt-16">
+      <div class="flex justify-between items-baseline">
+        <div>
+          <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">01 / Engineering & Research</span>
+          <h2 class="font-serif text-3xl md:text-4xl mt-1 text-ink-900 dark:text-stone-100">Selected Systems & Publications</h2>
+        </div>
+        <span class="text-xs font-mono text-stone-400">4 Core Initiatives</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Project 1 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800/80 shadow-sm flex flex-col justify-between space-y-6 hover:shadow-md transition">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800/80 flex items-center justify-center p-4">
+              <img src="images/projects/brain2.png" alt="Neuroimaging" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Computer Vision</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Bayesian Latent Models</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Deep Learning</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium text-ink-900 dark:text-stone-100">
+              Diffeomorphic Registration & Lesion Segmentation of Neuroimages
+            </h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+              M.Sc. Thesis at the University of Ottawa. Formulated a generative approach simultaneously solving diffeomorphic registration and stroke lesion segmentation via hierarchical Bayesian latent variables and deep inference.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-stone-100 dark:border-stone-800 flex justify-between items-center text-xs font-mono">
+            <span class="text-stone-400">Univ. of Ottawa (RUOR)</span>
+            <a href="https://ruor.uottawa.ca/handle/10393/43733" target="_blank" class="text-rose-900 dark:text-rose-400 hover:underline">
+              Read Thesis ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800/80 shadow-sm flex flex-col justify-between space-y-6 hover:shadow-md transition">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800/80 flex items-center justify-center p-4">
+              <img src="images/projects/docs2.png" alt="Topic Modelling" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Natural Language Processing</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Topic Modelling</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium text-ink-900 dark:text-stone-100">
+              Dynamic Topic Modelling for Public Health Surveillance
+            </h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+              Led the design and initial releases of an end-to-end NLP and data pipeline applying dynamic topic modeling to the Canadian Coroner and Medical Examiner Database (CCMED) to identify emerging circumstances of death.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-stone-100 dark:border-stone-800 flex justify-between items-center text-xs font-mono">
+            <span class="text-stone-400">Statistics Canada</span>
+            <a href="https://www.statcan.gc.ca/en/data-science/network/topic-modelling" target="_blank" class="text-rose-900 dark:text-rose-400 hover:underline">
+              Technical Review ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800/80 shadow-sm flex flex-col justify-between space-y-6 hover:shadow-md transition">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800/80 flex items-center justify-center p-4">
+              <img src="images/projects/rml-logo2.png" alt="Responsible ML" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">AI Governance</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Explainability</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium text-ink-900 dark:text-stone-100">
+              Responsible Machine Learning Framework
+            </h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+              Major contributor to Statistics Canada’s national framework, setting guidelines for responsible ML development, independent technical and ethical peer reviews, and explainable AI research.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-stone-100 dark:border-stone-800 flex justify-between items-center text-xs font-mono">
+            <span class="text-stone-400">Federal Framework</span>
+            <a href="https://www.statcan.gc.ca/en/data-science/network/machine-learning" target="_blank" class="text-rose-900 dark:text-rose-400 hover:underline">
+              View Guidelines ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800/80 shadow-sm flex flex-col justify-between space-y-6 hover:shadow-md transition">
+          <div class="space-y-4">
+            <div class="h-44 rounded-xl overflow-hidden bg-stone-100 dark:bg-stone-800/80 flex items-center justify-center p-4">
+              <img src="images/projects/data-collection.png" alt="Data Collection" class="max-h-full object-contain">
+            </div>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Optimization</span>
+              <span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">Economic Statistics</span>
+            </div>
+            <h3 class="font-serif text-2xl font-medium text-ink-900 dark:text-stone-100">
+              Enterprise Data Collection Optimization System
+            </h3>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+              Architected a collection optimization engine prioritizing business survey respondents to maximize statistical quality across 65 economic sectors without inflating operational budgets.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-stone-100 dark:border-stone-800 flex justify-between items-center text-xs font-mono">
+            <span class="text-stone-400">FCSM Washington</span>
+            <a href="https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf" target="_blank" class="text-rose-900 dark:text-rose-400 hover:underline">
+              Conference Paper ↗
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Studio & Gallery (Rich Visuals from 3 with Editorial Cleanliness from 1) -->
+    <section id="gallery" class="space-y-10 border-t border-stone-200 dark:border-stone-800 pt-16">
+      <div class="flex flex-col md:flex-row justify-between md:items-end gap-4">
+        <div>
+          <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">02 / Creative Studio</span>
+          <h2 class="font-serif text-3xl md:text-4xl mt-1 text-ink-900 dark:text-stone-100">Portraits, Figures & Form</h2>
+          <p class="text-sm text-stone-600 dark:text-stone-400 mt-1 max-w-xl font-light">
+            An ongoing observational study of human expression, anatomy, and experimental abstractions through charcoal, ink, and pencil.
+          </p>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/faces/1-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Portrait Study I
+          </div>
+        </div>
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/faces/2-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Portrait Study II
+          </div>
+        </div>
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/forms/1-low-res.jpg" alt="Figure" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Figure & Posture I
+          </div>
+        </div>
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/experimental/1-low-res.jpg" alt="Experimental" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Experimental Piece I
+          </div>
+        </div>
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/faces/4-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Portrait Study III
+          </div>
+        </div>
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/faces/6-low-res.jpg" alt="Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Portrait Study IV
+          </div>
+        </div>
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/forms/3-low-res.jpg" alt="Figure" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Figure & Posture II
+          </div>
+        </div>
+        <div class="group relative aspect-square rounded-2xl overflow-hidden bg-stone-200 dark:bg-stone-800 shadow-sm">
+          <img src="images/art/experimental/4-low-res.jpg" alt="Experimental" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-serif italic">
+            Experimental Piece II
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Philosophy & Inquiries -->
+    <section id="philosophy" class="space-y-10 border-t border-stone-200 dark:border-stone-800 pt-16">
+      <div class="max-w-xl space-y-2">
+        <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">03 / Philosophy & Inquiries</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-ink-900 dark:text-stone-100">Epistemology, Abstraction & Mind</h2>
+        <p class="text-sm text-stone-600 dark:text-stone-400 font-light">
+          Themes in modern philosophy of science, probability theory, and the boundaries of cognition.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 space-y-4 shadow-sm">
+          <span class="text-xs font-mono text-rose-900 dark:text-rose-400">ESSAY REFLECTION</span>
+          <h3 class="font-serif text-2xl font-medium text-ink-900 dark:text-stone-100">
+            Geometric intuition lost in algebraic translation
+          </h3>
+          <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+            Much of North American undergraduate mathematics is spent reinforcing algebraic representations at the expense of geometric intuition. General Relativity is unintuitive for the same reason a probability distribution is unintuitive in first-year Statistics: you were simply not in the business of thinking about numbers this way. Intuition is not inherited, it is acquired.
+          </p>
+          <cite class="text-xs font-mono text-stone-400 not-italic block">— Loïc Muhirwa</cite>
+        </div>
+
+        <div class="p-8 rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 space-y-4 shadow-sm">
+          <span class="text-xs font-mono text-rose-900 dark:text-rose-400">EPISTEMOLOGY</span>
+          <h3 class="font-serif text-2xl font-medium text-ink-900 dark:text-stone-100">
+            The Mind Projection Fallacy
+          </h3>
+          <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">
+            “Common language has an almost universal tendency to disguise epistemological statements by putting them into a grammatical form which suggests an ontological statement... asserting that one's private thoughts and sensations are realities existing externally in Nature.”
+          </p>
+          <cite class="text-xs font-mono text-stone-400 not-italic block">— Edwin T. Jaynes, <em>Probability Theory</em></cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- Honors & Publications Index -->
+    <section id="publications" class="space-y-10 border-t border-stone-200 dark:border-stone-800 pt-16">
+      <div class="flex justify-between items-baseline">
+        <div>
+          <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">04 / Credentials</span>
+          <h2 class="font-serif text-3xl md:text-4xl text-ink-900 dark:text-stone-100">Honors & Publications</h2>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-white dark:bg-stone-900/40 border border-stone-200/80 dark:border-stone-800 space-y-2">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span class="text-rose-900 dark:text-rose-400 font-semibold">HONOR</span>
+            <span class="text-stone-400">2021</span>
+          </div>
+          <h3 class="font-serif text-xl font-medium text-ink-900 dark:text-stone-100">Agatha Chapman Innovation Award</h3>
+          <p class="text-xs text-stone-500 leading-relaxed">Conferred for outstanding commitment to the development of innovative ideas advancing organizational relevance and access.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white dark:bg-stone-900/40 border border-stone-200/80 dark:border-stone-800 space-y-2">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span class="text-rose-900 dark:text-rose-400 font-semibold">HONOR</span>
+            <span class="text-stone-400">2020</span>
+          </div>
+          <h3 class="font-serif text-xl font-medium text-ink-900 dark:text-stone-100">Performance Recognition Award</h3>
+          <p class="text-xs text-stone-500 leading-relaxed">Conferred to an employee for exemplary execution and outstanding team leadership.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <section id="contact" class="border-t border-stone-200 dark:border-stone-800 pt-16 space-y-8">
+      <div class="max-w-xl space-y-3">
+        <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">05 / Conversation</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-ink-900 dark:text-stone-100">Get in touch</h2>
+        <p class="text-sm text-stone-600 dark:text-stone-400 font-light">
+          Available for research dialogues, machine learning architecture discussions, or inquiries into mathematical epistemology.
+        </p>
+      </div>
+
+      <form action="https://formspree.io/f/xbjwkzqv" method="POST" class="max-w-xl space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <input type="text" name="name" placeholder="Name" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100">
+          <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100">
+        </div>
+        <textarea name="message" rows="4" placeholder="Your message..." required class="w-full px-4 py-3 rounded-xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100"></textarea>
+        <button type="submit" class="w-full py-3.5 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 font-medium text-xs font-mono rounded-xl hover:opacity-90 transition">
+          Transmit Message →
+        </button>
+      </form>
+
+      <footer class="pt-16 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-stone-400 gap-4">
+        <p>© 2026 Loïc Muhirwa. Designed from first principles.</p>
+        <div class="flex items-center space-x-6">
+          <a href="https://linkedin.com/in/loïc-muhirwa-b3a940242/" target="_blank" class="hover:text-stone-900 dark:hover:text-stone-100">LinkedIn</a>
+          <a href="https://gitlab.com/justloic" target="_blank" class="hover:text-stone-900 dark:hover:text-stone-100">GitLab</a>
+          <a href="https://github.com/justmeloic" target="_blank" class="hover:text-stone-900 dark:hover:text-stone-100">GitHub</a>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+</body>
+</html>

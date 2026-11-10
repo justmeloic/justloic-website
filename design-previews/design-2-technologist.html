@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design 2: Technical Precision — Loïc Muhirwa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            cyan: {
+              400: '#38bdf8',
+              500: '#06b6d4',
+              neon: '#47D3E5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#090D14] text-[#E2E8F0] font-sans antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
+
+  <!-- Top Switcher -->
+  <div class="fixed top-0 inset-x-0 z-50 bg-[#06090F]/90 text-slate-300 text-xs py-2 px-4 backdrop-blur flex justify-between items-center border-b border-slate-800/80">
+    <div class="flex items-center space-x-2">
+      <span class="font-mono bg-cyan-950/80 text-cyan-400 border border-cyan-800/50 px-2 py-0.5 rounded">DESIGN 2</span>
+      <span class="font-medium text-slate-200">Technical Precision (AI Systems & Glassmorphism)</span>
+    </div>
+    <div class="flex items-center space-x-3">
+      <a href="design-1-editorial.html" class="hover:text-white">← Design 1</a>
+      <a href="index.html" class="hover:text-white underline">All Designs</a>
+      <a href="design-3-polymath.html" class="hover:text-white">Design 3 →</a>
+    </div>
+  </div>
+
+  <!-- Background Glow Accents -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-cyan-600/10 blur-[130px] rounded-full"></div>
+    <div class="absolute top-[40%] right-[-10%] w-[500px] h-[300px] bg-indigo-600/10 blur-[120px] rounded-full"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-10 pt-16 px-6 max-w-6xl mx-auto flex items-center justify-between border-b border-slate-800/60 pb-5">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center font-mono font-bold text-black text-sm">LM</div>
+      <span class="font-mono text-sm tracking-tight font-semibold text-slate-100">loic.muhirwa</span>
+    </div>
+    <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-400">
+      <a href="#overview" class="hover:text-cyan-400 transition">// overview</a>
+      <a href="#systems" class="hover:text-cyan-400 transition">// systems</a>
+      <a href="#publications" class="hover:text-cyan-400 transition">// research</a>
+      <a href="#visuals" class="hover:text-cyan-400 transition">// visual_art</a>
+      <a href="#terminal" class="hover:text-cyan-400 transition">// philosophy</a>
+      <a href="#contact" class="hover:text-cyan-400 transition">// contact</a>
+    </nav>
+    <div class="flex items-center space-x-2">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono bg-emerald-950/60 text-emerald-400 border border-emerald-800/40">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        google/ai-solutions
+      </span>
+    </div>
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 pt-12 pb-24 space-y-24">
+
+    <!-- Hero Matrix -->
+    <section id="overview" class="grid lg:grid-cols-12 gap-8 items-center pt-4">
+      <div class="lg:col-span-8 space-y-6">
+        <div class="font-mono text-xs text-cyan-400 tracking-wider">INIT_PROFILE: LOÏC_MUHIRWA.SYS</div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+          Designing AI solutions at <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">Google</span> with foundations in Mathematics & Vision.
+        </h1>
+        <p class="text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl">
+          Former Lead of Machine Learning, Data Engineering, and Data Science for the Government of Canada (Statistics Canada). Researcher in diffeomorphic medical registration and Bayesian generative modeling.
+        </p>
+
+        <!-- Command Pill Array -->
+        <div class="flex flex-wrap gap-3 pt-2">
+          <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-300">
+            <span class="text-cyan-400">org:</span> Google AI
+          </div>
+          <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-300">
+            <span class="text-cyan-400">focus:</span> Computer Vision & Generative AI
+          </div>
+          <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-300">
+            <span class="text-cyan-400">alma_mater:</span> Univ. of Ottawa (M.Sc.)
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 pt-4">
+          <a href="#systems" class="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-xs font-mono rounded-lg transition shadow-lg shadow-cyan-500/20">
+            EXEC_VIEW_SYSTEMS()
+          </a>
+          <a href="https://linkedin.com/in/loïc-muhirwa-b3a940242/" target="_blank" class="px-5 py-2.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-300 font-mono text-xs rounded-lg transition">
+            CONNECT_LINKEDIN
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Visual Card -->
+      <div class="lg:col-span-4">
+        <div class="p-1 rounded-2xl bg-gradient-to-b from-slate-700/50 to-slate-900/50 border border-slate-800 shadow-2xl">
+          <div class="rounded-xl overflow-hidden bg-slate-950 relative group">
+            <img src="images/homepage/cave_hike.JPEG" alt="Loïc Muhirwa" class="w-full h-80 object-cover object-center filter saturate-75 contrast-125 group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-xs font-mono flex justify-between items-center">
+              <span class="text-white font-medium">Loïc Muhirwa</span>
+              <span class="text-cyan-400">Verified_Engineer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Systems Showcase -->
+    <section id="systems" class="space-y-6">
+      <div class="flex justify-between items-end border-b border-slate-800 pb-4">
+        <div>
+          <div class="text-xs font-mono text-cyan-400 tracking-wider">PROJECT_REGISTRY</div>
+          <h2 class="text-2xl md:text-3xl font-bold text-white mt-1">Deployed Systems & Research</h2>
+        </div>
+        <span class="text-xs font-mono text-slate-500">COUNT: 4_MODULES</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <!-- 1 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/50 transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/40 px-2 py-0.5 rounded">RESEARCH_M.SC</span>
+              <img src="images/projects/brain2.png" alt="Neuroimaging" class="w-12 h-12 object-contain opacity-80 group-hover:opacity-100 transition">
+            </div>
+            <h3 class="text-lg font-semibold text-white group-hover:text-cyan-300 transition">
+              Simultaneous Diffeomorphic Registration & Lesion Segmentation
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Generative approach parameterizing medical image registration and stroke lesion segmentation as latent variables of a hierarchical Bayesian model, inferred via deep learning.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-500">Computer Vision • Latent Models</span>
+            <a href="https://ruor.uottawa.ca/handle/10393/43733" target="_blank" class="text-cyan-400 hover:text-cyan-300">View Paper ↗</a>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/50 transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/40 px-2 py-0.5 rounded">PRODUCTION_NLP</span>
+              <img src="images/projects/docs2.png" alt="Dynamic Topic Modelling" class="w-12 h-12 object-contain opacity-80 group-hover:opacity-100 transition">
+            </div>
+            <h3 class="text-lg font-semibold text-white group-hover:text-cyan-300 transition">
+              Dynamic Topic Modelling for Public Health Surveillance
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Designed and deployed an end-to-end NLP data pipeline applied to the Canadian Coroner and Medical Examiner Database (CCMED) to detect emergent death circumstances.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-500">NLP • Topic Models • Pipelines</span>
+            <a href="https://www.statcan.gc.ca/en/data-science/network/topic-modelling" target="_blank" class="text-cyan-400 hover:text-cyan-300">View Details ↗</a>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/50 transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/40 px-2 py-0.5 rounded">GOVERNANCE</span>
+              <img src="images/projects/rml-logo2.png" alt="Responsible ML" class="w-12 h-12 object-contain opacity-80 group-hover:opacity-100 transition">
+            </div>
+            <h3 class="text-lg font-semibold text-white group-hover:text-cyan-300 transition">
+              Statistics Canada Responsible Machine Learning Framework
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Architectural contributor to federal ethical guidelines, peer review standards, and explainable ML research ensuring trustworthy artificial intelligence across government operations.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-500">Ethics • Explainability • Systems</span>
+            <a href="https://www.statcan.gc.ca/en/data-science/network/machine-learning" target="_blank" class="text-cyan-400 hover:text-cyan-300">Read Specs ↗</a>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/50 transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/40 px-2 py-0.5 rounded">ALGORITHM_OPTIM</span>
+              <img src="images/projects/data-collection.png" alt="Data Collection Optimization" class="w-12 h-12 object-contain opacity-80 group-hover:opacity-100 transition">
+            </div>
+            <h3 class="text-lg font-semibold text-white group-hover:text-cyan-300 transition">
+              Enterprise Data Collection Optimization Engine
+            </h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Formulated mathematical prioritization algorithms for 65 federal business surveys across manufacturing, trade, services, and capital expenditures.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-500">Operations Research • Economics</span>
+            <a href="https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf" target="_blank" class="text-cyan-400 hover:text-cyan-300">FCSM Paper ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Publications Table -->
+    <section id="publications" class="space-y-4">
+      <div class="flex justify-between items-end border-b border-slate-800 pb-4">
+        <div>
+          <div class="text-xs font-mono text-cyan-400 tracking-wider">INDEX_PUBLICATIONS</div>
+          <h2 class="text-2xl font-bold text-white mt-1">Peer-Reviewed Papers & Technical Reviews</h2>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/40">
+        <table class="w-full text-left text-xs font-mono">
+          <thead class="bg-slate-950/80 text-slate-400 uppercase tracking-wider border-b border-slate-800">
+            <tr>
+              <th class="p-4">Title</th>
+              <th class="p-4">Domain</th>
+              <th class="p-4">Publisher</th>
+              <th class="p-4 text-right">Access</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-300">
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-4 font-sans font-medium text-white">A Generative Approach to Simultaneous Diffeomorphic Registration and Lesion Segmentation</td>
+              <td class="p-4"><span class="text-cyan-400">Neuroimaging</span></td>
+              <td class="p-4 text-slate-400">Univ. of Ottawa (RUOR)</td>
+              <td class="p-4 text-right"><a href="https://ruor.uottawa.ca/handle/10393/43733" target="_blank" class="text-cyan-400 hover:underline">Read →</a></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-4 font-sans font-medium text-white">Topic Modelling and Dynamic Topic Modelling : A Technical Review</td>
+              <td class="p-4"><span class="text-cyan-400">NLP / ML</span></td>
+              <td class="p-4 text-slate-400">Statistics Canada</td>
+              <td class="p-4 text-right"><a href="https://www.statcan.gc.ca/en/data-science/network/topic-modelling" target="_blank" class="text-cyan-400 hover:underline">Read →</a></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-4 font-sans font-medium text-white">Image Segmentation in Medical Imaging</td>
+              <td class="p-4"><span class="text-cyan-400">Computer Vision</span></td>
+              <td class="p-4 text-slate-400">Data Science Network</td>
+              <td class="p-4 text-right"><a href="https://www.statcan.gc.ca/en/data-science/network/image-segmentation" target="_blank" class="text-cyan-400 hover:underline">Read →</a></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-4 font-sans font-medium text-white">Increasing Data Quality for Business Surveys without Impacting Collection Effort</td>
+              <td class="p-4"><span class="text-cyan-400">Optimization</span></td>
+              <td class="p-4 text-slate-400">FCSM Conference</td>
+              <td class="p-4 text-right"><a href="https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf" target="_blank" class="text-cyan-400 hover:underline">Read →</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Art & Visual Studio -->
+    <section id="visuals" class="space-y-6">
+      <div class="flex justify-between items-end border-b border-slate-800 pb-4">
+        <div>
+          <div class="text-xs font-mono text-cyan-400 tracking-wider">CREATIVE_OUTPUT</div>
+          <h2 class="text-2xl font-bold text-white mt-1">Portraits & Figures (Charcoal / Ink)</h2>
+        </div>
+        <span class="text-xs font-mono text-slate-500">LOÏC_STUDIO</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="rounded-lg overflow-hidden border border-slate-800 bg-slate-900 group">
+          <img src="images/art/faces/1-low-res.jpg" alt="Art" class="w-full aspect-square object-cover filter contrast-125 group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="rounded-lg overflow-hidden border border-slate-800 bg-slate-900 group">
+          <img src="images/art/faces/2-low-res.jpg" alt="Art" class="w-full aspect-square object-cover filter contrast-125 group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="rounded-lg overflow-hidden border border-slate-800 bg-slate-900 group">
+          <img src="images/art/forms/1-low-res.jpg" alt="Art" class="w-full aspect-square object-cover filter contrast-125 group-hover:scale-105 transition duration-300">
+        </div>
+        <div class="rounded-lg overflow-hidden border border-slate-800 bg-slate-900 group">
+          <img src="images/art/experimental/1-low-res.jpg" alt="Art" class="w-full aspect-square object-cover filter contrast-125 group-hover:scale-105 transition duration-300">
+        </div>
+      </div>
+    </section>
+
+    <!-- Terminal Philosophy Box -->
+    <section id="terminal" class="p-6 rounded-2xl bg-black/80 border border-slate-800 font-mono text-xs space-y-4">
+      <div class="flex items-center space-x-2 text-slate-500 border-b border-slate-800 pb-3">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+        <span class="ml-2 text-slate-400">epistemology.sh — cat core_thesis.md</span>
+      </div>
+      <div class="text-slate-300 space-y-3 leading-relaxed">
+        <p><span class="text-cyan-400">const</span> <span class="text-yellow-400">thesis</span> = <span class="text-emerald-400">"Intuition is not inherited, it is acquired."</span>;</p>
+        <p class="text-slate-400">
+          // Anaïs Nin: “We don’t see things as they are, we see them as we are.” We don’t perceive concepts as unintuitive because of an intrinsic epistemic challenge, but rather because of prior mental discipline.
+        </p>
+        <p class="text-slate-400">
+          // Edwin T. Jaynes on the Mind Projection Fallacy: Disguising epistemological statements into grammatical forms that suggest ontological realities.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Terminal -->
+    <section id="contact" class="border-t border-slate-800 pt-16 flex flex-col md:flex-row justify-between items-start gap-12">
+      <div class="space-y-4 max-w-md">
+        <div class="text-xs font-mono text-cyan-400">CONTACT_PORTAL</div>
+        <h2 class="text-3xl font-bold text-white">Let's connect</h2>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Reach out for machine learning architecture discussions, research exchanges, or consulting.
+        </p>
+        <div class="flex space-x-4 pt-2 font-mono text-xs text-slate-400">
+          <a href="https://linkedin.com/in/loïc-muhirwa-b3a940242/" target="_blank" class="hover:text-cyan-400">LinkedIn ↗</a>
+          <a href="https://gitlab.com/justloic" target="_blank" class="hover:text-cyan-400">GitLab ↗</a>
+          <a href="https://github.com/justmeloic" target="_blank" class="hover:text-cyan-400">GitHub ↗</a>
+        </div>
+      </div>
+
+      <form action="https://formspree.io/f/xbjwkzqv" method="POST" class="w-full max-w-md space-y-3 font-mono text-xs">
+        <input type="text" name="name" placeholder="IDENTIFIER (NAME)" required class="w-full bg-slate-900 border border-slate-800 p-3 rounded text-slate-200 focus:outline-none focus:border-cyan-500">
+        <input type="email" name="email" placeholder="CONTACT (EMAIL)" required class="w-full bg-slate-900 border border-slate-800 p-3 rounded text-slate-200 focus:outline-none focus:border-cyan-500">
+        <textarea name="message" rows="3" placeholder="PAYLOAD (MESSAGE)" required class="w-full bg-slate-900 border border-slate-800 p-3 rounded text-slate-200 focus:outline-none focus:border-cyan-500"></textarea>
+        <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 rounded transition">
+          TRANSMIT_MESSAGE()
+        </button>
+      </form>
+    </section>
+
+    <footer class="text-center font-mono text-xs text-slate-600 pt-12 border-t border-slate-800/60">
+      © 2026 Loïc Muhirwa • System Online • Deployed via Netlify
+    </footer>
+
+  </main>
+
+</body>
+</html>

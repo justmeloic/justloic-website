@@ -1,0 +1,45 @@
+# System & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+
+# Logs & PIDs
+*.log
+logs/
+*.pid
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+env/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Web artifacts
+node_modules/
+.next/
+out/
+dist/
+build/
+.turbo/
+coverage/
+
+# Docker
+docker-compose.override.yml
