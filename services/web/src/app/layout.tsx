@@ -52,13 +52,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${plusJakartaSans.variable} ${newsreader.variable} ${jetbrainsMono.variable} font-sans antialiased bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF]`}
+        className={`${plusJakartaSans.variable} ${newsreader.variable} ${jetbrainsMono.variable} bg-[#FBF9F5] font-sans text-[#24211E] antialiased dark:bg-[#121211] dark:text-[#E8E5DF]`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <div className="min-h-screen flex flex-col bg-[#FBF9F5] dark:bg-[#121211] transition-colors duration-300">
+          <div className="flex min-h-screen flex-col bg-[#FBF9F5] transition-colors duration-300 dark:bg-[#121211]">
             <Navbar />
-            <main className="flex-1 w-full max-w-5xl mx-auto px-6">{children}</main>
-            <div className="w-full max-w-5xl mx-auto px-6">
+            <main className="mx-auto w-full max-w-5xl flex-1 px-6">{children}</main>
+            <div className="mx-auto w-full max-w-5xl px-6">
               <Footer />
             </div>
           </div>

@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Art" };
 export default function ArtPage() {
   // Sections were designed as stacked blocks on one page; drop their top divider here
   return (
-    <div className="pt-12 pb-20 [&>section]:border-t-0 [&>section]:pt-0">
+    <div className="pb-20 pt-12 [&>section]:border-t-0 [&>section]:pt-0">
       <ArtGallery />
     </div>
   );

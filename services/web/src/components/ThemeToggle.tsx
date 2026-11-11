@@ -13,15 +13,13 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return (
-      <div className="w-8 h-8 rounded-full border border-stone-200 dark:border-stone-800" />
-    );
+    return <div className="h-8 w-8 rounded-full border border-stone-200 dark:border-stone-800" />;
   }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-1.5 rounded-full border border-stone-300 dark:border-stone-700 hover:border-stone-900 dark:hover:border-stone-100 transition text-stone-600 dark:text-stone-300"
+      className="rounded-full border border-stone-300 p-1.5 text-stone-600 transition hover:border-stone-900 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}

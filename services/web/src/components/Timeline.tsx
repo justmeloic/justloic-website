@@ -20,22 +20,39 @@ const fmt = (s?: string | null) => {
   return m ? `${MONTHS[m - 1]} ${y}` : `${y}`;
 };
 const range = (it: CareerItem) =>
-  it.date ? fmt(it.date) : `${it.start ? fmt(it.start) : "Pre"} – ${it.end ? fmt(it.end) : "Present"}`;
+  it.date
+    ? fmt(it.date)
+    : `${it.start ? fmt(it.start) : "Pre"} – ${it.end ? fmt(it.end) : "Present"}`;
 const anchor = (it: CareerItem) => it.date || it.start || null;
 
 function Marker({ it }: { it: CareerItem }) {
   const col = ORGS[it.org].color;
   switch (it.type) {
     case "role":
-      return <span className={`relative block w-3 h-3 rounded-full ${!it.end ? "live" : ""}`} style={{ background: col }} />;
+      return (
+        <span
+          className={`relative block h-3 w-3 rounded-full ${!it.end ? "live" : ""}`}
+          style={{ background: col }}
+        />
+      );
     case "education":
-      return <span className="block w-3 h-3 border-2 bg-[#FBF9F5] dark:bg-[#121211]" style={{ borderColor: col }} />;
+      return (
+        <span
+          className="block h-3 w-3 border-2 bg-[#FBF9F5] dark:bg-[#121211]"
+          style={{ borderColor: col }}
+        />
+      );
     case "project":
-      return <span className="block w-3 h-3 rounded-full border-2 bg-[#FBF9F5] dark:bg-[#121211]" style={{ borderColor: col }} />;
+      return (
+        <span
+          className="block h-3 w-3 rounded-full border-2 bg-[#FBF9F5] dark:bg-[#121211]"
+          style={{ borderColor: col }}
+        />
+      );
     case "publication":
-      return <span className="block w-2.5 h-2.5 bg-stone-500 dark:bg-stone-400" />;
+      return <span className="block h-2.5 w-2.5 bg-stone-500 dark:bg-stone-400" />;
     case "award":
-      return <span className="block w-3 h-3 rotate-45 bg-[#B4884D]" />;
+      return <span className="block h-3 w-3 rotate-45 bg-[#B4884D]" />;
   }
 }
 
@@ -44,35 +61,40 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
   const logo = ORG_LOGOS[it.org];
   const where = it.date ? it.venue : it.location;
   return (
-    <article className="ledger-entry relative pl-8 md:pl-10 py-3">
-      <span className="absolute -left-[6px] top-[1.35rem] flex items-center justify-center w-3 h-3">
+    <article className="ledger-entry relative py-3 pl-8 md:pl-10">
+      <span className="absolute -left-[6px] top-[1.35rem] flex h-3 w-3 items-center justify-center">
         <Marker it={it} />
       </span>
       <button
         aria-expanded={open}
         onClick={onToggle}
-        className="ledger-toggle group w-full text-left rounded-xl px-4 py-3 -mx-4 hover:bg-white dark:hover:bg-stone-900/60"
+        className="ledger-toggle group -mx-4 w-full rounded-xl px-4 py-3 text-left hover:bg-white dark:hover:bg-stone-900/60"
       >
         <div className="flex items-baseline justify-between gap-4">
           <span className="font-mono text-[10px] tracking-wider text-stone-500 dark:text-stone-400">
             {range(it)}
             {it.approx && (
               <span title="approximate" className="text-[#B4884D]">
-                {" "}≈
+                {" "}
+                ≈
               </span>
             )}
           </span>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400">{TYPES[it.type].singular}</span>
+          <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400">
+            {TYPES[it.type].singular}
+          </span>
         </div>
-        <div className="flex items-start justify-between gap-4 mt-1">
+        <div className="mt-1 flex items-start justify-between gap-4">
           <h3
-            className={`font-serif ${it.type === "role" ? "text-lg md:text-xl" : "text-base md:text-lg"} font-medium leading-snug text-stone-950 dark:text-stone-100 group-hover:text-stone-900 dark:group-hover:text-white transition`}
+            className={`font-serif ${it.type === "role" ? "text-lg md:text-xl" : "text-base md:text-lg"} font-medium leading-snug text-stone-950 transition group-hover:text-stone-900 dark:text-stone-100 dark:group-hover:text-white`}
           >
             {it.title}
           </h3>
-          <span className="ledger-chev mt-0.5 text-stone-400 transition-transform text-base leading-none">+</span>
+          <span className="ledger-chev mt-0.5 text-base leading-none text-stone-400 transition-transform">
+            +
+          </span>
         </div>
-        <p className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mt-1">
+        <p className="mt-1 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
           <span
             className={`org-logo org-logo-${it.org}`}
             role="img"
@@ -84,12 +106,16 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
       </button>
       <div className="ledger-drawer">
         <div>
-          <div className="pt-2 pb-4 space-y-2.5 max-w-2xl">
+          <div className="max-w-2xl space-y-2.5 pb-4 pt-2">
             {where && where !== org.name && (
-              <p className="font-mono text-[10px] uppercase tracking-wider text-stone-400">{where}</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-stone-400">
+                {where}
+              </p>
             )}
             {it.summary && (
-              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-light">{it.summary}</p>
+              <p className="text-xs font-light leading-relaxed text-stone-600 dark:text-stone-400">
+                {it.summary}
+              </p>
             )}
             {!!it.bullets?.length && (
               <ul className="space-y-1 text-xs text-stone-700 dark:text-stone-300">
@@ -104,7 +130,7 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
             {!!it.skills?.length && (
               <div className="flex flex-wrap gap-1 font-mono text-[10px] text-stone-500">
                 {it.skills.map((s) => (
-                  <span key={s} className="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">
+                  <span key={s} className="rounded bg-stone-100 px-2 py-0.5 dark:bg-stone-800">
                     {s}
                   </span>
                 ))}
@@ -115,7 +141,7 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
                 href={it.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block text-[11px] font-mono text-stone-900 dark:text-stone-300 hover:text-black dark:hover:text-white underline underline-offset-2"
+                className="inline-block font-mono text-[11px] text-stone-900 underline underline-offset-2 hover:text-black dark:text-stone-300 dark:hover:text-white"
               >
                 Read more ↗
               </a>
@@ -151,7 +177,10 @@ function useDock(
     const STICK = 80; // below the sticky site header
     const FADE = 0.35;
     const YFADE = 0.35;
-    let MAX = 1, MIN = 1, YMAX = 1, YMIN = 1;
+    let MAX = 1,
+      MIN = 1,
+      YMAX = 1,
+      YMIN = 1;
     const tune = () => {
       const wide = innerWidth >= 768;
       [MAX, MIN, YMAX, YMIN] = wide ? [1.35, 0.75, 1.3, 0.65] : [1.15, 0.85, 1.15, 0.75];
@@ -211,7 +240,9 @@ function useDock(
       const vis = entries
         .filter((el) => el.offsetParent)
         .map((el) => {
-          const top = base + el.offsetTop, h = el.offsetHeight, c = top + h / 2;
+          const top = base + el.offsetTop,
+            h = el.offsetHeight,
+            c = top + h / 2;
           const g = Math.exp(-0.5 * ((c - focusY) / sigma) ** 2);
           const s = MIN + (MAX - MIN) * g;
           return { el, top, h, c, g, s, d: h * (s - 1), y: 0 };
@@ -236,22 +267,30 @@ function useDock(
       const geo = new Map<HTMLElement, { top: number; bottom: number; g: number }>();
       for (const v of vis) {
         const st = state.get(v.el)!;
-        const ty = v.y - off, to = FADE + (1 - FADE) * v.g;
+        const ty = v.y - off,
+          to = FADE + (1 - FADE) * v.g;
         st.s += (v.s - st.s) * 0.35;
         st.y += (ty - st.y) * 0.35;
         st.o += (to - st.o) * 0.35;
         if (Math.abs(v.s - st.s) > 0.001 || Math.abs(ty - st.y) > 0.3) moving = true;
         v.el.style.transform = `translate3d(0, ${st.y.toFixed(2)}px, 0) scale(${st.s.toFixed(4)})`;
         v.el.style.opacity = st.o.toFixed(3);
-        geo.set(v.el, { top: v.c + st.y - (st.s * v.h) / 2, bottom: v.c + st.y + (st.s * v.h) / 2, g: v.g });
+        geo.set(v.el, {
+          top: v.c + st.y - (st.s * v.h) / 2,
+          bottom: v.c + st.y + (st.s * v.h) / 2,
+          g: v.g,
+        });
         if (v.g > best.g) best = v;
       }
 
       for (const y of years) {
-        const boxes = y.entries.map((e) => geo.get(e)).filter((b): b is NonNullable<typeof b> => !!b);
+        const boxes = y.entries
+          .map((e) => geo.get(e))
+          .filter((b): b is NonNullable<typeof b> => !!b);
         if (!boxes.length) continue;
         const gMax = Math.max(...boxes.map((b) => b.g));
-        const ts = YMIN + (YMAX - YMIN) * gMax, to = YFADE + (1 - YFADE) * gMax;
+        const ts = YMIN + (YMAX - YMIN) * gMax,
+          to = YFADE + (1 - YFADE) * gMax;
         y.s += (ts - y.s) * 0.35;
         y.o += (to - y.o) * 0.35;
         if (Math.abs(ts - y.s) > 0.001) moving = true;
@@ -391,19 +430,19 @@ export function Timeline() {
     });
 
   return (
-    <section id="timeline" aria-labelledby="timeline-title" className="pt-8 md:pt-12 scroll-mt-20">
+    <section id="timeline" aria-labelledby="timeline-title" className="scroll-mt-20 pt-8 md:pt-12">
       <h1 id="timeline-title" className="sr-only">
         Career timeline
       </h1>
 
       <div
-        className="space-y-2.5 mb-8 md:mb-12 pl-0 md:pl-[8rem]"
+        className="mb-8 space-y-2.5 pl-0 md:mb-12 md:pl-[8rem]"
         role="group"
         aria-label="Filter timeline"
       >
         {/* Row 1: Type (hidden on mobile) */}
-        <div className="hidden md:flex flex-wrap items-center gap-x-3 gap-y-1.5">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">
+        <div className="hidden flex-wrap items-center gap-x-3 gap-y-1.5 md:flex">
+          <span className="w-12 shrink-0 font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500">
             Type
           </span>
           <div className="flex flex-wrap items-center gap-1.5">
@@ -415,10 +454,10 @@ export function Timeline() {
                   type="button"
                   aria-pressed={active}
                   onClick={() => selectType(key)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+                  className={`rounded-full border px-3 py-1.5 font-mono text-xs transition ${
                     active
-                      ? "bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium"
-                      : "border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100"
+                      ? "border-stone-900 bg-stone-900 font-medium text-stone-100 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
+                      : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-950 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
                   }`}
                 >
                   {label} <span className="opacity-50">{count}</span>
@@ -430,7 +469,7 @@ export function Timeline() {
 
         {/* Row 2: Organization (on mobile: no label, no 'All' button) */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-          <span className="hidden md:inline-block font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">
+          <span className="hidden w-12 shrink-0 font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 md:inline-block">
             Org
           </span>
           <div className="flex flex-wrap items-center gap-1.5">
@@ -438,10 +477,10 @@ export function Timeline() {
               type="button"
               aria-pressed={activeOrg === "all"}
               onClick={() => setActiveOrg("all")}
-              className={`hidden md:inline-flex px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+              className={`hidden rounded-full border px-3 py-1.5 font-mono text-xs transition md:inline-flex ${
                 activeOrg === "all"
-                  ? "bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium"
-                  : "border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100"
+                  ? "border-stone-900 bg-stone-900 font-medium text-stone-100 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
+                  : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-950 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
               }`}
             >
               All <span className="opacity-50">{counts.all}</span>
@@ -456,10 +495,10 @@ export function Timeline() {
                   aria-label={`Filter by ${logo.label} (${count})`}
                   title={`Filter by ${logo.label} (${count})`}
                   onClick={() => selectOrg(key)}
-                  className={`group inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+                  className={`group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-mono text-xs transition ${
                     active
-                      ? "bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium"
-                      : "border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100"
+                      ? "border-stone-900 bg-stone-900 font-medium text-stone-100 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
+                      : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-950 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
                   }`}
                 >
                   <span
@@ -477,7 +516,7 @@ export function Timeline() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="py-16 pl-0 md:pl-[8rem] text-stone-500 dark:text-stone-400 font-mono text-sm space-y-3">
+        <div className="space-y-3 py-16 pl-0 font-mono text-sm text-stone-500 dark:text-stone-400 md:pl-[8rem]">
           <p>No entries match the selected filters.</p>
           <button
             type="button"
@@ -485,39 +524,49 @@ export function Timeline() {
               setActiveType("all");
               setActiveOrg("all");
             }}
-            className="text-xs uppercase tracking-wider underline text-stone-900 dark:text-stone-300 hover:text-black dark:hover:text-white"
+            className="text-xs uppercase tracking-wider text-stone-900 underline hover:text-black dark:text-stone-300 dark:hover:text-white"
           >
             Reset all filters
           </button>
         </div>
       ) : (
-
-      <div ref={ledgerRef} className="ledger relative pb-16">
-        <div
-          className="absolute top-0 bottom-16 left-[4.5rem] md:left-[8rem] w-px bg-stone-300 dark:bg-stone-800"
-          aria-hidden="true"
-        >
-          <div ref={fillRef} className="w-px h-0 bg-stone-900 dark:bg-stone-300 transition-[height] duration-150" />
-        </div>
-        {groups.map(([year, items]) => (
-          <div key={year} className="ledger-year-group grid grid-cols-[4.5rem_1fr] md:grid-cols-[8rem_1fr] pt-6">
-            <div className="relative">
-              <div className="ledger-year-slot pt-2 pr-4 text-right">
-                <span
-                  className={`ledger-year font-serif tracking-tight text-stone-300 dark:text-stone-700 ${year === "Earlier" ? "text-xl md:text-2xl italic" : "text-3xl md:text-5xl"}`}
-                >
-                  {year}
-                </span>
+        <div ref={ledgerRef} className="ledger relative pb-16">
+          <div
+            className="absolute bottom-16 left-[4.5rem] top-0 w-px bg-stone-300 dark:bg-stone-800 md:left-[8rem]"
+            aria-hidden="true"
+          >
+            <div
+              ref={fillRef}
+              className="h-0 w-px bg-stone-900 transition-[height] duration-150 dark:bg-stone-300"
+            />
+          </div>
+          {groups.map(([year, items]) => (
+            <div
+              key={year}
+              className="ledger-year-group grid grid-cols-[4.5rem_1fr] pt-6 md:grid-cols-[8rem_1fr]"
+            >
+              <div className="relative">
+                <div className="ledger-year-slot pr-4 pt-2 text-right">
+                  <span
+                    className={`ledger-year font-serif tracking-tight text-stone-300 dark:text-stone-700 ${year === "Earlier" ? "text-xl italic md:text-2xl" : "text-3xl md:text-5xl"}`}
+                  >
+                    {year}
+                  </span>
+                </div>
+              </div>
+              <div>
+                {items.map((it) => (
+                  <Entry
+                    key={it.id}
+                    it={it}
+                    open={open.has(it.id)}
+                    onToggle={() => toggle(it.id)}
+                  />
+                ))}
               </div>
             </div>
-            <div>
-              {items.map((it) => (
-                <Entry key={it.id} it={it} open={open.has(it.id)} onToggle={() => toggle(it.id)} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       )}
     </section>
   );

@@ -30,43 +30,43 @@ export interface CareerItem {
 export const ORGS: Record<OrgKey, Org> = {
   google: {
     name: "Google",
-    color: "#B4884D"
+    color: "#B4884D",
   },
   goc: {
     name: "Government of Canada",
-    color: "#881337"
+    color: "#881337",
   },
   uottawa: {
     name: "University of Ottawa",
-    color: "#48433E"
+    color: "#48433E",
   },
   uwindsor: {
     name: "University of Windsor",
-    color: "#7A7068"
-  }
+    color: "#7A7068",
+  },
 };
 
 export const TYPES: Record<ItemType, { label: string; singular: string }> = {
   role: {
     label: "Roles",
-    singular: "Role"
+    singular: "Role",
   },
   education: {
     label: "Education",
-    singular: "Education"
+    singular: "Education",
   },
   project: {
     label: "Projects",
-    singular: "Project"
+    singular: "Project",
   },
   publication: {
     label: "Publications",
-    singular: "Publication"
+    singular: "Publication",
   },
   award: {
     label: "Awards",
-    singular: "Award"
-  }
+    singular: "Award",
+  },
 };
 
 export const CAREER: CareerItem[] = [
@@ -79,15 +79,8 @@ export const CAREER: CareerItem[] = [
     start: "2024-04",
     end: null,
     summary: "Tech lead on large-scale enterprise AI engagements, shipping agents to production.",
-    bullets: [
-      "Tech lead on $XXXM AI projects",
-      "Agents in production"
-    ],
-    skills: [
-      "Generative AI",
-      "Agents",
-      "Technical Leadership"
-    ]
+    bullets: ["Tech lead on $XXXM AI projects", "Agents in production"],
+    skills: ["Generative AI", "Agents", "Technical Leadership"],
   },
   {
     id: "google-research",
@@ -99,14 +92,8 @@ export const CAREER: CareerItem[] = [
     end: "2026-05",
     location: "Google 20% project",
     summary: "Turning state-of-the-art research into practical, high-impact solutions.",
-    bullets: [
-      "Agent inference",
-      "Large-scale ML platform migration",
-      "Google’s 20% project"
-    ],
-    skills: [
-      "Research & Development"
-    ]
+    bullets: ["Agent inference", "Large-scale ML platform migration", "Google’s 20% project"],
+    skills: ["Research & Development"],
   },
   {
     id: "goc-staff",
@@ -116,16 +103,14 @@ export const CAREER: CareerItem[] = [
     title: "Staff Machine Learning Engineer & Tech-Lead Manager",
     start: "2022-05",
     end: "2024-02",
-    summary: "Led a team of AI & ML engineers and researchers delivering AI research, development and consultancy for federal clients.",
+    summary:
+      "Led a team of AI & ML engineers and researchers delivering AI research, development and consultancy for federal clients.",
     bullets: [
       "Led a team of AI & ML Engineers and Researchers focused on research, development and consultancy services for federal clients",
       "Directed the overhaul of how cutting-edge AI research and solutions were designed and built for domestic and foreign government agencies",
-      "Maintained team cohesion and performance through company-wide layoffs"
+      "Maintained team cohesion and performance through company-wide layoffs",
     ],
-    skills: [
-      "System Architecture",
-      "Team Leadership"
-    ]
+    skills: ["System Architecture", "Team Leadership"],
   },
   {
     id: "goc-senior",
@@ -135,13 +120,10 @@ export const CAREER: CareerItem[] = [
     title: "Senior Machine Learning Engineer",
     start: "2021-05",
     end: "2022-05",
-    summary: "Senior engineer on production ML systems, responsible ML and NLP at Statistics Canada.",
+    summary:
+      "Senior engineer on production ML systems, responsible ML and NLP at Statistics Canada.",
     bullets: [],
-    skills: [
-      "Production ML",
-      "NLP",
-      "Responsible ML"
-    ]
+    skills: ["Production ML", "NLP", "Responsible ML"],
   },
   {
     id: "goc-mle",
@@ -151,12 +133,10 @@ export const CAREER: CareerItem[] = [
     title: "Machine Learning Engineer",
     start: "2019-12",
     end: "2021-05",
-    summary: "Built ML pipelines and products, including the dynamic topic modelling system for CCMED.",
+    summary:
+      "Built ML pipelines and products, including the dynamic topic modelling system for CCMED.",
     bullets: [],
-    skills: [
-      "Machine Learning",
-      "Data Engineering"
-    ]
+    skills: ["Machine Learning", "Data Engineering"],
   },
   {
     id: "goc-stat",
@@ -166,15 +146,10 @@ export const CAREER: CareerItem[] = [
     title: "Mathematical Statistician",
     start: "2017-07",
     end: "2019-12",
-    summary: "Statistical methods for economic surveys: recommender systems and data collection optimization at scale.",
-    bullets: [
-      "Recommender systems",
-      "Data collection optimization (at scale)"
-    ],
-    skills: [
-      "Statistics",
-      "Optimization"
-    ]
+    summary:
+      "Statistical methods for economic surveys: recommender systems and data collection optimization at scale.",
+    bullets: ["Recommender systems", "Data collection optimization (at scale)"],
+    skills: ["Statistics", "Optimization"],
   },
   {
     id: "msc",
@@ -185,17 +160,14 @@ export const CAREER: CareerItem[] = [
     start: "2019-07",
     end: "2022-06",
     approx: true,
-    summary: "Computer vision applied to medical neuroimaging, completed while working full-time. A+ in every course.",
+    summary:
+      "Computer vision applied to medical neuroimaging, completed while working full-time. A+ in every course.",
     bullets: [
       "Thesis: A Generative Approach to Simultaneous Diffeomorphic Registration and Lesion Segmentation of Neuroimages",
-      "Supervisor: Tanya Schmah"
+      "Supervisor: Tanya Schmah",
     ],
-    skills: [
-      "Computer Vision",
-      "Bayesian Modelling",
-      "Deep Learning"
-    ],
-    link: "https://ruor.uottawa.ca/handle/10393/43733"
+    skills: ["Computer Vision", "Bayesian Modelling", "Deep Learning"],
+    link: "https://ruor.uottawa.ca/handle/10393/43733",
   },
   {
     id: "bsc",
@@ -207,12 +179,8 @@ export const CAREER: CareerItem[] = [
     end: "2017-06",
     approx: true,
     summary: "Mathematics, with minors in Biology, Chemistry & Computer Science.",
-    bullets: [
-      "Minors in Biology, Chemistry & Computer Science"
-    ],
-    skills: [
-      "Mathematics"
-    ]
+    bullets: ["Minors in Biology, Chemistry & Computer Science"],
+    skills: ["Mathematics"],
   },
   {
     id: "proj-rml",
@@ -222,14 +190,11 @@ export const CAREER: CareerItem[] = [
     title: "Responsible Machine Learning Framework",
     start: "2020-08",
     end: "2024-02",
-    summary: "Core contributor to Statistics Canada’s framework for responsible ML: development guidelines plus independent ethical and technical peer reviews, backed by explainability research.",
+    summary:
+      "Core contributor to Statistics Canada’s framework for responsible ML: development guidelines plus independent ethical and technical peer reviews, backed by explainability research.",
     bullets: [],
-    skills: [
-      "Responsible ML",
-      "Data Ethics",
-      "Explainability"
-    ],
-    link: "https://www.statcan.gc.ca/en/data-science/network/machine-learning"
+    skills: ["Responsible ML", "Data Ethics", "Explainability"],
+    link: "https://www.statcan.gc.ca/en/data-science/network/machine-learning",
   },
   {
     id: "proj-topic",
@@ -238,14 +203,11 @@ export const CAREER: CareerItem[] = [
     title: "Dynamic Topic Modelling",
     start: "2020-03",
     end: "2024-02",
-    summary: "Led topic modelling of the Canadian Coroner and Medical Examiner Database (CCMED) to detect emerging death circumstances. Sole developer and designer of the methodology, pipeline and dashboard.",
+    summary:
+      "Led topic modelling of the Canadian Coroner and Medical Examiner Database (CCMED) to detect emerging death circumstances. Sole developer and designer of the methodology, pipeline and dashboard.",
     bullets: [],
-    skills: [
-      "NLP",
-      "Topic Modelling",
-      "Data Visualization"
-    ],
-    link: "https://www.statcan.gc.ca/en/data-science/network/topic-modelling"
+    skills: ["NLP", "Topic Modelling", "Data Visualization"],
+    link: "https://www.statcan.gc.ca/en/data-science/network/topic-modelling",
   },
   {
     id: "proj-thesis",
@@ -255,14 +217,11 @@ export const CAREER: CareerItem[] = [
     title: "Diffeomorphic Registration & Lesion Segmentation",
     start: "2019-07",
     end: "2022-04",
-    summary: "Hierarchical Bayesian model treating registration and stroke-lesion segmentation as latent variables, with an efficient deep learning inference algorithm.",
+    summary:
+      "Hierarchical Bayesian model treating registration and stroke-lesion segmentation as latent variables, with an efficient deep learning inference algorithm.",
     bullets: [],
-    skills: [
-      "Computer Vision",
-      "Image Registration",
-      "Deep Learning"
-    ],
-    link: "https://ruor.uottawa.ca/handle/10393/43733"
+    skills: ["Computer Vision", "Image Registration", "Deep Learning"],
+    link: "https://ruor.uottawa.ca/handle/10393/43733",
   },
   {
     id: "proj-dco",
@@ -271,13 +230,11 @@ export const CAREER: CareerItem[] = [
     title: "Data Collection Optimization",
     start: "2017-06",
     end: "2019-11",
-    summary: "Prioritized collection of Canadian businesses by optimizing estimate quality. Used by 65 federal business surveys across manufacturing, trade, services and capital expenditures.",
+    summary:
+      "Prioritized collection of Canadian businesses by optimizing estimate quality. Used by 65 federal business surveys across manufacturing, trade, services and capital expenditures.",
     bullets: [],
-    skills: [
-      "Economic Statistics",
-      "Optimization"
-    ],
-    link: "https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf"
+    skills: ["Economic Statistics", "Optimization"],
+    link: "https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf",
   },
   {
     id: "pub-seg",
@@ -286,18 +243,20 @@ export const CAREER: CareerItem[] = [
     title: "Image Segmentation in Medical Imaging",
     date: "2022-11-09",
     venue: "Data Science Network for the Federal Public Service",
-    summary: "An overview of the methodology behind popular digital image segmentation methods for medical imaging.",
-    link: "https://www.statcan.gc.ca/en/data-science/network/image-segmentation"
+    summary:
+      "An overview of the methodology behind popular digital image segmentation methods for medical imaging.",
+    link: "https://www.statcan.gc.ca/en/data-science/network/image-segmentation",
   },
   {
     id: "pub-thesis",
     type: "publication",
     org: "uottawa",
-    title: "A Generative Approach to Simultaneous Diffeomorphic Registration and Lesion Segmentation of Neuroimages",
+    title:
+      "A Generative Approach to Simultaneous Diffeomorphic Registration and Lesion Segmentation of Neuroimages",
     date: "2022-06-20",
     venue: "Master’s thesis, University of Ottawa",
     summary: "MSc thesis in Mathematics.",
-    link: "https://ruor.uottawa.ca/handle/10393/43733"
+    link: "https://ruor.uottawa.ca/handle/10393/43733",
   },
   {
     id: "pub-topic",
@@ -307,7 +266,7 @@ export const CAREER: CareerItem[] = [
     date: "2021-06-17",
     venue: "Data Science Network for the Federal Public Service",
     summary: "Technical review accompanying the CCMED topic modelling project.",
-    link: "https://www.statcan.gc.ca/en/data-science/network/topic-modelling"
+    link: "https://www.statcan.gc.ca/en/data-science/network/topic-modelling",
   },
   {
     id: "pub-fcsm",
@@ -317,7 +276,7 @@ export const CAREER: CareerItem[] = [
     date: "2018-12-13",
     venue: "Federal Committee on Statistical Methodology (FCSM)",
     summary: "Data collection optimization across 65 federal business surveys.",
-    link: "https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf"
+    link: "https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf",
   },
   {
     id: "award-gemini",
@@ -326,7 +285,7 @@ export const CAREER: CareerItem[] = [
     title: "Business Impact Award, Gemini Enterprise",
     date: "2026-01",
     venue: "Google",
-    summary: "Recognized for business impact on Gemini Enterprise."
+    summary: "Recognized for business impact on Gemini Enterprise.",
   },
   {
     id: "award-agatha",
@@ -335,7 +294,8 @@ export const CAREER: CareerItem[] = [
     title: "Agatha Chapman Innovation Award",
     date: "2021-12",
     venue: "Data Science Division, Statistics Canada",
-    summary: "For outstanding commitment to innovative ideas or initiatives that advance the Agency’s priorities in access, relevance, quality or organizational efficiency."
+    summary:
+      "For outstanding commitment to innovative ideas or initiatives that advance the Agency’s priorities in access, relevance, quality or organizational efficiency.",
   },
   {
     id: "award-perf",
@@ -344,6 +304,6 @@ export const CAREER: CareerItem[] = [
     title: "Performance Recognition Award",
     date: "2020-12",
     venue: "Economic Statistics Methods Division, Statistics Canada",
-    summary: "Awarded for outstanding performance."
-  }
+    summary: "Awarded for outstanding performance.",
+  },
 ];

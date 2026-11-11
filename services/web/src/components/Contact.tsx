@@ -34,20 +34,27 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="border-t border-stone-200 dark:border-stone-800 pt-16 space-y-10 max-w-xl mx-auto">
+    <section
+      id="contact"
+      className="mx-auto max-w-xl space-y-10 border-t border-stone-200 pt-16 dark:border-stone-800"
+    >
       <div className="space-y-2 text-center">
-        <h2 className="font-serif text-3xl md:text-4xl text-stone-950 dark:text-stone-50">
+        <h2 className="font-serif text-3xl text-stone-950 dark:text-stone-50 md:text-4xl">
           Get in touch
         </h2>
-        <p className="text-sm text-stone-600 dark:text-stone-400 font-light max-w-md mx-auto">
-          Have a question, collaboration idea, or inquiry? Send a note below or connect directly on LinkedIn.
+        <p className="mx-auto max-w-md text-sm font-light text-stone-600 dark:text-stone-400">
+          Have a question, collaboration idea, or inquiry? Send a note below or connect directly on
+          LinkedIn.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="w-full space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-1 text-left">
-            <label htmlFor="name" className="block text-xs font-mono uppercase tracking-wider text-stone-500">
+            <label
+              htmlFor="name"
+              className="block font-mono text-xs uppercase tracking-wider text-stone-500"
+            >
               Name
             </label>
             <input
@@ -55,11 +62,14 @@ export function Contact() {
               name="name"
               id="name"
               required
-              className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-[#181615] border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100 transition"
+              className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
             />
           </div>
           <div className="space-y-1 text-left">
-            <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-stone-500">
+            <label
+              htmlFor="email"
+              className="block font-mono text-xs uppercase tracking-wider text-stone-500"
+            >
               Email
             </label>
             <input
@@ -67,13 +77,16 @@ export function Contact() {
               name="email"
               id="email"
               required
-              className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-[#181615] border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100 transition"
+              className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
             />
           </div>
         </div>
 
         <div className="space-y-1 text-left">
-          <label htmlFor="message" className="block text-xs font-mono uppercase tracking-wider text-stone-500">
+          <label
+            htmlFor="message"
+            className="block font-mono text-xs uppercase tracking-wider text-stone-500"
+          >
             Message
           </label>
           <textarea
@@ -81,7 +94,7 @@ export function Contact() {
             id="message"
             rows={6}
             required
-            className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-[#181615] border border-stone-300 dark:border-stone-700 text-sm focus:outline-none focus:ring-1 focus:ring-stone-900 dark:focus:ring-stone-100 transition"
+            className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
           ></textarea>
         </div>
 
@@ -89,35 +102,47 @@ export function Contact() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="w-full sm:w-auto px-8 py-2.5 bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 font-medium text-xs font-mono rounded-lg hover:opacity-90 transition disabled:opacity-50"
+            className="w-full rounded-lg bg-stone-900 px-8 py-2.5 font-mono text-xs font-medium text-stone-100 transition hover:opacity-90 disabled:opacity-50 dark:bg-stone-100 dark:text-stone-950 sm:w-auto"
           >
             {status === "submitting" ? "Sending..." : "Send Message"}
           </button>
 
           {status === "success" && (
-            <p className="text-xs font-mono text-emerald-600 dark:text-emerald-400 pt-1 text-center">
+            <p className="pt-1 text-center font-mono text-xs text-emerald-600 dark:text-emerald-400">
               ✓ Message sent successfully.
             </p>
           )}
           {status === "error" && (
-            <p className="text-xs font-mono text-red-600 dark:text-red-400 pt-1 text-center">
+            <p className="pt-1 text-center font-mono text-xs text-red-600 dark:text-red-400">
               ✕ Could not deliver message. Please try again or reach out on LinkedIn.
             </p>
           )}
         </div>
       </form>
 
-      <div className="flex flex-wrap justify-center gap-2 pt-6 border-t border-stone-200 dark:border-stone-800 text-xs font-mono">
-        <Link href="/" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400 transition">
+      <div className="flex flex-wrap justify-center gap-2 border-t border-stone-200 pt-6 font-mono text-xs dark:border-stone-800">
+        <Link
+          href="/"
+          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+        >
           back to timeline
         </Link>
-        <Link href="/art" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400 transition">
+        <Link
+          href="/art"
+          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+        >
           back to art
         </Link>
-        <Link href="/philosophy" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400 transition">
+        <Link
+          href="/philosophy"
+          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+        >
           back to philosophy
         </Link>
-        <Link href="/resume" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400 transition">
+        <Link
+          href="/resume"
+          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+        >
           view resume
         </Link>
       </div>

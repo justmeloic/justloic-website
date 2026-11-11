@@ -8,14 +8,16 @@
   }
 
   body {
-    background-color: #FBF9F5;
-    color: #24211E;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: #fbf9f5;
+    color: #24211e;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   .dark body {
     background-color: #121211;
-    color: #E8E5DF;
+    color: #e8e5df;
   }
 
   /* The magnified timeline entry may extend past the column; never let it cause sideways scroll */
@@ -41,26 +43,28 @@
 }
 .ledger-entry[data-focus] .ledger-toggle {
   background: #fff;
-  box-shadow: 0 1px 2px rgba(26, 24, 22, 0.06), 0 8px 24px -12px rgba(26, 24, 22, 0.18);
+  box-shadow:
+    0 1px 2px rgba(26, 24, 22, 0.06),
+    0 8px 24px -12px rgba(26, 24, 22, 0.18);
 }
 .dark .ledger-entry[data-focus] .ledger-toggle {
   background: rgba(28, 25, 23, 0.7);
   box-shadow: none;
 }
 .ledger-entry[data-focus] h3 {
-  color: #1A1816;
+  color: #1a1816;
 }
 .dark .ledger-entry[data-focus] h3 {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .ledger-year {
   transition: color 0.3s ease;
 }
 .ledger-year-slot[data-focus] .ledger-year {
-  color: #1A1816;
+  color: #1a1816;
 }
 .dark .ledger-year-slot[data-focus] .ledger-year {
-  color: #E8E5DF;
+  color: #e8e5df;
 }
 
 /* Expandable details */
@@ -89,8 +93,14 @@
   animation: ledger-ping 1.8s ease-out infinite;
 }
 @keyframes ledger-ping {
-  0% { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(2.4); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 /* Organisation marks */
@@ -106,31 +116,55 @@
   height: 100%;
   width: auto;
 }
-.org-logo-google { height: 16px; }
-.org-logo-goc { height: 18px; }
-.org-logo-uottawa { height: 20px; color: #8f001a; }
-.dark .org-logo-uottawa { color: #e7e5e4; }
-.org-logo-uwindsor { height: 24px; }
+.org-logo-google {
+  height: 16px;
+}
+.org-logo-goc {
+  height: 18px;
+}
+.org-logo-uottawa {
+  height: 20px;
+  color: #8f001a;
+}
+.dark .org-logo-uottawa {
+  color: #e7e5e4;
+}
+.org-logo-uwindsor {
+  height: 24px;
+}
 
 /* Organisation marks in filter pills */
 .org-logo-filter {
   color: inherit;
   align-items: center;
 }
-.org-logo-filter.org-logo-google { height: 14px; }
-.org-logo-filter.org-logo-goc { height: 13px; }
-.org-logo-filter.org-logo-uottawa { height: 14px; color: #8f001a; }
+.org-logo-filter.org-logo-google {
+  height: 14px;
+}
+.org-logo-filter.org-logo-goc {
+  height: 13px;
+}
+.org-logo-filter.org-logo-uottawa {
+  height: 14px;
+  color: #8f001a;
+}
 .dark .org-logo-filter.org-logo-uottawa,
 [aria-pressed="true"] .org-logo-filter.org-logo-uottawa,
 [aria-pressed="true"] .org-logo-filter {
   color: inherit;
 }
-.org-logo-filter.org-logo-uwindsor { height: 15px; }
+.org-logo-filter.org-logo-uwindsor {
+  height: 15px;
+}
 
 /* ── Print / PDF Styles ────────────────────────────────────────── */
 @media print {
   /* Hide interactive chrome */
-  header, footer, nav, button, .no-print {
+  header,
+  footer,
+  nav,
+  button,
+  .no-print {
     display: none !important;
   }
   body {
@@ -161,4 +195,3 @@
     color: inherit !important;
   }
 }
-
