@@ -123,9 +123,12 @@ export default function ResumePage() {
               {/* FDE Role */}
               <div className="pl-6 border-l border-stone-200 dark:border-stone-800 space-y-2">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <h4 className="font-sans text-base font-medium text-stone-900 dark:text-stone-100">
-                    Forward Deployed Engineer, Generative AI
-                  </h4>
+                  <div className="flex items-baseline gap-2">
+                    <h4 className="font-sans text-base font-medium text-stone-900 dark:text-stone-100">
+                      Forward Deployed Engineer, Generative AI
+                    </h4>
+                    <span className="font-mono text-[10px] text-stone-400">(Software Engineer)</span>
+                  </div>
                   <span className="font-mono text-xs text-stone-400">Apr 2024 – Present</span>
                 </div>
                 <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed">
@@ -150,7 +153,7 @@ export default function ResumePage() {
                     <h4 className="font-sans text-base font-medium text-stone-900 dark:text-stone-100">
                       AI Research Engineer
                     </h4>
-                    <span className="font-mono text-[10px] text-stone-400">(Google 20% Project)</span>
+                    <span className="font-mono text-[10px] text-stone-400">(20% Project)</span>
                   </div>
                   <span className="font-mono text-xs text-stone-400">Oct 2025 – May 2026</span>
                 </div>
