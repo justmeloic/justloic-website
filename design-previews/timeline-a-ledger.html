@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline A: The Ledger — Loïc Muhirwa</title>
+  <script>if (localStorage.getItem('jl-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        fontFamily: { serif: ['Newsreader', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+        colors: { ink: { 900: '#1A1816', 800: '#2C2825', 700: '#48433E' }, crimson: { DEFAULT: '#881337' }, bronze: { DEFAULT: '#B4884D' } }
+      } }
+    }
+  </script>
+  <script src="timeline-data.js"></script>
+  <script src="logos.js"></script>
+  <style>
+    /* Dock-style magnification: transforms are driven per-frame from JS */
+    .entry { transform-origin: 0 50%; will-change: transform, opacity; max-width: calc(100% / var(--dock-max, 1)); }
+    .year-slot { transform-origin: 100% 0; will-change: transform, opacity; }
+    .org-logo { display: inline-flex; flex-shrink: 0; color: #1A1816; }
+    .dark .org-logo { color: #E7E5E4; }
+    .org-logo svg { height: 100%; width: auto; }
+    .org-logo-google { height: 16px; }
+    .org-logo-goc { height: 18px; }
+    .org-logo-uottawa { height: 20px; color: #8F001A; }
+    .dark .org-logo-uottawa { color: #E7E5E4; }
+    .org-logo-uwindsor { height: 24px; }
+    .entry .toggle { transition: background-color .25s ease; }
+    .entry.is-focus .toggle { background: #fff; box-shadow: 0 1px 2px rgba(26,24,22,.06), 0 8px 24px -12px rgba(26,24,22,.18); }
+    .dark .entry.is-focus .toggle { background: rgba(28,25,23,.7); box-shadow: none; }
+    .entry.is-focus h3 { color: #881337; }
+    .dark .entry.is-focus h3 { color: #FB7185; }
+    .year-num { transition: color .3s ease; }
+    .year-group.is-focus .year-num { color: #1A1816; }
+    .dark .year-group.is-focus .year-num { color: #E7E5E4; }
+    .drawer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+    .drawer > div { overflow: hidden; }
+    [aria-expanded="true"] + .drawer { grid-template-rows: 1fr; }
+    [aria-expanded="true"] .chev { transform: rotate(45deg); }
+    .entry.hidden-by-filter, .year-group.hidden-by-filter { display: none; }
+    @keyframes ping2 { 0% { transform: scale(1); opacity: .6 } 100% { transform: scale(2.4); opacity: 0 } }
+    .live::after { content: ''; position: absolute; inset: 0; border-radius: 9999px; background: inherit; animation: ping2 1.8s ease-out infinite; }
+  </style>
+</head>
+<body style="overflow-x: clip" class="bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF] font-sans antialiased transition-colors duration-300">
+
+  <!-- Preview switcher -->
+  <div class="fixed top-0 inset-x-0 z-50 bg-[#1A1816]/95 text-stone-300 text-xs py-2 px-4 backdrop-blur flex justify-between items-center border-b border-stone-800">
+    <div class="flex items-center gap-2">
+      <span class="font-mono bg-red-950/80 text-rose-300 px-2 py-0.5 rounded border border-rose-800/60 font-semibold">TIMELINE A</span>
+      <span class="font-medium text-stone-200 hidden sm:inline">The Ledger · vertical editorial</span>
+    </div>
+    <div class="flex items-center gap-3 sm:gap-4">
+      <a href="timeline-a-ledger.html" class="text-white underline">A</a>
+      <a href="timeline-b-swimlanes.html" class="hover:text-white">B</a>
+      <a href="timeline-c-chapters.html" class="hover:text-white">C</a>
+      <a href="timeline-d-trajectory.html" class="hover:text-white">D</a>
+      <a href="timeline-index.html" class="hover:text-white">Timelines</a>
+      <button id="themeBtn" class="bg-stone-800 hover:bg-stone-700 px-2.5 py-1 rounded text-stone-200 font-mono">🌓</button>
+    </div>
+  </div>
+
+  <header class="pt-28 pb-10 px-6 max-w-5xl mx-auto space-y-6">
+    <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">02 / Career</span>
+    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.06] text-ink-900 dark:text-stone-100">
+      A ledger of <span class="italic text-rose-900 dark:text-rose-400">work</span>, study &amp; recognition.
+    </h1>
+    <p id="stats" class="font-mono text-xs text-stone-500 dark:text-stone-400 tracking-wide"></p>
+
+    <div class="flex flex-wrap items-center gap-2 pt-2" role="group" aria-label="Filter timeline">
+      <div id="filters" class="flex flex-wrap gap-2"></div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-32 relative" id="ledger">
+    <!-- spine -->
+    <div class="absolute top-0 bottom-32 left-[calc(1.5rem+4.5rem)] md:left-[calc(1.5rem+8rem)] w-px bg-stone-300 dark:bg-stone-800" aria-hidden="true">
+      <div id="spineFill" class="w-px bg-rose-900 dark:bg-rose-400 h-0 transition-[height] duration-150"></div>
+    </div>
+    <div id="groups"></div>
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-6 pb-16 text-[11px] font-mono text-stone-400 border-t border-stone-200 dark:border-stone-800 pt-6">
+    Data · timeline-data.js (LinkedIn + justloic.com). Entries marked ≈ have approximate dates.
+  </footer>
+
+<script>
+(() => {
+  const C = window.CAREER, U = window.CareerUtil, esc = U.esc;
+
+  document.getElementById('themeBtn').onclick = () => {
+    const d = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('jl-theme', d ? 'dark' : 'light');
+  };
+
+  // Stats line
+  const roles = C.items.filter(i => i.type === 'role');
+  const yrs = (U.toYear(C.now) - U.toYear('2017-07')).toFixed(1);
+  document.getElementById('stats').textContent =
+    `${yrs} yrs in industry · ${roles.length} roles · ${C.items.filter(i => i.type === 'publication').length} publications · ${C.items.filter(i => i.type === 'award').length} awards`;
+
+  // Marker shape by type
+  const marker = (it) => {
+    const col = C.orgs[it.org].color;
+    const live = !it.date && it.start && !it.end;
+    switch (it.type) {
+      case 'role': return `<span class="relative block w-3 h-3 rounded-full ${live ? 'live' : ''}" style="background:${col}"></span>`;
+      case 'education': return `<span class="block w-3 h-3 border-2 bg-[#FBF9F5] dark:bg-[#121211]" style="border-color:${col}"></span>`;
+      case 'project': return `<span class="block w-3 h-3 rounded-full border-2 bg-[#FBF9F5] dark:bg-[#121211]" style="border-color:${col}"></span>`;
+      case 'publication': return `<span class="block w-2.5 h-2.5 bg-stone-500 dark:bg-stone-400"></span>`;
+      case 'award': return `<span class="block w-3 h-3 rotate-45 bg-bronze"></span>`;
+    }
+  };
+
+  // Filters
+  const counts = Object.fromEntries(Object.keys(C.types).map(t => [t, C.items.filter(i => i.type === t).length]));
+  const filterDefs = [['all', 'All', C.items.length], ...Object.entries(C.types).map(([k, v]) => [k, v.label, counts[k]])];
+  const fEl = document.getElementById('filters');
+  fEl.innerHTML = filterDefs.map(([k, label, n], i) => `
+    <button data-filter="${k}" aria-pressed="${i === 0}"
+      class="filter px-3 py-1.5 rounded-full text-xs font-mono border transition
+             border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100
+             aria-pressed:bg-stone-900 aria-pressed:text-stone-100 aria-pressed:border-stone-900
+             dark:aria-pressed:bg-stone-100 dark:aria-pressed:text-stone-900 dark:aria-pressed:border-stone-100">
+      ${label} <span class="opacity-50">${n}</span>
+    </button>`).join('');
+
+  // Group by anchor year (start, publication date, or "Earlier" if undated)
+  const anchor = (it) => it.date || it.start;
+  const groups = new Map();
+  [...C.items]
+    .sort((a, b) => (U.toYear(anchor(b)) ?? 0) - (U.toYear(anchor(a)) ?? 0))
+    .forEach(it => {
+      const key = anchor(it) ? anchor(it).slice(0, 4) : 'Earlier';
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(it);
+    });
+
+  const entryHTML = (it) => {
+    const org = C.orgs[it.org];
+    // The meta line shows only the organisation's mark; venue / location move into the details
+    const logo = window.ORG_LOGOS?.[it.org];
+    const metaHTML = logo
+      ? `<span class="org-logo org-logo-${it.org}" role="img" aria-label="${esc(logo.label)}" title="${esc(logo.label)}">${logo.svg}</span>`
+      : esc(org.name);
+    const where = it.date ? it.venue : it.location;
+    const details = [
+      where && where !== org.name && `<p class="font-mono text-[11px] uppercase tracking-wider text-stone-400">${esc(where)}</p>`,
+      it.summary && `<p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">${esc(it.summary)}</p>`,
+      it.bullets?.length && `<ul class="space-y-1.5 text-sm text-stone-700 dark:text-stone-300">${it.bullets.map(b => `<li class="flex gap-2"><span class="text-rose-900 dark:text-rose-400">—</span><span>${esc(b)}</span></li>`).join('')}</ul>`,
+      it.skills?.length && `<div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">${it.skills.map(s => `<span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">${esc(s)}</span>`).join('')}</div>`,
+      it.link && `<a href="${it.link}" target="_blank" rel="noopener" class="inline-block text-xs font-mono text-rose-900 dark:text-rose-400 hover:underline">Read more ↗</a>`,
+    ].filter(Boolean).join('');
+    return `
+      <article class="entry relative pl-8 md:pl-10 py-3" data-type="${it.type}">
+        <span class="absolute -left-[6px] top-[1.35rem] flex items-center justify-center w-3 h-3">${marker(it)}</span>
+        <button aria-expanded="false" class="toggle group w-full text-left rounded-xl px-4 py-3 -mx-4 hover:bg-white dark:hover:bg-stone-900/60 transition">
+          <div class="flex items-baseline justify-between gap-4">
+            <span class="font-mono text-[11px] tracking-wide text-stone-500 dark:text-stone-400">
+              ${esc(U.range(it))}${it.approx ? ' <span title="approximate" class="text-bronze">≈</span>' : ''}
+            </span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-stone-400">${C.types[it.type].singular}</span>
+          </div>
+          <div class="flex items-start justify-between gap-4 mt-1">
+            <h3 class="font-serif ${it.type === 'role' ? 'text-2xl' : 'text-xl'} leading-snug text-ink-900 dark:text-stone-100 group-hover:text-rose-900 dark:group-hover:text-rose-400 transition">${esc(it.title)}</h3>
+            <span class="chev mt-1 text-stone-400 transition-transform text-lg leading-none">+</span>
+          </div>
+          <p class="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mt-1">${metaHTML}</p>
+        </button>
+        <div class="drawer"><div><div class="pt-2 pb-4 space-y-3 max-w-2xl">${details}</div></div></div>
+      </article>`;
+  };
+
+  document.getElementById('groups').innerHTML = [...groups].map(([year, items]) => `
+    <section class="year-group grid grid-cols-[4.5rem_1fr] md:grid-cols-[8rem_1fr] pt-6">
+      <div class="relative">
+        <div class="year-slot pt-2 pr-4 text-right">
+          <span class="year-num font-serif ${year === 'Earlier' ? 'text-xl md:text-2xl italic' : 'text-3xl md:text-5xl'} text-stone-300 dark:text-stone-700 tracking-tight">${year}</span>
+        </div>
+      </div>
+      <div>${items.map(entryHTML).join('')}</div>
+    </section>`).join('');
+
+  // Expand / collapse
+  document.querySelectorAll('.toggle').forEach(b => b.onclick = () => b.setAttribute('aria-expanded', b.getAttribute('aria-expanded') !== 'true'));
+
+  // Filtering
+  fEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-filter]'); if (!btn) return;
+    fEl.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', b === btn));
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.entry').forEach(el => el.classList.toggle('hidden-by-filter', f !== 'all' && el.dataset.type !== f));
+    document.querySelectorAll('.year-group').forEach(g => g.classList.toggle('hidden-by-filter', !g.querySelector('.entry:not(.hidden-by-filter)')));
+    onScroll();
+  });
+
+  // Spine progress
+  const ledger = document.getElementById('ledger'), fill = document.getElementById('spineFill');
+  const onScroll = () => {
+    const r = ledger.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (innerHeight * 0.55 - r.top) / (r.height - 128)));
+    fill.style.height = (p * 100) + '%';
+    kick();
+  };
+
+  // ── Dock magnification ──────────────────────────────────────────
+  // Focus follows the pointer while it's over the ledger (like the macOS Dock),
+  // otherwise it rests on the reading line just above the viewport centre.
+  // Each entry scales by a Gaussian of its distance to the focus; neighbours are
+  // displaced by the accumulated growth so nothing overlaps, and the content under
+  // the focus line stays put. Year numerals zoom with their group and are positioned
+  // from the same transforms (emulating position: sticky).
+  let MAX, MIN, YMAX, YMIN;
+  const FADE = 0.12, YFADE = 0.18, STICK = 64;
+  const tune = () => {
+    const wide = innerWidth >= 768;
+    [MAX, MIN, YMAX, YMIN] = wide ? [1.65, 0.5, 1.6, 0.4] : [1.3, 0.7, 1.3, 0.55];
+    // Entries rest at 1/MAX of the column so the magnified one fills it exactly
+    document.documentElement.style.setProperty('--dock-max', MAX);
+  };
+  tune();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const entries = [...document.querySelectorAll('.entry')];
+  const state = new Map(entries.map(el => [el, { s: 1, y: 0, o: 1 }]));
+  const years = [...document.querySelectorAll('.year-group')].map(g => ({
+    col: g.firstElementChild, slot: g.querySelector('.year-slot'), entries: [...g.querySelectorAll('.entry')], s: 1, o: 1,
+  }));
+  let pointerY = null, focusY = innerHeight * 0.45, raf = 0;
+
+  ledger.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') { pointerY = e.clientY; kick(); } });
+  ledger.addEventListener('pointerleave', () => { pointerY = null; kick(); });
+  addEventListener('resize', () => { tune(); kick(); });
+  // Re-run while a drawer animates open/closed
+  ledger.addEventListener('transitionrun', kick);
+  ledger.addEventListener('transitionend', kick);
+
+  function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+
+  function frame() {
+    raf = 0;
+    if (reduce.matches) {
+      document.documentElement.style.setProperty('--dock-max', 1);
+      entries.forEach(el => { el.style.transform = ''; el.style.opacity = ''; });
+      years.forEach(y => { y.slot.style.transform = ''; y.slot.style.opacity = ''; y.slot.style.position = 'sticky'; y.slot.style.top = STICK + 'px'; });
+      return;
+    }
+
+    const targetFocus = pointerY ?? innerHeight * 0.45;
+    focusY += (targetFocus - focusY) * 0.3;
+    const sigma = Math.max(90, innerHeight * 0.13);
+    const base = ledger.getBoundingClientRect().top;
+
+    // Natural (untransformed) geometry, measured from layout so there's no feedback loop
+    const vis = entries.filter(el => el.offsetParent).map(el => {
+      const top = base + el.offsetTop, h = el.offsetHeight, c = top + h / 2;
+      const g = Math.exp(-0.5 * ((c - focusY) / sigma) ** 2);
+      const s = MIN + (MAX - MIN) * g;
+      return { el, top, h, c, g, s, d: h * (s - 1) };
+    });
+    if (!vis.length) return;
+
+    // Cumulative displacement: keep the original gap between every pair of neighbours
+    vis[0].y = 0;
+    for (let i = 1; i < vis.length; i++) vis[i].y = vis[i - 1].y + (vis[i - 1].d + vis[i].d) / 2;
+
+    // Pin the content under the focus line so the zoom pivots around it
+    let k = -1;
+    for (let i = 0; i < vis.length; i++) if (vis[i].top <= focusY) k = i;
+    const off = k < 0 ? vis[0].y - vis[0].d / 2
+      : focusY <= vis[k].top + vis[k].h ? vis[k].y + (vis[k].s - 1) * (focusY - vis[k].c)
+      : vis[k].y + vis[k].d / 2;
+
+    let moving = Math.abs(targetFocus - focusY) > 0.5, best = vis[0];
+    const geo = new Map();
+    vis.forEach(v => {
+      const st = state.get(v.el);
+      const ty = v.y - off, to = FADE + (1 - FADE) * v.g;
+      st.s += (v.s - st.s) * 0.35; st.y += (ty - st.y) * 0.35; st.o += (to - st.o) * 0.35;
+      if (Math.abs(v.s - st.s) > 0.001 || Math.abs(ty - st.y) > 0.3) moving = true;
+      v.el.style.transform = `translate3d(0, ${st.y.toFixed(2)}px, 0) scale(${st.s.toFixed(4)})`;
+      v.el.style.opacity = st.o.toFixed(3);
+      // On-screen (transformed) box, used to place the year numerals
+      geo.set(v.el, { top: v.c + st.y - st.s * v.h / 2, bottom: v.c + st.y + st.s * v.h / 2, g: v.g });
+      if (v.g > best.g) best = v;
+    });
+
+    // Year numerals: scale by the group's closest entry, follow its moved entries, stick to the top
+    years.forEach(y => {
+      const boxes = y.entries.map(e => geo.get(e)).filter(Boolean);
+      if (!boxes.length) return;
+      const gMax = Math.max(...boxes.map(b => b.g));
+      const ts = YMIN + (YMAX - YMIN) * gMax, to = YFADE + (1 - YFADE) * gMax;
+      y.s += (ts - y.s) * 0.35; y.o += (to - y.o) * 0.35;
+      if (Math.abs(ts - y.s) > 0.001) moving = true;
+      const natural = base + y.col.offsetTop;
+      const h = y.slot.offsetHeight * y.s;
+      const top = Math.min(Math.max(boxes[0].top, STICK), boxes[boxes.length - 1].bottom - h);
+      y.slot.style.transform = `translate3d(0, ${(top - natural).toFixed(2)}px, 0) scale(${y.s.toFixed(4)})`;
+      y.slot.style.opacity = y.o.toFixed(3);
+    });
+
+    entries.forEach(el => el.classList.toggle('is-focus', el === best.el && best.g > 0.6));
+    document.querySelectorAll('.year-group').forEach(g => g.classList.toggle('is-focus', g.contains(best.el) && best.g > 0.6));
+    if (moving) kick();
+  }
+
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+</script>
+</body>
+</html>
