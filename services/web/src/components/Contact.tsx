@@ -62,7 +62,7 @@ export function Contact() {
               name="name"
               id="name"
               required
-              className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
+              className="w-full rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
             />
           </div>
           <div className="space-y-1 text-left">
@@ -77,7 +77,7 @@ export function Contact() {
               name="email"
               id="email"
               required
-              className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
+              className="w-full rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
             />
           </div>
         </div>
@@ -94,7 +94,7 @@ export function Contact() {
             id="message"
             rows={6}
             required
-            className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
+            className="w-full rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
           ></textarea>
         </div>
 
@@ -102,7 +102,7 @@ export function Contact() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="w-full rounded-lg bg-stone-900 px-8 py-2.5 font-mono text-xs font-medium text-stone-100 transition hover:opacity-90 disabled:opacity-50 dark:bg-stone-100 dark:text-stone-950 sm:w-auto"
+            className="w-full rounded-2xl bg-stone-900 px-8 py-2.5 font-mono text-xs font-medium text-stone-100 transition hover:opacity-90 disabled:opacity-50 dark:bg-stone-100 dark:text-stone-950 sm:w-auto"
           >
             {status === "submitting" ? "Sending..." : "Send Message"}
           </button>
@@ -123,25 +123,25 @@ export function Contact() {
       <div className="flex flex-wrap justify-center gap-2 border-t border-stone-200 pt-6 font-mono text-xs dark:border-stone-800">
         <Link
           href="/"
-          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+          className="rounded-xl border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
         >
           back to timeline
         </Link>
         <Link
           href="/art"
-          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+          className="rounded-xl border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
         >
           back to art
         </Link>
         <Link
           href="/philosophy"
-          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+          className="rounded-xl border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
         >
           back to philosophy
         </Link>
         <Link
           href="/resume"
-          className="rounded-md border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
+          className="rounded-xl border border-stone-200 px-3 py-1.5 text-stone-500 transition hover:border-stone-400 dark:border-stone-800 dark:text-stone-400"
         >
           view resume
         </Link>
