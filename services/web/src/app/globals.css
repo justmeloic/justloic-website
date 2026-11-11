@@ -111,3 +111,18 @@
 .org-logo-uottawa { height: 20px; color: #8f001a; }
 .dark .org-logo-uottawa { color: #e7e5e4; }
 .org-logo-uwindsor { height: 24px; }
+
+/* Organisation marks in filter pills */
+.org-logo-filter {
+  color: inherit;
+  align-items: center;
+}
+.org-logo-filter.org-logo-google { height: 14px; }
+.org-logo-filter.org-logo-goc { height: 13px; }
+.org-logo-filter.org-logo-uottawa { height: 14px; color: #8f001a; }
+.dark .org-logo-filter.org-logo-uottawa,
+[aria-pressed="true"] .org-logo-filter.org-logo-uottawa,
+[aria-pressed="true"] .org-logo-filter {
+  color: inherit;
+}
+.org-logo-filter.org-logo-uwindsor { height: 15px; }

@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CAREER, ORGS, TYPES, type CareerItem } from "@/data/career";
+import { CAREER, ORGS, TYPES, type CareerItem, type OrgKey } from "@/data/career";
 import { ORG_LOGOS } from "@/data/logos";
+
+const ORG_ORDER: OrgKey[] = ["google", "goc", "uottawa", "uwindsor"];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -134,7 +136,11 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
  * positioned from the same transforms, emulating position: sticky.
  * Transforms are written straight to the DOM from a rAF loop rather than via React state.
  */
-function useDock(ledgerRef: React.RefObject<HTMLDivElement | null>, fillRef: React.RefObject<HTMLDivElement | null>) {
+function useDock(
+  ledgerRef: React.RefObject<HTMLDivElement | null>,
+  fillRef: React.RefObject<HTMLDivElement | null>,
+  filterKey: string
+) {
   const kickRef = useRef<() => void>(() => {});
 
   useEffect(() => {
@@ -299,20 +305,63 @@ function useDock(ledgerRef: React.RefObject<HTMLDivElement | null>, fillRef: Rea
       removeEventListener("resize", onResize);
       reduce.removeEventListener("change", kick);
     };
-  }, [ledgerRef, fillRef]);
+  }, [ledgerRef, fillRef, filterKey]);
 
   return kickRef;
 }
 
 export function Timeline() {
+  const [activeType, setActiveType] = useState<string>("all");
+  const [activeOrg, setActiveOrg] = useState<string>("all");
   const [open, setOpen] = useState<Set<string>>(() => new Set());
   const ledgerRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
-  const kick = useDock(ledgerRef, fillRef);
+  const filterKey = `${activeType}:${activeOrg}`;
+  const kick = useDock(ledgerRef, fillRef, filterKey);
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: CAREER.length };
+    for (const it of CAREER) {
+      c[it.type] = (c[it.type] || 0) + 1;
+      c[it.org] = (c[it.org] || 0) + 1;
+    }
+    return c;
+  }, []);
+
+  const typeFilterDefs = useMemo(
+    () => [
+      { key: "all", label: "All", count: counts.all },
+      ...Object.entries(TYPES).map(([k, v]) => ({
+        key: k,
+        label: v.label,
+        count: counts[k] || 0,
+      })),
+    ],
+    [counts]
+  );
+
+  const orgFilterDefs = useMemo(
+    () =>
+      ORG_ORDER.map((k) => ({
+        key: k,
+        org: ORGS[k],
+        logo: ORG_LOGOS[k],
+        count: counts[k] || 0,
+      })),
+    [counts]
+  );
+
+  const filtered = useMemo(() => {
+    return CAREER.filter((it) => {
+      const matchType = activeType === "all" || it.type === activeType;
+      const matchOrg = activeOrg === "all" || it.org === activeOrg;
+      return matchType && matchOrg;
+    });
+  }, [activeType, activeOrg]);
 
   const groups = useMemo(() => {
     const map = new Map<string, CareerItem[]>();
-    [...CAREER]
+    [...filtered]
       .sort((a, b) => (toYear(anchor(b)) ?? 0) - (toYear(anchor(a)) ?? 0))
       .forEach((it) => {
         const a = anchor(it);
@@ -321,9 +370,17 @@ export function Timeline() {
         map.get(key)!.push(it);
       });
     return [...map];
-  }, []);
+  }, [filtered]);
 
-  useEffect(() => kick.current(), [open, kick]);
+  useEffect(() => kick.current(), [open, kick, filterKey]);
+
+  const selectType = (key: string) => {
+    setActiveType((prev) => (prev === key ? "all" : key));
+  };
+
+  const selectOrg = (key: string) => {
+    setActiveOrg((prev) => (prev === key ? "all" : key));
+  };
 
   const toggle = (id: string) =>
     setOpen((prev) => {
@@ -334,10 +391,107 @@ export function Timeline() {
     });
 
   return (
-    <section id="timeline" aria-labelledby="timeline-title" className="pt-12 scroll-mt-20">
+    <section id="timeline" aria-labelledby="timeline-title" className="pt-8 md:pt-12 scroll-mt-20">
       <h1 id="timeline-title" className="sr-only">
         Career timeline
       </h1>
+
+      <div
+        className="space-y-2.5 mb-8 md:mb-12 pl-0 md:pl-[8rem]"
+        role="group"
+        aria-label="Filter timeline"
+      >
+        {/* Row 1: Type */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">
+            Type
+          </span>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {typeFilterDefs.map(({ key, label, count }) => {
+              const active = activeType === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => selectType(key)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+                    active
+                      ? "bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium"
+                      : "border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100"
+                  }`}
+                >
+                  {label} <span className="opacity-50">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Row 2: Organization */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">
+            Org
+          </span>
+          <div className="flex flex-wrap items-center gap-1.5">
+            <button
+              type="button"
+              aria-pressed={activeOrg === "all"}
+              onClick={() => setActiveOrg("all")}
+              className={`px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+                activeOrg === "all"
+                  ? "bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium"
+                  : "border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100"
+              }`}
+            >
+              All <span className="opacity-50">{counts.all}</span>
+            </button>
+            {orgFilterDefs.map(({ key, logo, count }) => {
+              const active = activeOrg === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={active}
+                  aria-label={`Filter by ${logo.label} (${count})`}
+                  title={`Filter by ${logo.label} (${count})`}
+                  onClick={() => selectOrg(key)}
+                  className={`group inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+                    active
+                      ? "bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium"
+                      : "border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100"
+                  }`}
+                >
+                  <span
+                    className={`org-logo org-logo-filter org-logo-${key}`}
+                    role="img"
+                    aria-hidden="true"
+                    dangerouslySetInnerHTML={{ __html: logo.svg }}
+                  />
+                  <span className="opacity-50">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {filtered.length === 0 ? (
+        <div className="py-16 pl-0 md:pl-[8rem] text-stone-500 dark:text-stone-400 font-mono text-sm space-y-3">
+          <p>No entries match the selected filters.</p>
+          <button
+            type="button"
+            onClick={() => {
+              setActiveType("all");
+              setActiveOrg("all");
+            }}
+            className="text-xs uppercase tracking-wider underline text-rose-900 dark:text-rose-400 hover:opacity-80"
+          >
+            Reset all filters
+          </button>
+        </div>
+      ) : (
+
       <div ref={ledgerRef} className="ledger relative pb-16">
         <div
           className="absolute top-0 bottom-16 left-[4.5rem] md:left-[8rem] w-px bg-stone-300 dark:bg-stone-800"
@@ -364,6 +518,7 @@ export function Timeline() {
           </div>
         ))}
       </div>
+      )}
     </section>
   );
 }
