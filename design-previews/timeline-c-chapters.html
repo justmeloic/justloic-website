@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline C: Chapters — Loïc Muhirwa</title>
+  <script>if (localStorage.getItem('jl-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        fontFamily: { serif: ['Newsreader', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+        colors: { ink: { 900: '#1A1816' }, bronze: { DEFAULT: '#B4884D' } }
+      } }
+    }
+  </script>
+  <script src="timeline-data.js"></script>
+  <style>
+    #bigYear { font-variant-numeric: tabular-nums; transition: color .6s ease; }
+    .card { opacity: .25; transform: translateX(12px); transition: opacity .5s ease, transform .5s ease; }
+    .chapter.active .card { opacity: 1; transform: none; }
+    .chapter .lede { transition: opacity .5s ease; opacity: .35; }
+    .chapter.active .lede { opacity: 1; }
+  </style>
+</head>
+<body class="bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF] font-sans antialiased transition-colors duration-300">
+
+  <div class="fixed top-0 inset-x-0 z-50 bg-[#1A1816]/95 text-stone-300 text-xs py-2 px-4 backdrop-blur flex justify-between items-center border-b border-stone-800">
+    <div class="flex items-center gap-2">
+      <span class="font-mono bg-red-950/80 text-rose-300 px-2 py-0.5 rounded border border-rose-800/60 font-semibold">TIMELINE C</span>
+      <span class="font-medium text-stone-200 hidden sm:inline">Chapters · scroll-driven narrative</span>
+    </div>
+    <div class="flex items-center gap-3 sm:gap-4">
+      <a href="timeline-a-ledger.html" class="hover:text-white">A</a>
+      <a href="timeline-b-swimlanes.html" class="hover:text-white">B</a>
+      <a href="timeline-c-chapters.html" class="text-white underline">C</a>
+      <a href="timeline-d-trajectory.html" class="hover:text-white">D</a>
+      <a href="timeline-index.html" class="hover:text-white">Timelines</a>
+      <button id="themeBtn" class="bg-stone-800 hover:bg-stone-700 px-2.5 py-1 rounded text-stone-200 font-mono">🌓</button>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <header class="min-h-[78vh] flex flex-col justify-end max-w-6xl mx-auto px-6 pb-16 pt-28">
+    <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">02 / Career</span>
+    <h1 class="font-serif text-5xl md:text-7xl tracking-tight leading-[1.02] text-ink-900 dark:text-stone-100 mt-3 max-w-4xl">
+      From survey statistics to <span class="italic text-rose-900 dark:text-rose-400">agents in production</span>, in five chapters.
+    </h1>
+    <div class="mt-10 flex items-center gap-3 font-mono text-xs text-stone-500">
+      <span class="inline-block w-px h-10 bg-stone-400 animate-pulse"></span> Scroll to begin
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-6 md:grid md:grid-cols-12 md:gap-12">
+    <!-- Sticky narrator -->
+    <aside class="md:col-span-5 sticky top-9 md:top-0 z-30 md:h-screen flex md:flex-col md:justify-center gap-4
+                  -mx-6 px-6 py-3 md:m-0 md:p-0 bg-[#FBF9F5]/95 dark:bg-[#121211]/95 md:bg-transparent md:dark:bg-transparent backdrop-blur md:backdrop-blur-0 border-b md:border-0 border-stone-200 dark:border-stone-800">
+      <div class="flex md:block items-baseline gap-4 w-full">
+        <div id="bigYear" class="font-serif leading-none tracking-tighter text-4xl md:text-[clamp(6rem,11vw,10rem)] text-stone-900 dark:text-stone-100">2017</div>
+        <div class="md:mt-6 min-w-0">
+          <p class="font-mono text-[11px] uppercase tracking-widest text-stone-500"><span id="chNum">Chapter I</span> <span class="hidden md:inline">· <span id="chSpan"></span></span></p>
+          <h2 id="chTitle" class="font-serif italic text-xl md:text-4xl text-ink-900 dark:text-stone-100 truncate md:whitespace-normal">Foundations</h2>
+        </div>
+      </div>
+      <nav id="rail" class="hidden md:flex flex-col gap-2 mt-10 w-full max-w-xs" aria-label="Chapters"></nav>
+    </aside>
+
+    <!-- Chapters -->
+    <main id="chapters" class="md:col-span-7"></main>
+  </div>
+
+  <footer class="max-w-6xl mx-auto px-6 py-24 text-center space-y-4">
+    <p class="font-serif italic text-2xl text-stone-500">To be continued.</p>
+    <a href="https://www.linkedin.com/in/lo%C3%AFc-muhirwa-b3a940242/" target="_blank" rel="noopener" class="inline-block text-xs font-mono border border-stone-300 dark:border-stone-700 px-4 py-2 rounded-full hover:border-stone-900 dark:hover:border-stone-100">Full history on LinkedIn ↗</a>
+  </footer>
+
+<script>
+(() => {
+  const C = window.CAREER, U = window.CareerUtil, esc = U.esc;
+  document.getElementById('themeBtn').onclick = () => {
+    const d = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('jl-theme', d ? 'dark' : 'light');
+  };
+
+  const chapterColor = (ch) => C.orgs[U.byId[ch.items[0]].org].color;
+
+  const card = (it) => {
+    const org = C.orgs[it.org];
+    if (it.type === 'publication' || it.type === 'award') {
+      return `
+        <div class="card flex gap-4 items-start py-3 pl-5 border-l-2" style="border-color:${it.type === 'award' ? '#B4884D' : org.color}">
+          <span class="mt-1.5 shrink-0 ${it.type === 'award' ? 'w-2.5 h-2.5 rotate-45 bg-bronze' : 'w-2.5 h-2.5 rounded-full border-2 border-stone-500'}"></span>
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-widest text-stone-400">${C.types[it.type].singular} · ${esc(U.fmt(it.date))}</p>
+            <p class="font-serif text-lg leading-snug text-ink-900 dark:text-stone-100">${it.link ? `<a class="hover:underline" target="_blank" rel="noopener" href="${it.link}">${esc(it.title)} ↗</a>` : esc(it.title)}</p>
+            <p class="text-xs text-stone-500">${esc(it.venue || '')}</p>
+          </div>
+        </div>`;
+    }
+    return `
+      <article class="card rounded-2xl bg-white dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800 p-6 shadow-sm space-y-3">
+        <div class="flex items-center justify-between gap-3 font-mono text-[11px]">
+          <span class="text-stone-500">${esc(U.range(it))}${it.approx ? ' ≈' : ''}</span>
+          <span class="px-2 py-0.5 rounded-full text-white text-[10px] uppercase tracking-wider" style="background:${org.color}">${C.types[it.type].singular}</span>
+        </div>
+        <h3 class="font-serif text-2xl leading-snug text-ink-900 dark:text-stone-100">${esc(it.title)}</h3>
+        <p class="text-xs text-stone-500 -mt-2">${esc(org.name)}${it.location ? ' · ' + esc(it.location) : ''}</p>
+        <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">${esc(it.summary || '')}</p>
+        ${it.bullets?.length ? `<ul class="space-y-1 text-sm text-stone-700 dark:text-stone-300">${it.bullets.map(b => `<li class="flex gap-2"><span style="color:${org.color}">—</span><span>${esc(b)}</span></li>`).join('')}</ul>` : ''}
+        ${it.link ? `<a href="${it.link}" target="_blank" rel="noopener" class="inline-block text-xs font-mono text-rose-900 dark:text-rose-400 hover:underline">Read more ↗</a>` : ''}
+      </article>`;
+  };
+
+  const main = document.getElementById('chapters'), rail = document.getElementById('rail');
+  C.chapters.forEach((ch, i) => {
+    main.insertAdjacentHTML('beforeend', `
+      <section id="ch-${ch.id}" data-i="${i}" class="chapter min-h-screen py-[22vh] space-y-6">
+        <p class="font-mono text-xs uppercase tracking-widest" style="color:${chapterColor(ch)}">${ch.numeral} · ${esc(ch.span)}</p>
+        <p class="lede font-serif text-3xl md:text-4xl leading-tight text-ink-900 dark:text-stone-100">${esc(ch.lede)}</p>
+        <div class="space-y-4 pt-4">${ch.items.map(id => card(U.byId[id])).join('')}</div>
+      </section>`);
+    rail.insertAdjacentHTML('beforeend', `
+      <a href="#ch-${ch.id}" class="group grid grid-cols-[2rem_1fr] items-center gap-3">
+        <span class="font-mono text-[11px] text-stone-400 group-hover:text-stone-900 dark:group-hover:text-stone-100">${ch.numeral}</span>
+        <span class="space-y-1">
+          <span class="block text-xs text-stone-500 group-hover:text-stone-900 dark:group-hover:text-stone-100 rail-label">${esc(ch.title)}</span>
+          <span class="block h-[2px] bg-stone-200 dark:bg-stone-800 rounded overflow-hidden"><span class="rail-fill block h-full w-0" style="background:${chapterColor(ch)}"></span></span>
+        </span>
+      </a>`);
+  });
+
+  const sections = [...document.querySelectorAll('.chapter')];
+  const fills = [...rail.querySelectorAll('.rail-fill')], labels = [...rail.querySelectorAll('.rail-label')];
+  const bigYear = document.getElementById('bigYear'), chNum = document.getElementById('chNum'), chTitle = document.getElementById('chTitle'), chSpan = document.getElementById('chSpan');
+  let current = -1;
+
+  const update = () => {
+    const mid = innerHeight * 0.5;
+    let idx = 0, p = 0;
+    sections.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      if (r.top <= mid) { idx = i; p = Math.min(1, Math.max(0, (mid - r.top) / r.height)); }
+    });
+    const ch = C.chapters[idx];
+    if (idx !== current) {
+      current = idx;
+      sections.forEach((s, i) => s.classList.toggle('active', i === idx));
+      chNum.textContent = `Chapter ${ch.numeral}`;
+      chTitle.textContent = ch.title;
+      chSpan.textContent = ch.span;
+      bigYear.style.color = chapterColor(ch);
+      labels.forEach((l, i) => l.classList.toggle('!text-stone-900', i === idx));
+      labels.forEach((l, i) => l.classList.toggle('dark:!text-stone-100', i === idx));
+    }
+    // Year counts through the chapter as you scroll
+    if (!ch.start) bigYear.textContent = '≤2017';
+    else {
+      const a = U.toYear(ch.start), b = U.toYear(ch.end || C.now);
+      bigYear.textContent = Math.floor(a + p * (b - a));
+    }
+    fills.forEach((f, i) => f.style.width = (i < idx ? 100 : i === idx ? p * 100 : 0) + '%');
+  };
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+</script>
+</body>
+</html>
