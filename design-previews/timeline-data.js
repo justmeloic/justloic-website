@@ -56,10 +56,10 @@ window.CAREER = {
     // ── Roles · Government of Canada ───────────────────────────────
     {
       id: "goc-staff",
-      short: "Staff MLE",
+      short: "Staff MLE & TLM",
       type: "role",
       org: "goc",
-      title: "Staff Machine Learning Engineer",
+      title: "Staff Machine Learning Engineer & Tech-Lead Manager",
       start: "2022-05",
       end: "2024-02",
       level: 4,

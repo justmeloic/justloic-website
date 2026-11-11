@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github, Gitlab, Linkedin } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
-import { GITHUB_URL, GITLAB_URL, LINKEDIN_URL, RESUME_URL } from "@/data/site";
+import { GITHUB_URL, LINKEDIN_URL, RESUME_URL } from "@/data/site";
 
 
 const LINKS = [
@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/art", label: "Art" },
   { href: "/philosophy", label: "Philosophy" },
   { href: "/contact", label: "Contact" },
+  { href: "/resume", label: "Resume" },
 ];
 
 export function Navbar() {
@@ -34,14 +35,6 @@ export function Navbar() {
           </Link>
         );
       })}
-      <a
-        href={RESUME_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="whitespace-nowrap hover:text-stone-900 dark:hover:text-stone-100 transition"
-      >
-        Resume ↗
-      </a>
     </nav>
   );
 
@@ -74,16 +67,6 @@ export function Navbar() {
             title="GitHub"
           >
             <Github size={15} />
-          </a>
-          <a
-            href={GITLAB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-1.5 rounded-full border border-stone-300 dark:border-stone-700 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-900 dark:hover:text-stone-100 transition text-stone-600 dark:text-stone-300 inline-flex items-center justify-center"
-            aria-label="GitLab profile"
-            title="GitLab"
-          >
-            <Gitlab size={15} />
           </a>
         </div>
       </div>

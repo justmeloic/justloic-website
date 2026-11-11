@@ -1,4 +1,4 @@
-import { GITHUB_URL, GITLAB_URL, LINKEDIN_URL } from "@/data/site";
+import { GITHUB_URL, LINKEDIN_URL } from "@/data/site";
 
 export function Footer() {
   return (
@@ -20,14 +20,6 @@ export function Footer() {
           className="hover:text-stone-900 dark:hover:text-stone-100 transition"
         >
           GitHub
-        </a>
-        <a
-          href={GITLAB_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-stone-900 dark:hover:text-stone-100 transition"
-        >
-          GitLab
         </a>
         <a
           href="/contact"

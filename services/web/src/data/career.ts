@@ -110,10 +110,10 @@ export const CAREER: CareerItem[] = [
   },
   {
     id: "goc-staff",
-    short: "Staff MLE",
+    short: "Staff MLE & TLM",
     type: "role",
     org: "goc",
-    title: "Staff Machine Learning Engineer",
+    title: "Staff Machine Learning Engineer & Tech-Lead Manager",
     start: "2022-05",
     end: "2024-02",
     summary: "Led a team of AI & ML engineers and researchers delivering AI research, development and consultancy for federal clients.",
