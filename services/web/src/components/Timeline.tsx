@@ -143,12 +143,12 @@ function useDock(ledgerRef: React.RefObject<HTMLDivElement | null>, fillRef: Rea
     if (!ledger || !fill) return;
 
     const STICK = 80; // below the sticky site header
-    const FADE = 0.12;
-    const YFADE = 0.18;
+    const FADE = 0.35;
+    const YFADE = 0.35;
     let MAX = 1, MIN = 1, YMAX = 1, YMIN = 1;
     const tune = () => {
       const wide = innerWidth >= 768;
-      [MAX, MIN, YMAX, YMIN] = wide ? [1.65, 0.5, 1.6, 0.4] : [1.3, 0.7, 1.3, 0.55];
+      [MAX, MIN, YMAX, YMIN] = wide ? [1.35, 0.75, 1.3, 0.65] : [1.15, 0.85, 1.15, 0.75];
       // Entries rest at 1/MAX of the column so the magnified one fills it exactly
       ledger.style.setProperty("--dock-max", String(MAX));
     };
@@ -198,7 +198,7 @@ function useDock(ledgerRef: React.RefObject<HTMLDivElement | null>, fillRef: Rea
 
       const targetFocus = pointerY ?? innerHeight * 0.45;
       focusY += (targetFocus - focusY) * 0.3;
-      const sigma = Math.max(90, innerHeight * 0.13);
+      const sigma = Math.max(110, innerHeight * 0.17);
       const base = lr.top;
 
       // Natural (untransformed) geometry, measured from layout so there's no feedback loop
