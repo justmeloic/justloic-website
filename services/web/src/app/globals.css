@@ -162,6 +162,184 @@ main:has(.resume-sheet) + div > footer {
   border-top-width: 0;
 }
 
+/* ── Art cover flows ────────────────────────────────────────────
+   Cover positions are written per-frame from JS as multiples of --cf-w. */
+.cf-stage {
+  --cf-stage-h: clamp(320px, 56vh, 560px);
+  --cf-w: min(345px, calc(var(--cf-stage-h) * 0.45), 50vw);
+  --cf-h: calc(var(--cf-w) / 3 * 4);
+  position: relative;
+  isolation: isolate;
+  height: var(--cf-stage-h);
+  /* Break out of the page column: the covers fan across the whole window */
+  margin-inline: calc(50% - 50vw);
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+.cf-stage[data-dragging],
+.cf-stage[data-dragging] .cf-cover {
+  cursor: grabbing;
+}
+.cf-stage:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(153, 27, 27, 0.35);
+}
+
+/* A cover is the drawing, its mirror image on the "floor", and a veil that fades it into the page */
+.cf-cover {
+  position: absolute;
+  left: 50%;
+  top: 41%;
+  width: var(--cf-w);
+  height: var(--cf-h);
+  margin: calc(var(--cf-h) / -2) 0 0 calc(var(--cf-w) / -2);
+  will-change: transform;
+  cursor: pointer;
+}
+.cf-cover[data-current] {
+  cursor: zoom-in;
+}
+.cf-cover img {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+  background: #e7e5e4;
+  -webkit-user-drag: none;
+}
+.cf-face {
+  top: 0;
+  outline: 1px solid rgba(26, 24, 22, 0.1);
+  box-shadow: 0 24px 40px -22px rgba(26, 24, 22, 0.45);
+}
+.dark .cf-face {
+  outline-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.9);
+}
+.cf-mirror {
+  top: 100%;
+  margin-top: 3px;
+  transform: scaleY(-1);
+  opacity: 0.3;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 45%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 45%);
+}
+.cf-veil {
+  position: absolute;
+  inset: -1px -1px -100% -1px;
+  background: #fbf9f5;
+  opacity: 0;
+  pointer-events: none;
+  transition: background-color 0.3s ease;
+}
+.dark .cf-veil {
+  background: #121211;
+}
+
+.cf-scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+.cf-scrub::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: #d6d3d1;
+}
+.cf-scrub::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+  background: #d6d3d1;
+}
+.dark .cf-scrub::-webkit-slider-runnable-track {
+  background: #44403c;
+}
+.dark .cf-scrub::-moz-range-track {
+  background: #44403c;
+}
+.cf-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 36px;
+  height: 10px;
+  margin-top: -4px;
+  border-radius: 9999px;
+  background: #1a1816;
+}
+.cf-scrub::-moz-range-thumb {
+  width: 36px;
+  height: 10px;
+  border: 0;
+  border-radius: 9999px;
+  background: #1a1816;
+}
+.dark .cf-scrub::-webkit-slider-thumb {
+  background: #e7e5e4;
+}
+.dark .cf-scrub::-moz-range-thumb {
+  background: #e7e5e4;
+}
+.cf-scrub:focus-visible {
+  outline: 2px solid #991b1b;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ── Art zoom viewer ────────────────────────────────────────────
+   The picture's position and transform are written from JS. */
+.av {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(12, 11, 10, 0);
+  transition: background-color 0.35s ease;
+  touch-action: none;
+  overscroll-behavior: contain;
+}
+.av.on {
+  background: rgba(12, 11, 10, 0.94);
+}
+.av-img {
+  position: absolute;
+  max-width: none;
+  transform-origin: 0 0;
+  border-radius: 4px;
+  background: #e7e5e4;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform, opacity;
+}
+.av-img.anim {
+  transition:
+    transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.2s ease;
+}
+.av-ui {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.av.on .av-ui {
+  opacity: 1;
+  transition-delay: 0.12s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .av,
+  .av-img.anim,
+  .av-ui {
+    transition: none;
+  }
+}
+
 /* ── Print / PDF Styles ────────────────────────────────────────── */
 @media print {
   /* Hide interactive chrome */

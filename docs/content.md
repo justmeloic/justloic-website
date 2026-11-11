@@ -43,7 +43,7 @@ The data tests fail if an org is missing a logo.
 
 | Page        | File                                                                                   |
 | ----------- | -------------------------------------------------------------------------------------- |
-| Art         | [`src/components/ArtGallery.tsx`](../services/web/src/components/ArtGallery.tsx)       |
+| Art         | [`src/data/art.ts`](../services/web/src/data/art.ts) (series and pieces)               |
 | Philosophy  | [`src/components/Philosophy.tsx`](../services/web/src/components/Philosophy.tsx)       |
 | Contact     | [`src/components/Contact.tsx`](../services/web/src/components/Contact.tsx) (Formspree) |
 | Resume      | [`src/app/resume/page.tsx`](../services/web/src/app/resume/page.tsx)                   |
