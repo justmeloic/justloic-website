@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline B: Swimlanes — Loïc Muhirwa</title>
+  <script>if (localStorage.getItem('jl-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        fontFamily: { serif: ['Newsreader', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+        colors: { ink: { 900: '#1A1816' }, bronze: { DEFAULT: '#B4884D' } }
+      } }
+    }
+  </script>
+  <script src="timeline-data.js"></script>
+  <style>
+    .pos { transition: left .6s cubic-bezier(.2,.8,.2,1), width .6s cubic-bezier(.2,.8,.2,1), opacity .3s; }
+    .bar[aria-pressed="true"] { outline: 2px solid currentColor; outline-offset: 2px; }
+    .dark .bar.soft { filter: brightness(1.9) saturate(1.1); }
+    .bar.outside { overflow: visible; }
+    .bar.outside > span:first-child { position: absolute; top: 0; left: calc(100% + 6px); color: var(--c) !important; }
+    .bar.outside-left > span:first-child { left: auto; right: calc(100% + 6px); }
+    .fade-left { -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%); mask-image: linear-gradient(90deg, transparent, #000 45%); }
+  </style>
+</head>
+<body class="bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF] font-sans antialiased transition-colors duration-300">
+
+  <div class="fixed top-0 inset-x-0 z-50 bg-[#1A1816]/95 text-stone-300 text-xs py-2 px-4 backdrop-blur flex justify-between items-center border-b border-stone-800">
+    <div class="flex items-center gap-2">
+      <span class="font-mono bg-red-950/80 text-rose-300 px-2 py-0.5 rounded border border-rose-800/60 font-semibold">TIMELINE B</span>
+      <span class="font-medium text-stone-200 hidden sm:inline">Swimlanes · overlapping horizontal</span>
+    </div>
+    <div class="flex items-center gap-3 sm:gap-4">
+      <a href="timeline-a-ledger.html" class="hover:text-white">A</a>
+      <a href="timeline-b-swimlanes.html" class="text-white underline">B</a>
+      <a href="timeline-c-chapters.html" class="hover:text-white">C</a>
+      <a href="timeline-d-trajectory.html" class="hover:text-white">D</a>
+      <a href="timeline-index.html" class="hover:text-white">Timelines</a>
+      <button id="themeBtn" class="bg-stone-800 hover:bg-stone-700 px-2.5 py-1 rounded text-stone-200 font-mono">🌓</button>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-6 pt-28 pb-24 space-y-8">
+    <header class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="space-y-3">
+        <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">02 / Career</span>
+        <h1 class="font-serif text-4xl md:text-5xl tracking-tight leading-[1.08] text-ink-900 dark:text-stone-100">
+          Parallel <span class="italic text-rose-900 dark:text-rose-400">tracks</span>, one trajectory.
+        </h1>
+        <p class="text-sm text-stone-600 dark:text-stone-400 max-w-xl font-light leading-relaxed">
+          Roles, study, projects and milestones on one time axis. Hover to scrub, click any bar for details.
+        </p>
+      </div>
+      <div class="flex flex-col items-start md:items-end gap-3">
+        <div class="inline-flex rounded-lg border border-stone-300 dark:border-stone-700 p-0.5 font-mono text-[11px]" role="group" aria-label="Zoom">
+          <button data-zoom="all" aria-pressed="true" class="zoom px-3 py-1.5 rounded-md aria-pressed:bg-stone-900 aria-pressed:text-stone-100 dark:aria-pressed:bg-stone-100 dark:aria-pressed:text-stone-900">Full span</button>
+          <button data-zoom="goc" aria-pressed="false" class="zoom px-3 py-1.5 rounded-md aria-pressed:bg-stone-900 aria-pressed:text-stone-100 dark:aria-pressed:bg-stone-100 dark:aria-pressed:text-stone-900">Canada era</button>
+          <button data-zoom="google" aria-pressed="false" class="zoom px-3 py-1.5 rounded-md aria-pressed:bg-stone-900 aria-pressed:text-stone-100 dark:aria-pressed:bg-stone-100 dark:aria-pressed:text-stone-900">Google era</button>
+        </div>
+        <div id="legend" class="flex flex-wrap gap-3 font-mono text-[11px] text-stone-500"></div>
+      </div>
+    </header>
+
+    <!-- Chart -->
+    <div class="rounded-2xl bg-white dark:bg-stone-900/50 border border-stone-200/80 dark:border-stone-800 shadow-sm overflow-x-auto">
+      <div class="min-w-[860px] grid grid-cols-[9.5rem_1fr]">
+        <div id="laneLabels" class="border-r border-stone-200 dark:border-stone-800"></div>
+        <div id="plot" class="relative overflow-hidden select-none cursor-crosshair">
+          <div id="ticks" class="absolute inset-0 pointer-events-none"></div>
+          <div id="lanes" class="relative"></div>
+          <div id="cursor" class="absolute top-0 bottom-0 w-px bg-stone-900/40 dark:bg-stone-100/40 pointer-events-none opacity-0 transition-opacity">
+            <span id="cursorLabel" class="absolute top-1 left-1.5 whitespace-nowrap font-mono text-[10px] bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 px-1.5 py-0.5 rounded"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Readout + details -->
+    <div class="grid md:grid-cols-12 gap-6">
+      <aside class="md:col-span-4 rounded-2xl border border-dashed border-stone-300 dark:border-stone-700 p-6 space-y-3">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-stone-400">At cursor</span>
+        <p id="readoutDate" class="font-serif text-3xl text-ink-900 dark:text-stone-100">—</p>
+        <ul id="readoutList" class="space-y-1.5 text-sm text-stone-600 dark:text-stone-400"><li class="italic font-serif">Move across the chart.</li></ul>
+      </aside>
+      <section id="detail" class="md:col-span-8 rounded-2xl bg-white dark:bg-stone-900/50 border border-stone-200/80 dark:border-stone-800 p-8 shadow-sm min-h-[14rem]" aria-live="polite"></section>
+    </div>
+  </main>
+
+<script>
+(() => {
+  const C = window.CAREER, U = window.CareerUtil, esc = U.esc;
+  document.getElementById('themeBtn').onclick = () => {
+    const d = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('jl-theme', d ? 'dark' : 'light');
+  };
+
+  const NOW = U.toYear(C.now);
+  const ZOOMS = { all: [2015.5, NOW + 0.6], goc: [2017.25, 2024.5], google: [2023.75, NOW + 0.35] };
+  let [x0, x1] = ZOOMS.all;
+  const pct = (t) => ((t - x0) / (x1 - x0)) * 100;
+
+  const LANES = [
+    { id: 'google', label: 'Google', sub: 'Roles', filter: it => it.type === 'role' && it.org === 'google' },
+    { id: 'goc', label: 'Gov. of Canada', sub: 'Statistics Canada', filter: it => it.type === 'role' && it.org === 'goc' },
+    { id: 'edu', label: 'Education', sub: 'Windsor · Ottawa', filter: it => it.type === 'education' },
+    { id: 'proj', label: 'Projects', sub: 'Led / core', filter: it => it.type === 'project' },
+    { id: 'miles', label: 'Milestones', sub: 'Papers · awards', filter: it => it.type === 'publication' || it.type === 'award', points: true },
+  ];
+
+  // Greedy row packing so overlapping bars stack within a lane
+  const pack = (items) => {
+    const rows = [];
+    items.sort((a, b) => (U.toYear(a.start) ?? -1e9) - (U.toYear(b.start) ?? -1e9)).forEach(it => {
+      const s = U.toYear(it.start) ?? -1e9;
+      let r = rows.findIndex(end => end <= s);
+      if (r === -1) { r = rows.length; rows.push(0); }
+      rows[r] = U.toYear(it.end || C.now);
+      it._row = r;
+    });
+    return Math.max(rows.length, 1);
+  };
+
+  const ROW_H = 34, PAD = 14;
+  const laneLabels = document.getElementById('laneLabels'), lanesEl = document.getElementById('lanes');
+  const bars = [];
+
+  LANES.forEach((lane, li) => {
+    const items = C.items.filter(lane.filter).map(it => ({ ...it }));
+    const nRows = lane.points ? 1 : pack(items);
+    const h = nRows * ROW_H + PAD * 2;
+    const border = li ? 'border-t border-stone-200 dark:border-stone-800' : '';
+    laneLabels.insertAdjacentHTML('beforeend', `
+      <div class="${border} px-4 flex flex-col justify-center" style="height:${h}px">
+        <span class="font-serif text-lg leading-tight text-ink-900 dark:text-stone-100">${lane.label}</span>
+        <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider">${lane.sub}</span>
+      </div>`);
+    const row = document.createElement('div');
+    row.className = `relative ${border}`;
+    row.style.height = h + 'px';
+    items.forEach(it => {
+      const col = C.orgs[it.org].color;
+      const el = document.createElement('button');
+      el.dataset.id = it.id;
+      el.dataset.type = it.type;
+      el.setAttribute('aria-pressed', 'false');
+      el.title = `${it.title} · ${U.range(it)}`;
+      if (lane.points) {
+        el.className = `bar ${it.type === 'publication' ? 'soft' : ''} pos absolute -translate-x-1/2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full hover:bg-stone-100 dark:hover:bg-stone-800`;
+        el.style.color = col;
+        el.innerHTML = it.type === 'award'
+          ? `<span class="block w-3 h-3 rotate-45 bg-bronze"></span>`
+          : `<span class="block w-2.5 h-2.5 rounded-full border-2" style="border-color:${col}"></span>`;
+        el._t0 = U.toYear(it.date); el._t1 = null;
+      } else {
+        const filled = it.type === 'role';
+        el.className = `bar pos absolute rounded-md text-left px-2 overflow-hidden whitespace-nowrap text-ellipsis text-[11px] font-medium leading-[24px] h-6 hover:brightness-110 ${filled ? '' : 'soft'} ${it.start ? '' : 'fade-left text-right'}`;
+        el.style.top = (PAD + it._row * ROW_H + 2) + 'px';
+        el.style.color = col;
+        el.style.setProperty('--c', col);
+        el.style.background = filled ? col : (it.type === 'education' ? `repeating-linear-gradient(135deg, ${col}22 0 6px, ${col}11 6px 12px)` : `${col}1f`);
+        el.style.boxShadow = filled ? 'none' : `inset 0 0 0 1px ${col}66`;
+        el.innerHTML = `<span class="${filled ? 'text-white' : ''}">${esc(it.short || it.title)}${it.side ? ' · 20%' : ''}</span>`;
+        el._t0 = it.start ? U.toYear(it.start) : x0 - 3; el._t1 = U.toYear(it.end || C.now) + 1 / 12;
+        if (!it.end) el.insertAdjacentHTML('beforeend', `<span class="absolute right-1 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>`);
+      }
+      row.appendChild(el); bars.push(el);
+    });
+    lanesEl.appendChild(row);
+  });
+
+  // Ticks
+  const ticksEl = document.getElementById('ticks');
+  const drawTicks = () => {
+    let html = '';
+    for (let y = Math.ceil(x0); y <= Math.floor(x1); y++) {
+      html += `<div class="pos absolute top-0 bottom-0 border-l border-stone-200/80 dark:border-stone-800/80" style="left:${pct(y)}%">
+                 <span class="absolute bottom-1 left-1 font-mono text-[10px] text-stone-400">${y}</span></div>`;
+    }
+    html += `<div class="pos absolute top-0 bottom-0 border-l-2 border-dashed border-rose-900/50 dark:border-rose-400/50" style="left:${pct(NOW + 1/12)}%">
+               <span class="absolute top-1 -translate-x-full -ml-1 font-mono text-[10px] text-rose-900 dark:text-rose-400">now</span></div>`;
+    ticksEl.innerHTML = html;
+  };
+
+  const plotEl = document.getElementById('plot');
+  const layout = () => {
+    const pw = plotEl.clientWidth;
+    bars.forEach(el => {
+      el.style.left = pct(el._t0) + '%';
+      if (el._t1 === null) return;
+      el.style.width = Math.max(0.6, pct(el._t1) - pct(el._t0) - 0.25) + '%';
+      // Too narrow for its label? Put the label beside the bar if nothing follows it in the row.
+      const labelW = el.firstElementChild.offsetWidth + 18;
+      const barW = (pct(el._t1) - pct(el._t0)) / 100 * pw;
+      const sameRow = bars.filter(o => o !== el && o.parentElement === el.parentElement && o.style.top === el.style.top);
+      const roomRight = (100 - pct(el._t1)) / 100 * pw > labelW &&
+        !sameRow.some(o => o._t0 >= el._t1 - 0.01 && (pct(o._t0) - pct(el._t1)) / 100 * pw < labelW);
+      const roomLeft = pct(el._t0) / 100 * pw > labelW &&
+        !sameRow.some(o => o._t1 <= el._t0 + 0.01 && (pct(el._t0) - pct(o._t1)) / 100 * pw < labelW);
+      const narrow = barW < labelW;
+      el.classList.toggle('outside', narrow && (roomRight || roomLeft));
+      el.classList.toggle('outside-left', narrow && !roomRight && roomLeft);
+    });
+    drawTicks();
+  };
+  layout();
+  addEventListener('resize', layout);
+  document.fonts?.ready.then(layout);
+
+  // Legend
+  document.getElementById('legend').innerHTML = [
+    `<span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm" style="background:${C.orgs.google.color}"></span>Google</span>`,
+    `<span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm" style="background:${C.orgs.goc.color}"></span>Gov. of Canada</span>`,
+    `<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full border-2 border-stone-500"></span>Publication</span>`,
+    `<span class="flex items-center gap-1.5"><span class="w-2 h-2 rotate-45 bg-bronze"></span>Award</span>`,
+  ].join('');
+
+  // Zoom
+  document.querySelectorAll('.zoom').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.zoom').forEach(o => o.setAttribute('aria-pressed', o === b));
+    [x0, x1] = ZOOMS[b.dataset.zoom];
+    layout();
+  });
+
+  // Detail panel
+  const detail = document.getElementById('detail');
+  const showDetail = (id) => {
+    const it = U.byId[id], org = C.orgs[it.org];
+    bars.forEach(b => b.setAttribute('aria-pressed', b.dataset.id === id));
+    detail.innerHTML = `
+      <div class="flex items-start justify-between gap-4">
+        <div class="space-y-1">
+          <span class="font-mono text-[10px] uppercase tracking-widest" style="color:${org.color}">${C.types[it.type].singular} · ${esc(org.name)}</span>
+          <h2 class="font-serif text-3xl leading-tight text-ink-900 dark:text-stone-100">${esc(it.title)}</h2>
+          <p class="font-mono text-xs text-stone-500">${esc(U.range(it))}${it.approx ? ' ≈' : ''}${it.location ? ' · ' + esc(it.location) : ''}${it.venue ? ' · ' + esc(it.venue) : ''}</p>
+        </div>
+        ${it.link ? `<a href="${it.link}" target="_blank" rel="noopener" class="shrink-0 text-xs font-mono border border-stone-300 dark:border-stone-700 px-3 py-1.5 rounded-full hover:border-stone-900 dark:hover:border-stone-100">Source ↗</a>` : ''}
+      </div>
+      <p class="mt-4 text-stone-700 dark:text-stone-300 leading-relaxed font-light">${esc(it.summary || '')}</p>
+      ${it.bullets?.length ? `<ul class="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-stone-600 dark:text-stone-400">${it.bullets.map(b => `<li class="flex gap-2"><span style="color:${org.color}">—</span>${esc(b)}</li>`).join('')}</ul>` : ''}
+      ${it.skills?.length ? `<div class="mt-5 flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">${it.skills.map(s => `<span class="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">${esc(s)}</span>`).join('')}</div>` : ''}`;
+  };
+  document.getElementById('lanes').addEventListener('click', e => { const b = e.target.closest('.bar'); if (b) showDetail(b.dataset.id); });
+  showDetail('google-fde');
+
+  // Cursor scrub
+  const plot = document.getElementById('plot'), cursor = document.getElementById('cursor'), cLabel = document.getElementById('cursorLabel');
+  const rDate = document.getElementById('readoutDate'), rList = document.getElementById('readoutList');
+  const fmtT = (t) => `${U.MONTHS[Math.min(11, Math.floor((t % 1) * 12))]} ${Math.floor(t)}`;
+  const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+  const scrub = (clientX) => {
+    const r = plot.getBoundingClientRect();
+    const f = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    const t = Math.min(NOW + 0.999 / 12, x0 + f * (x1 - x0));
+    cursor.style.left = (pct(t)) + '%'; cursor.style.opacity = 1;
+    cLabel.textContent = fmtT(t);
+    cLabel.style.transform = f > 0.85 ? 'translateX(calc(-100% - 12px))' : '';
+    const active = U.activeAt(t);
+    const done = C.items.filter(i => i.date && U.toYear(i.date) <= t);
+    rDate.textContent = fmtT(t);
+    rList.innerHTML = (active.length ? active : [{ title: 'Before the record', type: 'none', org: 'uwindsor' }]).map(a =>
+      `<li class="flex gap-2 items-baseline"><span class="w-2 h-2 rounded-full shrink-0 translate-y-[-1px]" style="background:${C.orgs[a.org].color}"></span><span><span class="text-stone-900 dark:text-stone-100">${esc(a.title)}</span>${a.type !== 'none' ? ` <span class="font-mono text-[10px] text-stone-400">${C.types[a.type].singular}</span>` : ''}</span></li>`
+    ).join('') + `<li class="pt-2 font-mono text-[11px] text-stone-400">${plural(done.filter(d => d.type === 'publication').length, 'publication')} · ${plural(done.filter(d => d.type === 'award').length, 'award')} to date</li>`;
+  };
+  plot.addEventListener('pointermove', e => scrub(e.clientX));
+  plot.addEventListener('pointerleave', () => cursor.style.opacity = 0);
+})();
+</script>
+</body>
+</html>
