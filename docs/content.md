@@ -58,6 +58,17 @@ Put images in `services/web/public/images/…` and reference them with an absolu
 commit hook rejects files over 1 MB. The post-build export check fails if a referenced image is
 missing.
 
+### Tab icon
+
+The browser tab icon lives in `services/web/src/app/` and Next.js adds the tags for it to every
+page automatically:
+
+- `icon.svg` — the drawing itself, used by current browsers.
+- `favicon.ico` — the same mark at 48, 32 and 16 px, for browsers that don't use the SVG.
+- `apple-icon.png` — 180 px with square corners, for the iOS home screen.
+
+If you change the drawing, re-export the other two from `icon.svg` so all three match.
+
 ## Adding a page
 
 Create `src/app/<name>/page.tsx` and add it to `LINKS` in `Navbar.tsx`. The export check picks up
