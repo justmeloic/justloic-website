@@ -1,7 +1,7 @@
 # Root Makefile for Polyglot Service Monorepo
 # Standard targets: help, setup, dev, test, check, clean
 
-.PHONY: help setup dev test check clean sync-types up down
+.PHONY: help setup dev test check clean sync-types up down build
 
 # Default target
 .DEFAULT_GOAL := help
@@ -39,6 +39,16 @@ dev: ## Start dev servers (displays usage or runs concurrently)
 			echo "  make -C $$service dev   # (starts $$name)"; \
 		fi \
 	done
+
+build: ## Build all services for production
+	@echo "$(BLUE)🔨 Building all services...$(NC)"
+	@for service in services/*; do \
+		if [ -d "$$service" ] && [ -f "$$service/Makefile" ]; then \
+			echo "$(GREEN)--> Building $$service$(NC)"; \
+			$(MAKE) -C "$$service" build || exit 1; \
+		fi \
+	done
+	@echo "$(GREEN)✅ All services built successfully!$(NC)"
 
 test: ## Run test suites across all services
 	@echo "$(BLUE)🧪 Running tests across all services...$(NC)"

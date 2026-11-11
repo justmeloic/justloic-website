@@ -1,7 +1,7 @@
 # Makefile for Python API Service
 # Implements the standard 5 service targets: setup, dev, test, check, clean
 
-.PHONY: help setup install env-check dev test check clean lint format typecheck
+.PHONY: help setup install env-check dev test check clean lint format typecheck build
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -25,6 +25,9 @@ env-check:
 
 dev: env-check ## Run development server with auto-reload
 	@$(UVICORN) src.main:app --reload --host 0.0.0.0 --port 8000
+
+build: ## Build API service (no-op)
+	@echo "API Service requires no build step"
 
 test: ## Run unit and integration tests
 	@$(PYTEST) tests/
