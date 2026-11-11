@@ -17,4 +17,97 @@
     background-color: #0F0E0E;
     color: #E7E5E4;
   }
+
+  /* The magnified timeline entry may extend past the column; never let it cause sideways scroll */
+  body {
+    overflow-x: clip;
+  }
 }
+
+/* ── Career timeline (Ledger) ───────────────────────────────────
+   Plain CSS (not @layer) so runtime class names like org-logo-<org> are never purged. */
+/* Dock-style magnification: transforms are written per-frame from JS */
+.ledger-entry {
+  transform-origin: 0 50%;
+  will-change: transform, opacity;
+  max-width: calc(100% / var(--dock-max, 1));
+}
+.ledger-year-slot {
+  transform-origin: 100% 0;
+  will-change: transform, opacity;
+}
+.ledger-toggle {
+  transition: background-color 0.25s ease;
+}
+.ledger-entry[data-focus] .ledger-toggle {
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(26, 24, 22, 0.06), 0 8px 24px -12px rgba(26, 24, 22, 0.18);
+}
+.dark .ledger-entry[data-focus] .ledger-toggle {
+  background: rgba(28, 25, 23, 0.7);
+  box-shadow: none;
+}
+.ledger-entry[data-focus] h3 {
+  color: #881337;
+}
+.dark .ledger-entry[data-focus] h3 {
+  color: #fb7185;
+}
+.ledger-year {
+  transition: color 0.3s ease;
+}
+.ledger-year-slot[data-focus] .ledger-year {
+  color: #1c1917;
+}
+.dark .ledger-year-slot[data-focus] .ledger-year {
+  color: #e7e5e4;
+}
+
+/* Expandable details */
+.ledger-drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+.ledger-drawer > div {
+  overflow: hidden;
+}
+[aria-expanded="true"] + .ledger-drawer {
+  grid-template-rows: 1fr;
+}
+[aria-expanded="true"] .ledger-chev {
+  transform: rotate(45deg);
+}
+
+/* Pulse on the current role */
+.ledger .live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: inherit;
+  animation: ledger-ping 1.8s ease-out infinite;
+}
+@keyframes ledger-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* Organisation marks */
+.org-logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: #1a1816;
+}
+.dark .org-logo {
+  color: #e7e5e4;
+}
+.org-logo svg {
+  height: 100%;
+  width: auto;
+}
+.org-logo-google { height: 16px; }
+.org-logo-goc { height: 18px; }
+.org-logo-uottawa { height: 20px; color: #8f001a; }
+.dark .org-logo-uottawa { color: #e7e5e4; }
+.org-logo-uwindsor { height: 24px; }
