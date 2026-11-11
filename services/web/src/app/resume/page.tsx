@@ -121,8 +121,9 @@ export default function ResumePage() {
             Machine Learning Engineer and Applied Researcher with a graduate foundation in
             mathematics and medical computer vision. Specializing in architecting and shipping
             large-scale enterprise Generative AI systems, autonomous agents, and production
-            inference platforms. Former federal ML team lead directing AI consultancy across
-            domestic and international agencies.
+            inference platforms. Previously a Tech Lead Manager in the Government of Canada, leading
+            the delivery of national-scale machine learning systems, from public health analytics
+            across the Canadian population to economic statistics across the country’s businesses.
           </p>
         </header>
 
@@ -130,7 +131,7 @@ export default function ResumePage() {
         <section className="space-y-8">
           <div className="flex items-baseline justify-between border-b border-stone-200 pb-2 dark:border-stone-800">
             <h2 className="font-mono text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
-              01 / Experience
+              Experience
             </h2>
           </div>
 
@@ -299,7 +300,7 @@ export default function ResumePage() {
         <section className="space-y-6">
           <div className="flex items-baseline justify-between border-b border-stone-200 pb-2 dark:border-stone-800">
             <h2 className="font-mono text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
-              02 / Education
+              Education
             </h2>
           </div>
 
@@ -356,7 +357,7 @@ export default function ResumePage() {
         <section className="space-y-6">
           <div className="flex items-baseline justify-between border-b border-stone-200 pb-2 dark:border-stone-800">
             <h2 className="font-mono text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
-              03 / Selected Research &amp; Publications
+              Selected Research &amp; Publications
             </h2>
           </div>
 
@@ -429,7 +430,7 @@ export default function ResumePage() {
         <section className="space-y-6">
           <div className="flex items-baseline justify-between border-b border-stone-200 pb-2 dark:border-stone-800">
             <h2 className="font-mono text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
-              04 / Awards
+              Awards
             </h2>
           </div>
 
