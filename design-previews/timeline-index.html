@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>justloic.com — Career Timeline Explorations</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif { font-family: 'Newsreader', serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#100F0E] text-stone-100 min-h-screen py-16 px-6">
+  <div class="max-w-5xl mx-auto space-y-12">
+
+    <header class="space-y-4 border-b border-stone-800 pb-8">
+      <a href="index.html" class="font-mono text-xs text-stone-500 hover:text-stone-300">← Design hub</a>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-rose-950/80 border border-rose-800/60 text-rose-300 ml-3">
+        <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+        Component: Interactive Career Timeline
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white">
+        Four ways to tell <span class="font-serif italic text-stone-300 font-normal">the career story</span>
+      </h1>
+      <p class="text-stone-400 text-sm max-w-2xl leading-relaxed">
+        All four use the Editorial Polymath palette and typography, support light and dark mode (the choice carries across pages), and read from one shared data file,
+        <code class="font-mono text-stone-300">timeline-data.js</code> (LinkedIn + justloic.com).
+      </p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <a href="timeline-a-ledger.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <!-- mini preview -->
+        <div class="h-36 rounded-xl bg-[#FBF9F5] p-4 flex gap-4 overflow-hidden">
+          <div class="w-12 text-right font-serif text-2xl text-stone-300 space-y-9 pt-1"><div>2024</div><div>2022</div></div>
+          <div class="relative border-l border-stone-300 pl-4 space-y-3 flex-1">
+            <div class="absolute -left-[1px] top-0 w-px h-2/3 bg-rose-900"></div>
+            <div><div class="h-1.5 w-16 bg-stone-300 rounded"></div><div class="h-3 w-40 bg-stone-800 rounded mt-1"></div></div>
+            <div><div class="h-1.5 w-20 bg-stone-300 rounded"></div><div class="h-3 w-32 bg-stone-800 rounded mt-1"></div></div>
+            <div><div class="h-1.5 w-14 bg-stone-300 rounded"></div><div class="h-3 w-44 bg-stone-500 rounded mt-1"></div></div>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">A · THE LEDGER</span>
+          <h3 class="text-xl font-bold text-white">Vertical editorial timeline</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">Sticky serif year numerals, a crimson spine that fills as you scroll, type filters (roles, education, projects, papers, awards) and accordion entries. The safest fit for the existing site.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+
+      <a href="timeline-b-swimlanes.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <div class="h-36 rounded-xl bg-[#FBF9F5] p-4 space-y-3 overflow-hidden relative">
+          <div class="flex gap-1"><div class="ml-[62%] h-3 w-[30%] rounded bg-[#B4884D]"></div></div>
+          <div class="flex gap-1"><div class="ml-[66%] h-3 w-[26%] rounded bg-[#B4884D]/40"></div></div>
+          <div class="flex gap-1"><div class="ml-[8%] h-3 w-[54%] rounded bg-[#881337]"></div></div>
+          <div class="flex gap-1"><div class="ml-[28%] h-3 w-[25%] rounded bg-stone-300"></div></div>
+          <div class="flex gap-6 ml-[18%]"><span class="w-2 h-2 rounded-full border-2 border-stone-500"></span><span class="w-2 h-2 rotate-45 bg-[#B4884D]"></span><span class="w-2 h-2 rounded-full border-2 border-stone-500"></span></div>
+          <div class="absolute top-0 bottom-0 left-[47%] w-px bg-stone-900/40"></div>
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">B · SWIMLANES</span>
+          <h3 class="text-xl font-bold text-white">Horizontal Gantt with overlaps</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">Lanes for Google, Government of Canada, education, projects and milestones. It shows concurrency clearly (MSc alongside full-time work, overlapping Google roles). Hover to scrub, zoom by era, click for details.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+
+      <a href="timeline-c-chapters.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <div class="h-36 rounded-xl bg-[#FBF9F5] p-4 grid grid-cols-5 gap-4 overflow-hidden">
+          <div class="col-span-2 flex flex-col justify-center">
+            <div class="font-serif text-5xl text-[#881337] leading-none">2021</div>
+            <div class="font-serif italic text-stone-700 text-sm mt-1">Learning Machines</div>
+          </div>
+          <div class="col-span-3 space-y-2 pt-1">
+            <div class="h-2.5 w-full bg-stone-700 rounded"></div><div class="h-2.5 w-4/5 bg-stone-700 rounded"></div>
+            <div class="h-10 rounded-lg bg-white border border-stone-200"></div>
+            <div class="h-6 rounded-lg bg-white border border-stone-200 opacity-50"></div>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">C · CHAPTERS</span>
+          <h3 class="text-xl font-bold text-white">Scroll-driven narrative</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">Five chapters (Foundations through Generative Frontier). A large year in the sticky panel counts forward as you scroll, with a chapter rail for navigation. The most literary and story-led option.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+
+      <a href="timeline-d-trajectory.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <div class="h-36 rounded-xl bg-[#FBF9F5] p-4 overflow-hidden">
+          <svg viewBox="0 0 300 110" class="w-full h-full">
+            <rect x="110" y="0" width="70" height="100" fill="#48433E" fill-opacity=".07"/>
+            <path d="M10,100 H50 V85 H110 V70 H150 V55 H180 V40 H230 V25 H238 V12 H290" fill="none" stroke="#1A1816" stroke-width="2"/>
+            <path d="M238,25 H275" stroke="#B4884D" stroke-width="2" stroke-dasharray="3 3" fill="none"/>
+            <line x1="160" x2="160" y1="0" y2="105" stroke="#881337" stroke-dasharray="2 2"/>
+            <circle cx="160" cy="55" r="4" fill="#881337"/>
+            <path d="M80,104 l3,-5 l3,5z M140,104 l3,-5 l3,5z" fill="#881337"/><rect x="120" y="99" width="5" height="5" fill="#B4884D" transform="rotate(45 122 101)"/>
+          </svg>
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">D · TRAJECTORY</span>
+          <h3 class="text-xl font-bold text-white">Career as a function f(t)</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">A journal-style "Fig. 1" step plot on graph paper, with a hatched MSc band and a rug of papers and awards. Scrub or press play to evaluate f(t), with a live state vector showing time in role, parallel work and running totals.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+    </div>
+
+    <div class="p-5 rounded-xl bg-stone-900/30 border border-stone-800 text-xs font-mono text-stone-400 space-y-1">
+      <p>Edit data once: <span class="text-stone-200">design-previews/timeline-data.js</span>. Every preview updates.</p>
+      <p>Dates marked <span class="text-amber-300">≈</span> are approximate (BSc dates, MSc start). Fill them in when you have them.</p>
+    </div>
+  </div>
+</body>
+</html>
