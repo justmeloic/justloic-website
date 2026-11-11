@@ -3,7 +3,7 @@ import { GITHUB_URL, LINKEDIN_URL } from "@/data/site";
 export function Footer() {
   return (
     <footer className="flex flex-col items-center justify-between gap-4 border-t border-stone-200 pb-12 pt-16 font-mono text-xs text-stone-400 dark:border-stone-800 sm:flex-row">
-      <p>© Loïc Muhirwa, 2023</p>
+      <p>© Loïc Muhirwa, 2026</p>
       <div className="flex items-center space-x-6">
         <a
           href={LINKEDIN_URL}
