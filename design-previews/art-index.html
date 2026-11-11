@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>justloic.com — Art Page Explorations</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif { font-family: 'Newsreader', serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .mini img { aspect-ratio: 3 / 4; object-fit: cover; }
+    .print { position: absolute; width: 4.25rem; padding: 3px; background: #fff; box-shadow: 0 6px 14px -6px rgba(26, 24, 22, .5); }
+  </style>
+</head>
+<body class="bg-[#100F0E] text-stone-100 min-h-screen py-16 px-6">
+  <div class="max-w-5xl mx-auto space-y-12">
+
+    <header class="space-y-4 border-b border-stone-800 pb-8">
+      <a href="index.html" class="font-mono text-xs text-stone-500 hover:text-stone-300">← Design hub</a>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-rose-950/80 border border-rose-800/60 text-rose-300 ml-3">
+        <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+        Page: Art
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white">
+        Five ways to show <span class="font-serif italic text-stone-300 font-normal">the drawings</span>
+      </h1>
+      <p class="text-stone-400 text-sm max-w-2xl leading-relaxed">
+        All five use the real drawings, the site's palette and typography, and light and dark mode (the choice carries across pages). They read from one shared file,
+        <code class="font-mono text-stone-300">art-data.js</code>, and open a piece into the same viewer: it grows out of whatever you clicked, <span class="font-mono text-stone-300">← →</span> or a swipe steps through, <span class="font-mono text-stone-300">Esc</span> closes.
+      </p>
+    </header>
+
+    <!-- A: the one that was asked for -->
+    <a href="art-a-coverflow.html" class="group grid md:grid-cols-2 gap-6 rounded-3xl bg-gradient-to-br from-rose-950/40 via-stone-900 to-stone-900 border-2 border-rose-600/60 p-6 md:p-8 hover:border-rose-500 transition">
+      <div class="mini h-52 rounded-xl bg-[#FBF9F5] overflow-hidden flex items-center justify-center" style="perspective: 700px">
+        <img src="images/art/faces/2-low-res.jpg" alt="" class="h-28 -mr-9 opacity-50" style="transform: rotateY(58deg)">
+        <img src="images/art/faces/1-low-res.jpg" alt="" class="h-28 -mr-5 opacity-75" style="transform: rotateY(58deg)">
+        <img src="images/art/faces/4-low-res.jpg" alt="" class="h-36 relative z-10 rounded-sm shadow-2xl">
+        <img src="images/art/faces/3-low-res.jpg" alt="" class="h-28 -ml-5 opacity-75" style="transform: rotateY(-58deg)">
+        <img src="images/art/faces/6-low-res.jpg" alt="" class="h-28 -ml-9 opacity-50" style="transform: rotateY(-58deg)">
+      </div>
+      <div class="flex flex-col justify-center space-y-3">
+        <span class="w-fit font-mono text-xs text-rose-300 bg-rose-950 px-2.5 py-1 rounded border border-rose-700 font-semibold tracking-wider">A · COVER FLOW · THE ONE YOU ASKED FOR</span>
+        <h2 class="text-3xl font-bold text-white">Flip through them like records</h2>
+        <p class="text-sm text-stone-300 leading-relaxed">The front drawing sits flat while its neighbours swing away in 3D, each with a reflection on the floor. Drag, swipe, use the arrow keys or the scrubber; a flick carries on past where you let go. “Spin” plays through the set by itself.</p>
+        <p class="text-xs text-stone-400 leading-relaxed"><span class="text-amber-300 font-mono">Trade-off</span> One drawing has the stage at a time, so the page loses its at-a-glance overview, and the three series become marks on a scrubber rather than headings.</p>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </div>
+    </a>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <a href="art-b-spotlight.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <div class="mini relative h-36 rounded-xl bg-[#CFC6B7] overflow-hidden flex items-center justify-center gap-4">
+          <img src="images/art/faces/1-low-res.jpg" alt="" class="h-20 border-2 border-[#1C1A18] p-1 bg-[#F9F6EF]">
+          <img src="images/art/faces/7-low-res.jpg" alt="" class="h-24 border-2 border-[#1C1A18] p-1.5 bg-[#F9F6EF]">
+          <img src="images/art/faces/5-low-res.jpg" alt="" class="h-[4.5rem] border-2 border-[#1C1A18] p-1 bg-[#F9F6EF]">
+          <img src="images/art/forms/1-low-res.jpg" alt="" class="h-20 border-2 border-[#1C1A18] p-1 bg-[#F9F6EF]">
+          <div class="absolute inset-0" style="background: radial-gradient(circle at 44% 50%, rgba(9,8,7,0) 0, rgba(9,8,7,.25) 40px, rgba(9,8,7,.85) 78px, rgba(9,8,7,.965) 96px)"></div>
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">B · AFTER HOURS</span>
+          <h3 class="text-xl font-bold text-white">A gallery wall you light with the cursor</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">Framed and matted pieces hung salon-style in three rooms. In dark mode the wall is black and your cursor is the torch; the site's theme toggle becomes the light switch. With the lights on, every frame throws its shadow away from the cursor.</p>
+          <p class="text-xs text-stone-500 leading-relaxed"><span class="text-amber-300 font-mono">Trade-off</span> The work is hidden until found, so it is slower to scan. Touch has no hover: the light drifts from frame to frame and jumps to where you tap.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+
+      <a href="art-c-desk.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <div class="mini relative h-36 rounded-xl bg-[#EFE9DD] overflow-hidden" style="background-image: radial-gradient(rgba(26,24,22,.12) 1px, transparent 1.2px); background-size: 16px 16px">
+          <div class="print" style="left: 6%; top: 14%; transform: rotate(-11deg)"><img src="images/art/forms/4-low-res.jpg" alt=""></div>
+          <div class="print" style="left: 24%; top: 30%; transform: rotate(7deg)"><img src="images/art/faces/8-low-res.jpg" alt=""></div>
+          <div class="print" style="left: 43%; top: 8%; transform: rotate(-4deg)"><img src="images/art/experimental/1-low-res.jpg" alt=""></div>
+          <div class="print" style="left: 60%; top: 34%; transform: rotate(13deg)"><img src="images/art/faces/3-low-res.jpg" alt=""></div>
+          <div class="print" style="left: 78%; top: 10%; transform: rotate(-8deg)"><img src="images/art/experimental/4-low-res.jpg" alt=""></div>
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">C · STUDIO DESK</span>
+          <h3 class="text-xl font-bold text-white">Loose prints you can push around</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">The sixteen drawings are dealt onto a desk as prints. Pick one up, drag it, throw it and it slides to a stop. Three buttons rearrange everything: Scatter (again for a new deal), By series (three fanned piles) and Tidy (squared up in rows).</p>
+          <p class="text-xs text-stone-500 leading-relaxed"><span class="text-amber-300 font-mono">Trade-off</span> The most playful and the least orderly: prints overlap until someone moves them, and on a phone a finger on a print drags it instead of scrolling the page.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+
+      <a href="art-d-sketchbook.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <div class="mini h-36 rounded-xl bg-[#FBF9F5] overflow-hidden flex items-center justify-center">
+          <div class="flex h-28 rounded-md bg-[#1F1B18] p-1 shadow-xl">
+            <div class="w-[5.25rem] h-full bg-[#F7F2E8] rounded-l-sm p-2.5 flex flex-col justify-between" style="background-image: linear-gradient(to left, rgba(60,45,30,.2), transparent 12%)">
+              <div class="h-1 w-8 bg-stone-300 rounded"></div>
+              <div class="font-serif text-2xl leading-none text-[#881337]">03</div>
+            </div>
+            <div class="w-[5.25rem] h-full bg-[#F7F2E8] rounded-r-sm p-2" style="background-image: linear-gradient(to right, rgba(60,45,30,.2), transparent 12%)">
+              <img src="images/art/faces/4-low-res.jpg" alt="" class="h-full w-full mix-blend-multiply">
+            </div>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">D · SKETCHBOOK</span>
+          <h3 class="text-xl font-bold text-white">Turn the pages</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">A cloth-bound book that opens. Each spread has a typeset caption on the left and a drawing on the right, blended into the page so the scan's paper takes the sketchbook's tone. Click a page or drag it across by hand; series buttons riffle straight to a section.</p>
+          <p class="text-xs text-stone-500 leading-relaxed"><span class="text-amber-300 font-mono">Trade-off</span> The closest fit for graphite work and the most linear: sixteen turns to see everything. Phones show one page at a time, with the caption under the book.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+
+      <a href="art-e-living-grid.html" class="group rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4 hover:border-rose-800/70 transition">
+        <div class="mini h-36 rounded-xl bg-[#FBF9F5] overflow-hidden flex items-center justify-center gap-3" style="perspective: 500px">
+          <img src="images/art/faces/2-low-res.jpg" alt="" class="h-24 rounded-md opacity-40">
+          <img src="images/art/faces/1-low-res.jpg" alt="" class="h-24 rounded-md shadow-2xl" style="transform: rotateX(7deg) rotateY(-12deg) scale(1.12)">
+          <img src="images/art/faces/4-low-res.jpg" alt="" class="h-24 rounded-md opacity-40">
+          <img src="images/art/faces/3-low-res.jpg" alt="" class="h-24 rounded-md opacity-40">
+        </div>
+        <div class="space-y-2">
+          <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">E · LIVING GRID</span>
+          <h3 class="text-xl font-bold text-white">Today's page, uncropped and tactile</h3>
+          <p class="text-xs text-stone-400 leading-relaxed">The same three sections, with the series title pinned in the margin like the years on the timeline. Tiles rise in as you scroll; the one under the cursor leans towards it with a sheen across the paper while the rest dim. A switch compares today's square crop with the full drawing.</p>
+          <p class="text-xs text-stone-500 leading-relaxed"><span class="text-amber-300 font-mono">Trade-off</span> The smallest change and the safest fit for the existing site, so also the least surprising of the five.</p>
+        </div>
+        <span class="block font-mono text-xs text-stone-300 group-hover:text-white">Open →</span>
+      </a>
+    </div>
+
+    <!-- What the previews change relative to the live page, whichever direction is picked -->
+    <div class="rounded-2xl bg-stone-900/60 border border-stone-800 p-6 space-y-4">
+      <span class="font-mono text-xs bg-stone-800 text-amber-300 px-2 py-0.5 rounded">ON THE LIVE PAGE TODAY</span>
+      <div class="grid md:grid-cols-2 gap-6 text-xs text-stone-400 leading-relaxed">
+        <p><strong class="block text-white text-sm mb-1">The grid crops every drawing</strong>Tiles are square, but all sixteen scans are 3:4 portrait, so a quarter of each drawing's height is cut off until it is opened. Every preview shows the full sheet; preview E has a switch to compare.</p>
+        <p><strong class="block text-white text-sm mb-1">Full screen is a dead end</strong>The current lightbox has no next or previous and does not close on <span class="font-mono text-stone-300">Esc</span>. The shared viewer here adds both, plus swipe on touch.</p>
+      </div>
+    </div>
+
+    <div class="p-5 rounded-xl bg-stone-900/30 border border-stone-800 text-xs font-mono text-stone-400 space-y-1">
+      <p>Edit data once: <span class="text-stone-200">design-previews/art-data.js</span>. Every preview updates.</p>
+      <p>The drawings have no titles, years or media on the site, so the previews number them within each series. Add <span class="text-amber-300">title</span>, <span class="text-amber-300">year</span> or <span class="text-amber-300">medium</span> to a piece there and the captions and the viewer pick it up.</p>
+    </div>
+  </div>
+</body>
+</html>

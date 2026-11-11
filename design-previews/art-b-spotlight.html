@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art B: After Hours — Loïc Muhirwa</title>
+  <!-- This direction is about the dark, so it always opens with the lights off; the switch still carries across pages. -->
+  <script>document.documentElement.classList.add('dark');</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="art-data.js"></script>
+  <script src="art-shared.js"></script>
+  <style>
+    #wall { --u: clamp(96px, 12.5vw, 168px); background: #F1ECE2; transition: background-color .7s ease; }
+    .dark #wall { background: #CFC6B7; }
+
+    /* The darkness is one fixed layer with a hole in it; --x/--y/--r are written from JS every frame. */
+    #dark { position: fixed; inset: 0; z-index: 10; pointer-events: none; opacity: 0; transition: opacity .7s ease;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 40%),
+        rgba(9, 8, 7, 0) 0, rgba(9, 8, 7, .22) calc(var(--r, 260px) * .45), rgba(9, 8, 7, .82) calc(var(--r, 260px) * .82), rgba(9, 8, 7, .965) var(--r, 260px)); }
+    .dark #dark { opacity: 1; }
+
+    .frame { display: block; width: calc(var(--u) * var(--k)); padding: calc(var(--u) * var(--k) * .09); background: #F9F6EF; border: 4px solid #1C1A18; border-radius: 1px; cursor: zoom-in;
+      box-shadow: var(--sx, 0px) var(--sy, 10px) var(--sb, 22px) rgba(20, 16, 12, .3), 0 1px 2px rgba(20, 16, 12, .35);
+      transition: transform .35s cubic-bezier(.2, .8, .2, 1); }
+    .frame:hover, .frame:focus-visible { transform: scale(1.035); outline: none; }
+    .frame img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; box-shadow: 0 0 0 1px rgba(26, 24, 22, .14), 0 1px 3px rgba(26, 24, 22, .25); }
+  </style>
+</head>
+<body class="bg-[#F1ECE2] dark:bg-[#0B0A09] text-[#24211E] font-sans antialiased">
+  <script>ArtUtil.bar('b')</script>
+
+  <main id="wall" class="relative min-h-screen pt-9">
+    <header class="relative z-20 max-w-6xl mx-auto px-6 pt-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div>
+        <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">03 / Art</span>
+        <h1 class="font-serif text-4xl md:text-6xl tracking-tight text-ink-900 dark:text-stone-100 mt-2 transition-colors duration-700">
+          The gallery, <span class="italic text-rose-900 dark:text-rose-400">after hours</span>.
+        </h1>
+        <p id="blurb" class="mt-3 text-sm font-light text-stone-600 dark:text-stone-400 max-w-md transition-colors duration-700"></p>
+      </div>
+      <button id="lights" class="w-fit flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-stone-400 dark:border-stone-600 font-mono text-xs text-stone-700 dark:text-stone-200 hover:border-stone-900 dark:hover:border-stone-100 transition">
+        <span class="w-2 h-2 rounded-full bg-stone-400 dark:bg-amber-300 dark:shadow-[0_0_10px_2px_rgba(252,211,77,.6)]"></span>
+        <span id="lightsLabel"></span>
+      </button>
+    </header>
+
+    <div id="rooms" class="relative max-w-6xl mx-auto px-6 pt-16 pb-28 space-y-24"></div>
+    <div id="dark" aria-hidden="true"></div>
+  </main>
+
+<script>
+(() => {
+  const A = window.ART, U = window.ArtUtil;
+  const rooms = document.getElementById('rooms'), dark = document.getElementById('dark');
+  // Salon hang: three frame sizes, centred on one eye line.
+  const SIZES = [1, 1.24, 0.82, 1, 0.82, 1.24, 1, 0.82];
+
+  rooms.innerHTML = A.series.map((s, si) => `
+    <section class="grid md:grid-cols-[13rem_1fr] gap-8 md:gap-12 items-center">
+      <div>
+        <p class="font-mono text-[10px] uppercase tracking-widest text-stone-500">Room ${'I'.repeat(si + 1)} · ${s.count} works</p>
+        <h2 class="font-serif text-3xl md:text-4xl text-ink-900 mt-1">${U.esc(s.title)}</h2>
+        ${s.blurb ? `<p class="font-serif italic text-stone-600 mt-1">${U.esc(s.blurb)}</p>` : ''}
+      </div>
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-8 gap-y-10">
+        ${s.pieces.map((p, k) => `
+          <figure class="flex flex-col items-center gap-2.5">
+            <button class="frame" data-i="${p.i}" style="--k:${SIZES[(k + si * 3) % SIZES.length]}" aria-label="Open ${U.esc(U.name(p))}">
+              <img src="${p.src}" alt="${U.esc(U.alt(p))}" draggable="false">
+            </button>
+            <figcaption class="font-mono text-[9px] uppercase tracking-widest text-stone-500">${U.esc(p.title || `No. ${p.n}`)}</figcaption>
+          </figure>`).join('')}
+      </div>
+    </section>`).join('');
+
+  const frames = [...rooms.querySelectorAll('.frame')];
+  const centre = (el) => { const r = el.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2, r }; };
+
+  // ── The light: follows the mouse; before that (and on touch) it drifts from frame to frame by itself
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let x = innerWidth / 2, y = innerHeight * 0.45, tx = x, ty = y;
+  let following = false, holdUntil = 0, wanderAt = 0, wanderIdx = -1; // the light drifts unless it is following the mouse or on hold
+
+  const wander = (t) => {
+    if (t < wanderAt) return;
+    const seen = frames.filter((f) => { const r = f.getBoundingClientRect(); return r.bottom > 80 && r.top < innerHeight - 40; });
+    if (!seen.length) return;
+    wanderIdx = (wanderIdx + 1) % seen.length;
+    const c = centre(seen[wanderIdx]);
+    tx = c.x; ty = c.y;
+    wanderAt = t + 2600;
+  };
+
+  const frame = (t) => {
+    if (!following && t > holdUntil && !still) wander(t);
+    const ease = following ? 0.22 : 0.045;
+    x += (tx - x) * ease;
+    y += (ty - y) * ease;
+    dark.style.setProperty('--x', x + 'px');
+    dark.style.setProperty('--y', y + 'px');
+    dark.style.setProperty('--r', (innerWidth < 640 ? 190 : 290) + 'px');
+    // Each frame throws its shadow away from the light.
+    frames.forEach((f) => {
+      const c = centre(f);
+      if (c.r.bottom < -60 || c.r.top > innerHeight + 60) return;
+      const dx = c.x - x, dy = c.y - y, d = Math.hypot(dx, dy) || 1, len = Math.min(26, d * 0.07);
+      f.style.setProperty('--sx', (dx / d) * len + 'px');
+      f.style.setProperty('--sy', (dy / d) * len + 4 + 'px');
+      f.style.setProperty('--sb', 14 + Math.min(34, d * 0.05) + 'px');
+    });
+    requestAnimationFrame(frame);
+  };
+
+  addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'mouse') following = true; else holdUntil = performance.now() + 3000;
+    tx = e.clientX; ty = e.clientY;
+  });
+  addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse') holdUntil = performance.now() + 3000;
+    tx = e.clientX; ty = e.clientY;
+  });
+  document.documentElement.addEventListener('mouseleave', () => { following = false; holdUntil = performance.now() + 1200; });
+  // Keyboard: the light goes to whichever frame has focus.
+  rooms.addEventListener('focusin', (e) => {
+    const f = e.target.closest('.frame');
+    if (!f || f.matches(':hover')) return;
+    const c = centre(f);
+    tx = c.x; ty = c.y; following = false; holdUntil = performance.now() + 60000;
+  });
+
+  rooms.addEventListener('click', (e) => {
+    const f = e.target.closest('.frame');
+    if (f) ArtViewer.open(+f.dataset.i, { origin: (i) => frames[i].querySelector('img') });
+  });
+
+  // ── The light switch is the site's light/dark toggle
+  const label = () => {
+    const off = U.isDark();
+    document.getElementById('lightsLabel').textContent = off ? 'Turn the lights on' : 'Turn the lights off';
+    document.getElementById('blurb').textContent = off
+      ? 'The lights are off. Move your cursor across the wall to find the drawings, and click one to step closer.'
+      : 'The lights are on. Every frame throws its shadow away from your cursor. Click one to step closer.';
+  };
+  document.getElementById('lights').onclick = U.toggleTheme;
+  document.addEventListener('jl-theme', label);
+  label();
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

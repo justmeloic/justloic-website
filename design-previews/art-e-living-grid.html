@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art E: Living Grid — Loïc Muhirwa</title>
+  <script>if (localStorage.getItem('jl-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="art-data.js"></script>
+  <script src="art-shared.js"></script>
+  <style>
+    /* Tiles rise into place the first time they scroll into view. */
+    .tile { display: block; width: 100%; padding: 0; border: 0; background: none; perspective: 900px; cursor: zoom-in; opacity: 0; transform: translateY(18px);
+      transition: opacity .7s ease var(--d, 0ms), transform .7s cubic-bezier(.2, .8, .2, 1) var(--d, 0ms); }
+    .tile.in { opacity: 1; transform: none; }
+    .tile:focus-visible { outline: 2px solid #881337; outline-offset: 4px; border-radius: 12px; }
+
+    /* --rx/--ry/--gx/--gy follow the cursor: the card leans towards it and a sheen slides across the paper. */
+    .card { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 10px; background: #e7e5e4; will-change: transform;
+      transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--sc, 1));
+      box-shadow: 0 1px 2px rgba(26, 24, 22, .12), 0 8px 20px -12px rgba(26, 24, 22, .3);
+      transition: transform .5s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease, opacity .35s ease, aspect-ratio .5s ease; }
+    .dark .card { background: #1c1917; box-shadow: 0 0 0 1px rgba(255, 255, 255, .05), 0 10px 24px -12px rgba(0, 0, 0, .8); }
+    .tile.hot .card { transition: transform .1s linear, box-shadow .4s ease, opacity .35s ease, aspect-ratio .5s ease; box-shadow: 0 2px 4px rgba(26, 24, 22, .14), 0 30px 50px -20px rgba(26, 24, 22, .55); }
+    .dark .tile.hot .card { box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 60px -20px rgba(0, 0, 0, 1); }
+    #gallery.square .card { aspect-ratio: 1 / 1; }
+    #gallery.focus .tile:not(.hot) .card { opacity: .45; }
+    .card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .glare { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s ease; mix-blend-mode: soft-light;
+      background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .7), rgba(255, 255, 255, 0) 55%); }
+    .tile.hot .glare { opacity: 1; }
+    .tag { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; padding: 30px 12px 10px; color: #fff; font: 10px/1 'JetBrains Mono', monospace; letter-spacing: .12em; text-transform: uppercase;
+      background: linear-gradient(to top, rgba(18, 17, 16, .7), rgba(18, 17, 16, 0)); opacity: 0; transform: translateY(6px); transition: opacity .3s ease, transform .3s ease; }
+    .tile.hot .tag, .tile:focus-visible .tag { opacity: 1; transform: none; }
+
+    .crop[aria-pressed="true"] { background: #1A1816; color: #fff; }
+    .dark .crop[aria-pressed="true"] { background: #e7e5e4; color: #1A1816; }
+    @media (prefers-reduced-motion: reduce) { .tile { opacity: 1; transform: none; transition: none; } .card { transition: none; } }
+  </style>
+</head>
+<body class="bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF] font-sans antialiased transition-colors duration-300">
+  <script>ArtUtil.bar('e')</script>
+
+  <header class="max-w-5xl mx-auto px-6 pt-20 pb-12 flex flex-col md:flex-row md:items-end justify-between gap-5">
+    <div>
+      <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">03 / Art</span>
+      <h1 class="font-serif text-4xl md:text-5xl tracking-tight text-ink-900 dark:text-stone-100 mt-2">
+        The same grid, <span class="italic text-rose-900 dark:text-rose-400">with a pulse</span>.
+      </h1>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-[11px]">
+      <span class="text-stone-500 dark:text-stone-400">Crop</span>
+      <div class="flex p-0.5 rounded-full border border-stone-300 dark:border-stone-700" role="group" aria-label="Tile crop">
+        <button class="crop px-3 py-1.5 rounded-full transition" data-square="1" aria-pressed="false">Square (live site)</button>
+        <button class="crop px-3 py-1.5 rounded-full transition" data-square="" aria-pressed="true">Full drawing</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="gallery" class="max-w-5xl mx-auto px-6 pb-28 space-y-20"></main>
+
+<script>
+(() => {
+  const A = window.ART, U = window.ArtUtil;
+  const gallery = document.getElementById('gallery');
+
+  // Same structure as the timeline on the home page: a sticky label in the margin, content beside it.
+  gallery.innerHTML = A.series.map((s, si) => `
+    <section class="md:grid md:grid-cols-[11rem_1fr] md:gap-10">
+      <div class="md:sticky md:top-16 self-start mb-6 md:mb-0">
+        <p class="font-mono text-[11px] text-stone-400">${U.pad(si + 1)}</p>
+        <h2 class="font-serif text-3xl text-stone-950 dark:text-stone-50 mt-1">${U.esc(s.title)}</h2>
+        ${s.blurb ? `<p class="text-sm font-light text-stone-500 dark:text-stone-400 mt-1">${U.esc(s.blurb)}</p>` : ''}
+        <p class="font-mono text-[11px] text-stone-400 mt-4">${s.count} works</p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        ${s.pieces.map((p, k) => `
+          <button class="tile" data-i="${p.i}" style="--d:${(k % 4) * 70}ms" aria-label="Open ${U.esc(U.name(p))}">
+            <span class="card">
+              <img src="${p.src}" alt="${U.esc(U.alt(p))}" loading="lazy" draggable="false">
+              <span class="glare"></span>
+              <span class="tag"><span>${U.esc(p.title || `No. ${p.n}`)}</span><span>open ⤢</span></span>
+            </span>
+          </button>`).join('')}
+      </div>
+    </section>`).join('');
+  const tiles = [...gallery.querySelectorAll('.tile')];
+
+  const seen = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (en.isIntersecting) { en.target.classList.add('in'); seen.unobserve(en.target); }
+  }), { rootMargin: '0px 0px -8% 0px' });
+  tiles.forEach((t) => seen.observe(t));
+
+  // ── Tilt and sheen, mouse only (a finger has no hover)
+  const TILT = 14;
+  gallery.addEventListener('pointermove', (e) => {
+    const t = e.target.closest('.tile');
+    if (!t || e.pointerType !== 'mouse') return;
+    const r = t.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height, c = t.firstElementChild;
+    c.style.setProperty('--ry', (px - 0.5) * TILT + 'deg');
+    c.style.setProperty('--rx', (0.5 - py) * TILT + 'deg');
+    c.style.setProperty('--gx', px * 100 + '%');
+    c.style.setProperty('--gy', py * 100 + '%');
+    c.style.setProperty('--sc', 1.04);
+    if (!t.classList.contains('hot')) { tiles.forEach((o) => o.classList.toggle('hot', o === t)); gallery.classList.add('focus'); }
+  });
+  const rest = (t) => {
+    t.classList.remove('hot');
+    ['--rx', '--ry', '--sc'].forEach((k) => t.firstElementChild.style.removeProperty(k));
+  };
+  gallery.addEventListener('pointerout', (e) => {
+    const t = e.target.closest('.tile');
+    if (!t || t.contains(e.relatedTarget)) return;
+    rest(t);
+    if (!e.relatedTarget?.closest?.('.tile')) gallery.classList.remove('focus');
+  });
+
+  gallery.addEventListener('click', (e) => {
+    const t = e.target.closest('.tile');
+    if (!t) return;
+    rest(t);
+    gallery.classList.remove('focus');
+    ArtViewer.open(+t.dataset.i, { origin: (i) => tiles[i].querySelector('img') });
+  });
+
+  document.querySelectorAll('.crop').forEach((b) => {
+    b.onclick = () => {
+      gallery.classList.toggle('square', !!b.dataset.square);
+      document.querySelectorAll('.crop').forEach((o) => o.setAttribute('aria-pressed', o === b));
+    };
+  });
+})();
+</script>
+</body>
+</html>

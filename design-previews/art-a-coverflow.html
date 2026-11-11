@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art A: Cover Flow — Loïc Muhirwa</title>
+  <script>if (localStorage.getItem('jl-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="art-data.js"></script>
+  <script src="art-shared.js"></script>
+  <style>
+    :root { --bg: #FBF9F5; }
+    .dark { --bg: #121211; }
+
+    #stage { position: relative; isolation: isolate; height: clamp(320px, 56vh, 560px); overflow: hidden; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; outline: none; }
+    #stage.dragging, #stage.dragging .cover { cursor: grabbing; }
+    #stage:focus-visible { box-shadow: inset 0 0 0 2px rgba(136, 19, 55, .35); }
+
+    /* A cover is the drawing, its mirror image on the "floor", and a veil that fades it into the page. */
+    .cover { position: absolute; left: 50%; top: 41%; width: var(--w); height: var(--h); margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2); will-change: transform; cursor: pointer; }
+    .cover.current { cursor: zoom-in; }
+    .cover img { position: absolute; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 3px; background: #e7e5e4; -webkit-user-drag: none; }
+    .cover .face { top: 0; outline: 1px solid rgba(26, 24, 22, .1); box-shadow: 0 24px 40px -22px rgba(26, 24, 22, .45); }
+    .dark .cover .face { outline-color: rgba(255, 255, 255, .06); box-shadow: 0 24px 50px -20px rgba(0, 0, 0, .9); }
+    .cover .mirror { top: 100%; margin-top: 3px; transform: scaleY(-1); opacity: .3; pointer-events: none;
+      -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, .85), transparent 45%); mask-image: linear-gradient(to top, rgba(0, 0, 0, .85), transparent 45%); }
+    .cover .veil { position: absolute; inset: -1px -1px -100% -1px; background: var(--bg); opacity: 0; pointer-events: none; transition: background-color .3s ease; }
+
+    #scrub { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 20px; background: transparent; cursor: pointer; }
+    #scrub::-webkit-slider-runnable-track { height: 2px; border-radius: 2px; background: #d6d3d1; }
+    #scrub::-moz-range-track { height: 2px; border-radius: 2px; background: #d6d3d1; }
+    .dark #scrub::-webkit-slider-runnable-track { background: #44403c; }
+    .dark #scrub::-moz-range-track { background: #44403c; }
+    #scrub::-webkit-slider-thumb { -webkit-appearance: none; width: 36px; height: 10px; margin-top: -4px; border-radius: 9999px; background: #1A1816; }
+    #scrub::-moz-range-thumb { width: 36px; height: 10px; border: 0; border-radius: 9999px; background: #1A1816; }
+    .dark #scrub::-webkit-slider-thumb { background: #e7e5e4; }
+    .dark #scrub::-moz-range-thumb { background: #e7e5e4; }
+    #scrub:focus-visible { outline: 2px solid #881337; outline-offset: 4px; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF] font-sans antialiased transition-colors duration-300">
+  <script>ArtUtil.bar('a')</script>
+
+  <header class="max-w-5xl mx-auto px-6 pt-20 text-center">
+    <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">03 / Art</span>
+    <h1 class="font-serif text-4xl md:text-5xl tracking-tight text-ink-900 dark:text-stone-100 mt-2">
+      Sixteen drawings, <span class="italic text-rose-900 dark:text-rose-400">one at a time</span>.
+    </h1>
+  </header>
+
+  <section id="stage" tabindex="0" role="group" aria-roledescription="carousel"
+           aria-label="Drawings. Left and right arrow keys browse, Enter opens the one in front."></section>
+
+  <div class="max-w-xl mx-auto px-6 text-center" aria-live="polite">
+    <p id="capName" class="font-serif text-2xl text-ink-900 dark:text-stone-100"></p>
+    <p id="capBlurb" class="font-serif italic text-sm text-stone-500 dark:text-stone-400 mt-0.5 min-h-[1.25rem]"></p>
+  </div>
+
+  <div class="max-w-xl mx-auto px-6 mt-6 pb-20">
+    <div class="flex items-start gap-4">
+      <button id="prev" aria-label="Previous drawing" class="shrink-0 w-9 h-9 -mt-2 rounded-full border border-stone-300 dark:border-stone-700 font-mono text-sm text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 disabled:opacity-30 disabled:pointer-events-none transition">←</button>
+      <div class="flex-1 min-w-0">
+        <input id="scrub" type="range" min="0" step="1" value="0" aria-label="Scrub through the drawings">
+        <div id="marks" class="flex font-mono text-[10px] uppercase tracking-widest"></div>
+      </div>
+      <button id="next" aria-label="Next drawing" class="shrink-0 w-9 h-9 -mt-2 rounded-full border border-stone-300 dark:border-stone-700 font-mono text-sm text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 disabled:opacity-30 disabled:pointer-events-none transition">→</button>
+    </div>
+
+    <div class="mt-8 flex items-center justify-between gap-4 font-mono text-[11px] text-stone-500 dark:text-stone-400">
+      <span id="count" class="tabular-nums"></span>
+      <span class="hidden sm:inline">drag · swipe · ← → · click the front one to open</span>
+      <button id="spin" aria-pressed="false" class="px-3 py-1.5 rounded-full border border-stone-300 dark:border-stone-700 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-900 dark:hover:text-stone-100 transition">▶ Spin</button>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const A = window.ART, U = window.ArtUtil, P = A.pieces, N = P.length;
+  const $ = (id) => document.getElementById(id);
+  const stage = $('stage'), scrub = $('scrub'), marks = $('marks'), spin = $('spin');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+  const covers = P.map((p) => {
+    stage.insertAdjacentHTML('beforeend', `
+      <div class="cover">
+        <img class="face" src="${p.src}" alt="${U.esc(U.alt(p))}" draggable="false">
+        <img class="mirror" src="${p.src}" alt="" aria-hidden="true" draggable="false">
+        <span class="veil"></span>
+      </div>`);
+    const el = stage.lastElementChild;
+    return { el, face: el.querySelector('.face'), veil: el.querySelector('.veil') };
+  });
+
+  scrub.max = N - 1;
+  marks.innerHTML = A.series.map((s) => `
+    <button data-go="${s.first}" style="flex:${s.count} 1 0" class="mark min-w-0 truncate text-left border-l border-stone-300 dark:border-stone-700 pl-2 pt-0.5 text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition">${U.esc(s.title.split(' ')[0])}</button>`).join('');
+  const markEls = [...marks.children];
+
+  // pos is where the carousel is (fractional while moving), target is where it is heading.
+  let pos = still ? 0 : Math.min(5, N - 1), target = 0, cur = -1, W = 0, raf = 0, last = 0, dragging = false, scrubbing = false;
+
+  const measure = () => {
+    let h = Math.min(460, stage.clientHeight * 0.6), w = h * A.aspect;
+    if (w > stage.clientWidth * 0.5) { w = stage.clientWidth * 0.5; h = w / A.aspect; }
+    W = w;
+    stage.style.setProperty('--w', w + 'px');
+    stage.style.setProperty('--h', h + 'px');
+  };
+
+  const render = () => {
+    covers.forEach((c, i) => {
+      const d = i - pos, ad = Math.abs(d), a = Math.min(1, ad), s = Math.sign(d);
+      // The front cover sits flat; neighbours swing 60° away, step back and bunch up like a record crate.
+      const x = s * (a * W * 0.74 + Math.max(0, ad - 1) * W * 0.3);
+      c.el.style.transform = `translate3d(${x}px,0,0) perspective(${W * 3.2}px) translateZ(${-a * W * 0.55}px) rotateY(${-s * a * 60}deg)`;
+      c.el.style.zIndex = 1000 - Math.round(ad * 10);
+      c.el.style.opacity = clamp(1 - (ad - 4) / 2.5, 0, 1);
+      c.el.style.visibility = ad > 6.5 ? 'hidden' : '';
+      c.veil.style.opacity = a * 0.3 + clamp((ad - 1) * 0.08, 0, 0.3);
+    });
+    const now = clamp(Math.round(pos), 0, N - 1);
+    if (now !== cur) {
+      cur = now;
+      const p = P[cur];
+      covers.forEach((c, i) => c.el.classList.toggle('current', i === cur));
+      $('capName').textContent = U.name(p);
+      $('capBlurb').textContent = p.s.blurb || '';
+      $('count').textContent = `${U.pad(cur + 1)} / ${U.pad(N)}`;
+      markEls.forEach((m, i) => {
+        const on = A.series[i] === p.s;
+        m.classList.toggle('!text-stone-900', on);
+        m.classList.toggle('dark:!text-stone-100', on);
+      });
+      $('prev').disabled = cur === 0;
+      $('next').disabled = cur === N - 1;
+    }
+    if (!scrubbing) scrub.value = cur;
+  };
+
+  const tick = (t) => {
+    const dt = Math.min(50, t - last) / 1000;
+    last = t;
+    if (!dragging) {
+      pos += (target - pos) * (1 - Math.exp(-dt * 9));
+      if (Math.abs(target - pos) < 0.002) pos = target;
+    }
+    render();
+    raf = dragging || pos !== target ? requestAnimationFrame(tick) : 0;
+  };
+  const kick = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+  const go = (i) => {
+    target = clamp(i, 0, N - 1);
+    if (still) pos = target;
+    kick();
+  };
+
+  // ── Spin: step through the set on its own until the visitor touches anything
+  let timer = 0;
+  const setSpin = (on) => {
+    clearInterval(timer);
+    timer = on ? setInterval(() => go(target >= N - 1 ? 0 : target + 1), 2200) : 0;
+    spin.textContent = on ? '❚❚ Pause' : '▶ Spin';
+    spin.setAttribute('aria-pressed', on);
+  };
+  spin.onclick = () => { const on = !timer; setSpin(on); if (on) go(target >= N - 1 ? 0 : target + 1); };
+
+  const openCurrent = () => ArtViewer.open(cur, {
+    origin: (i) => (i === cur ? covers[i].face : null),
+    onChange: (i) => { pos = target = i; render(); }, // keep the carousel on the piece being viewed
+  });
+
+  // ── Drag / swipe, with a flick carrying on past the release point
+  let sx = 0, sp = 0, moved = 0, px = 0, pt = 0, vel = 0;
+  stage.addEventListener('pointerdown', (e) => {
+    if (e.button) return;
+    setSpin(false);
+    dragging = true; moved = 0; vel = 0;
+    sx = px = e.clientX; sp = pos; pt = e.timeStamp;
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - sx;
+    moved = Math.max(moved, Math.abs(dx));
+    if (moved < 6) return;
+    stage.classList.add('dragging');
+    pos = clamp(sp - dx / (W * 0.55), -0.35, N - 0.65);
+    const dt = e.timeStamp - pt;
+    if (dt > 0) vel = vel * 0.5 + (-(e.clientX - px) / (W * 0.55) / dt) * 0.5;
+    px = e.clientX; pt = e.timeStamp;
+    kick();
+  });
+  const release = (e) => {
+    if (!dragging) return;
+    dragging = false;
+    stage.classList.remove('dragging');
+    if (e.type === 'pointerup' && moved < 6) {
+      // A plain click: the front cover opens, any other cover comes to the front.
+      const hit = document.elementFromPoint(e.clientX, e.clientY)?.closest('.cover');
+      const i = covers.findIndex((c) => c.el === hit);
+      if (i === cur) openCurrent(); else if (i >= 0) go(i);
+    } else {
+      go(Math.round(pos + (e.timeStamp - pt < 80 ? vel * 220 : 0)));
+    }
+  };
+  stage.addEventListener('pointerup', release);
+  stage.addEventListener('pointercancel', release);
+
+  // Sideways trackpad scroll steps through; vertical scroll is left alone so the page still scrolls.
+  let acc = 0, wheelAt = 0;
+  stage.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    setSpin(false);
+    acc += e.deltaX;
+    if (Math.abs(acc) > 36 && e.timeStamp - wheelAt > 110) { go(target + Math.sign(acc)); acc = 0; wheelAt = e.timeStamp; }
+  }, { passive: false });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input')) return; // the scrubber handles its own arrow keys
+    const step = { ArrowLeft: target - 1, ArrowRight: target + 1, Home: 0, End: N - 1 }[e.key];
+    if (step !== undefined) { e.preventDefault(); setSpin(false); go(step); }
+    else if (e.key === 'Enter' && e.target === stage) { e.preventDefault(); setSpin(false); openCurrent(); }
+  });
+
+  scrub.addEventListener('input', () => { scrubbing = true; setSpin(false); go(+scrub.value); });
+  scrub.addEventListener('change', () => { scrubbing = false; });
+  marks.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { setSpin(false); go(+b.dataset.go); } });
+  $('prev').onclick = () => { setSpin(false); go(target - 1); };
+  $('next').onclick = () => { setSpin(false); go(target + 1); };
+
+  addEventListener('resize', () => { measure(); render(); });
+  measure();
+  render();
+  kick();
+})();
+</script>
+</body>
+</html>
