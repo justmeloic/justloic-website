@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Github, Gitlab, Linkedin } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
-import { RESUME_URL } from "@/data/site";
+import { GITHUB_URL, GITLAB_URL, LINKEDIN_URL, RESUME_URL } from "@/data/site";
 
 
 const LINKS = [
@@ -51,15 +52,38 @@ export function Navbar() {
           Loïc
         </Link>
         {nav("hidden md:flex items-center space-x-6 text-xs font-mono tracking-wider text-stone-600 dark:text-stone-400")}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           <ThemeToggle />
+          <span className="w-px h-4 bg-stone-300 dark:bg-stone-700 mx-0.5" aria-hidden="true" />
           <a
-            href="https://www.linkedin.com/in/lo%C3%AFc-muhirwa-b3a940242/"
+            href={LINKEDIN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs uppercase tracking-wider font-mono border border-stone-300 dark:border-stone-700 px-3 py-1.5 rounded-full hover:bg-stone-900 hover:text-white dark:hover:bg-stone-100 dark:hover:text-stone-900 transition"
+            className="p-1.5 rounded-full border border-stone-300 dark:border-stone-700 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-900 dark:hover:text-stone-100 transition text-stone-600 dark:text-stone-300 inline-flex items-center justify-center"
+            aria-label="LinkedIn profile"
+            title="LinkedIn"
           >
-            LinkedIn ↗
+            <Linkedin size={15} />
+          </a>
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-1.5 rounded-full border border-stone-300 dark:border-stone-700 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-900 dark:hover:text-stone-100 transition text-stone-600 dark:text-stone-300 inline-flex items-center justify-center"
+            aria-label="GitHub profile"
+            title="GitHub"
+          >
+            <Github size={15} />
+          </a>
+          <a
+            href={GITLAB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-1.5 rounded-full border border-stone-300 dark:border-stone-700 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-900 dark:hover:text-stone-100 transition text-stone-600 dark:text-stone-300 inline-flex items-center justify-center"
+            aria-label="GitLab profile"
+            title="GitLab"
+          >
+            <Gitlab size={15} />
           </a>
         </div>
       </div>
