@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline D: Trajectory — Loïc Muhirwa</title>
+  <script>if (localStorage.getItem('jl-theme') === 'dark') document.documentElement.classList.add('dark');</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        fontFamily: { serif: ['Newsreader', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] },
+        colors: { ink: { 900: '#1A1816' }, bronze: { DEFAULT: '#B4884D' } }
+      } }
+    }
+  </script>
+  <script src="timeline-data.js"></script>
+  <style>
+    svg text { font-family: 'JetBrains Mono', monospace; }
+    .grid-line { stroke: #E7E2D8; }
+    .dark .grid-line { stroke: #24221F; }
+    .axis { stroke: #8A837A; }
+    .lbl { fill: #78716C; font-size: 11px; }
+    .dark .lbl { fill: #A8A29E; }
+    .main-path { stroke: #1A1816; }
+    .dark .main-path { stroke: #F5F5F4; }
+    .draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 2.6s cubic-bezier(.6,.1,.2,1) .3s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .hatch { stroke: #48433E; stroke-opacity: .14; }
+    .dark .hatch { stroke: #E7E5E4; stroke-opacity: .07; }
+    .cur-stroke { stroke: #881337; } .cur-fill { fill: #881337; }
+    .dark .cur-stroke { stroke: #FB7185; } .dark .cur-fill { fill: #FB7185; }
+    .node { cursor: pointer; transition: r .2s; }
+    .node:hover, .node.on { r: 8; }
+    .rug { cursor: pointer; }
+    input[type=range] { accent-color: #881337; }
+    .dark input[type=range] { accent-color: #FB7185; }
+  </style>
+</head>
+<body class="bg-[#FBF9F5] dark:bg-[#121211] text-[#24211E] dark:text-[#E8E5DF] font-sans antialiased transition-colors duration-300">
+
+  <div class="fixed top-0 inset-x-0 z-50 bg-[#1A1816]/95 text-stone-300 text-xs py-2 px-4 backdrop-blur flex justify-between items-center border-b border-stone-800">
+    <div class="flex items-center gap-2">
+      <span class="font-mono bg-red-950/80 text-rose-300 px-2 py-0.5 rounded border border-rose-800/60 font-semibold">TIMELINE D</span>
+      <span class="font-medium text-stone-200 hidden sm:inline">Trajectory · mathematical figure</span>
+    </div>
+    <div class="flex items-center gap-3 sm:gap-4">
+      <a href="timeline-a-ledger.html" class="hover:text-white">A</a>
+      <a href="timeline-b-swimlanes.html" class="hover:text-white">B</a>
+      <a href="timeline-c-chapters.html" class="hover:text-white">C</a>
+      <a href="timeline-d-trajectory.html" class="text-white underline">D</a>
+      <a href="timeline-index.html" class="hover:text-white">Timelines</a>
+      <button id="themeBtn" class="bg-stone-800 hover:bg-stone-700 px-2.5 py-1 rounded text-stone-200 font-mono">🌓</button>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-6 pt-28 pb-24 space-y-8">
+    <header class="space-y-3">
+      <span class="font-mono text-xs text-rose-900 dark:text-rose-400 uppercase tracking-widest font-semibold">02 / Career</span>
+      <h1 class="font-serif text-4xl md:text-5xl tracking-tight leading-[1.08] text-ink-900 dark:text-stone-100">
+        A career, plotted as <span class="italic text-rose-900 dark:text-rose-400">f(t)</span>.
+      </h1>
+      <p class="text-sm text-stone-600 dark:text-stone-400 max-w-2xl font-light leading-relaxed">
+        Each step is a new role. Drag the scrubber, hover the figure, or press play to evaluate the function at any moment in time.
+      </p>
+    </header>
+
+    <figure class="rounded-2xl bg-white dark:bg-stone-900/50 border border-stone-200/80 dark:border-stone-800 shadow-sm p-4 md:p-6 space-y-4">
+      <div class="overflow-x-auto">
+        <svg id="fig" viewBox="0 0 1000 540" class="w-full min-w-[720px] h-auto touch-none" role="img" aria-label="Step plot of career roles over time"></svg>
+      </div>
+      <div class="flex items-center gap-4 px-1">
+        <button id="play" class="shrink-0 w-9 h-9 rounded-full bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 font-mono text-xs flex items-center justify-center hover:opacity-90" aria-label="Play">▶</button>
+        <label class="font-mono text-xs text-stone-500 shrink-0" for="scrub">t =</label>
+        <input id="scrub" type="range" min="0" step="1" class="w-full">
+        <span id="tLabel" class="font-mono text-xs text-stone-700 dark:text-stone-300 w-20 text-right shrink-0"></span>
+      </div>
+      <figcaption class="font-serif italic text-sm text-stone-500 dark:text-stone-400 border-t border-stone-100 dark:border-stone-800 pt-3 px-1">
+        <span class="not-italic font-semibold text-stone-700 dark:text-stone-300">Fig. 1.</span>
+        Role index f(t) of L. Muhirwa as a right-continuous step function of time. Hatched band: graduate study (MSc, completed while working full-time).
+        Dashed: concurrent roles. Rug: publications (▲) and awards (◆).
+      </figcaption>
+    </figure>
+
+    <!-- Readout -->
+    <section class="grid md:grid-cols-12 gap-6">
+      <div class="md:col-span-7 rounded-2xl bg-white dark:bg-stone-900/50 border border-stone-200/80 dark:border-stone-800 p-6 md:p-8 shadow-sm space-y-4" aria-live="polite">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-stone-400">Evaluation</p>
+        <p class="font-serif text-2xl md:text-3xl leading-snug text-ink-900 dark:text-stone-100">
+          f(<span id="rT" class="text-rose-900 dark:text-rose-400"></span>) = <span id="rRole"></span>
+        </p>
+        <p id="rOrg" class="font-mono text-xs text-stone-500 -mt-2"></p>
+        <p id="rSummary" class="text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed"></p>
+        <ul id="rBullets" class="space-y-1 text-sm text-stone-700 dark:text-stone-300"></ul>
+      </div>
+      <div class="md:col-span-5 rounded-2xl border border-dashed border-stone-300 dark:border-stone-700 p-6 md:p-8 font-mono text-xs space-y-3 text-stone-600 dark:text-stone-400">
+        <p class="text-[10px] uppercase tracking-widest text-stone-400">State vector</p>
+        <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
+          <span class="text-stone-400">Δt in role</span><span id="sDur" class="text-stone-900 dark:text-stone-100"></span>
+          <span class="text-stone-400">∫ industry</span><span id="sExp" class="text-stone-900 dark:text-stone-100"></span>
+          <span class="text-stone-400">Σ papers</span><span id="sPubs" class="text-stone-900 dark:text-stone-100"></span>
+          <span class="text-stone-400">Σ awards</span><span id="sAwards" class="text-stone-900 dark:text-stone-100"></span>
+          <span class="text-stone-400 self-start">in parallel</span><ul id="sPar" class="space-y-1 text-stone-900 dark:text-stone-100"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Tooltip -->
+  <div id="tip" class="fixed z-40 pointer-events-none opacity-0 transition-opacity max-w-xs rounded-lg bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 px-3 py-2 text-xs shadow-lg"></div>
+
+<script>
+(() => {
+  const C = window.CAREER, U = window.CareerUtil, esc = U.esc;
+  document.getElementById('themeBtn').onclick = () => {
+    const d = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('jl-theme', d ? 'dark' : 'light');
+  };
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('fig');
+  const W = 1000, H = 540, M = { l: 168, r: 34, t: 56, b: 92 };
+  const NOW = U.toYear(C.now) + 1 / 12;
+  const X0 = 2016, X1 = Math.ceil(NOW) + 0.25, Y0 = -0.4, Y1 = 5.9;
+  const x = t => M.l + (t - X0) / (X1 - X0) * (W - M.l - M.r);
+  const y = v => H - M.b - (v - Y0) / (Y1 - Y0) * (H - M.t - M.b);
+  const el = (tag, attrs = {}, parent = svg) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent.appendChild(n); return n; };
+
+  const roles = C.items.filter(i => i.type === 'role' || i.id === 'bsc').sort((a, b) => a.level - b.level);
+  const main = roles.filter(r => !r.side);
+  const startT = (r) => r.start ? U.toYear(r.start) : X0;
+
+  // Defs: hatch pattern
+  const defs = el('defs');
+  const pat = el('pattern', { id: 'hatch', width: 8, height: 8, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+  el('line', { x1: 0, y1: 0, x2: 0, y2: 8, class: 'hatch', 'stroke-width': 3 }, pat);
+
+  // Graph paper
+  for (let t = X0; t <= X1; t += 0.25) el('line', { x1: x(t), x2: x(t), y1: y(Y1), y2: y(Y0), class: 'grid-line', 'stroke-width': Number.isInteger(t) ? 1 : .4 });
+  roles.forEach(r => el('line', { x1: M.l, x2: W - M.r, y1: y(r.level), y2: y(r.level), class: 'grid-line', 'stroke-width': .6 }));
+
+  // MSc band
+  const msc = U.byId['msc'];
+  el('rect', { x: x(U.toYear(msc.start)), y: y(Y1), width: x(U.toYear(msc.end)) - x(U.toYear(msc.start)), height: y(Y0) - y(Y1), fill: 'url(#hatch)' });
+  el('text', { x: x(U.toYear(msc.start)) + 6, y: y(Y1) + 14, class: 'lbl', 'font-size': 10 }).textContent = 'MSc · uOttawa';
+
+  // Era brackets
+  const era = (a, b, label, color) => {
+    const yy = M.t - 22;
+    el('path', { d: `M${x(a)},${yy + 6} V${yy} H${x(b)} V${yy + 6}`, fill: 'none', stroke: color, 'stroke-width': 1.2 });
+    el('text', { x: (x(a) + x(b)) / 2, y: yy - 6, 'text-anchor': 'middle', fill: color, 'font-size': 11 }).textContent = label;
+  };
+  era(X0, U.toYear('2017-06') + 1 / 12, 'UWindsor', C.orgs.uwindsor.color);
+  era(U.toYear('2017-07'), U.toYear('2024-02'), 'Government of Canada', C.orgs.goc.color);
+  era(U.toYear('2024-02'), NOW, 'Google', C.orgs.google.color);
+
+  // Axes
+  el('line', { x1: M.l, x2: W - M.r, y1: y(Y0), y2: y(Y0), class: 'axis' });
+  el('line', { x1: M.l, x2: M.l, y1: y(Y0), y2: y(Y1), class: 'axis' });
+  for (let yr = X0; yr <= Math.floor(X1); yr++) {
+    el('line', { x1: x(yr), x2: x(yr), y1: y(Y0), y2: y(Y0) + 5, class: 'axis' });
+    el('text', { x: x(yr), y: y(Y0) + 18, 'text-anchor': 'middle', class: 'lbl' }).textContent = yr;
+  }
+  el('text', { x: W - M.r, y: y(Y0) + 36, 'text-anchor': 'end', class: 'lbl', 'font-style': 'italic' }).textContent = 't (years)';
+  roles.forEach(r => el('text', { x: M.l - 10, y: y(r.level) + 4, 'text-anchor': 'end', class: 'lbl', 'font-style': r.side ? 'italic' : 'normal' }).textContent = r.short || r.title);
+
+  // Concurrent (dashed) segments
+  const fde = U.byId['google-fde'], research = U.byId['google-research'];
+  const rs = U.toYear(research.start), re = U.toYear(research.end) + 1 / 12;
+  el('path', { d: `M${x(rs)},${y(fde.level)} V${y(research.level)} H${x(re)} V${y(fde.level)}`, fill: 'none', stroke: C.orgs.google.color, 'stroke-width': 2, 'stroke-dasharray': '4 4' });
+
+  // Main step path
+  let d = `M${x(X0)},${y(main[0].level)}`;
+  main.forEach((r, i) => { if (i) d += ` H${x(startT(r))} V${y(r.level)}`; });
+  d += ` H${x(NOW)}`;
+  const path = el('path', { d, fill: 'none', class: 'main-path draw', 'stroke-width': 2.4, 'stroke-linejoin': 'round' });
+  path.style.setProperty('--len', path.getTotalLength());
+
+  // Role nodes
+  const nodes = [...main, research].map(r => {
+    const n = el('circle', { cx: x(startT(r)), cy: y(r.level), r: 5.5, fill: C.orgs[r.org].color, stroke: '#FBF9F5', 'stroke-width': 2, class: 'node', tabindex: 0 });
+    n.dataset.id = r.id;
+    return n;
+  });
+  el('circle', { cx: x(NOW), cy: y(fde.level), r: 4, fill: C.orgs.google.color }).innerHTML = `<animate attributeName="r" values="4;9;4" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/>`;
+
+  // Rug: publications & awards
+  const rugY = y(Y0) - 12;
+  C.items.filter(i => i.date).forEach(it => {
+    const cx = x(U.toYear(it.date));
+    const g = el('g', { class: 'rug', 'data-id': it.id, tabindex: 0 });
+    if (it.type === 'award') el('rect', { x: cx - 5, y: rugY - 5, width: 10, height: 10, fill: '#B4884D', transform: `rotate(45 ${cx} ${rugY})` }, g);
+    else el('path', { d: `M${cx},${rugY - 6} L${cx + 6},${rugY + 5} L${cx - 6},${rugY + 5} Z`, fill: C.orgs[it.org].color }, g);
+    el('rect', { x: cx - 10, y: rugY - 12, width: 20, height: 24, fill: 'transparent' }, g);
+  });
+
+  // Cursor
+  const cursor = el('line', { y1: y(Y1), y2: y(Y0), class: 'cur-stroke', 'stroke-width': 1, 'stroke-dasharray': '3 3' });
+  const dot = el('circle', { r: 6, class: 'cur-fill', stroke: '#fff', 'stroke-width': 2 });
+  const curLbl = el('text', { y: y(Y0) + 52, 'text-anchor': 'middle', class: 'cur-fill', 'font-size': 11 });
+
+  // Tooltip
+  const tip = document.getElementById('tip');
+  const showTip = (e, it) => {
+    tip.innerHTML = `<p class="font-mono text-[10px] opacity-60 uppercase tracking-wider">${C.types[it.type].singular} · ${esc(U.range(it))}</p><p class="font-serif text-sm leading-snug">${esc(it.title)}</p>${it.venue ? `<p class="opacity-60">${esc(it.venue)}</p>` : ''}`;
+    tip.style.left = Math.min(innerWidth - 300, e.clientX + 14) + 'px'; tip.style.top = (e.clientY + 14) + 'px'; tip.style.opacity = 1;
+  };
+  svg.querySelectorAll('.rug, .node').forEach(n => {
+    const id = n.dataset.id || n.getAttribute('data-id');
+    n.addEventListener('pointerenter', e => showTip(e, U.byId[id]));
+    n.addEventListener('pointermove', e => showTip(e, U.byId[id]));
+    n.addEventListener('pointerleave', () => tip.style.opacity = 0);
+    n.addEventListener('click', e => { e.stopPropagation(); const it = U.byId[id]; const tt = U.toYear(it.date || it.start); if (it.link) window.open(it.link, '_blank', 'noopener'); else setT(tt); });
+  });
+
+  // Evaluation
+  const scrub = document.getElementById('scrub');
+  const months = Math.round((NOW - 1 / 12 - X0) * 12);
+  scrub.max = months;
+  const tAt = (v) => X0 + v / 12;
+  const fmtT = (t) => `${U.MONTHS[Math.min(11, Math.round((t % 1) * 12) % 12)]} ${Math.floor(t + 1e-6)}`;
+  const roleAt = (t) => {
+    const act = U.activeAt(t).filter(i => i.type === 'role' && !i.side).sort((a, b) => b.level - a.level);
+    if (act[0]) return act[0];
+    // Between roles (e.g. Feb–Apr 2024), hold the most recent one, matching the step plot
+    const prev = main.filter(r => r.start && U.toYear(r.start) <= t).pop();
+    return prev || U.byId['bsc'];
+  };
+
+  const setT = (t) => {
+    t = Math.max(X0, Math.min(NOW - 1 / 12, t));
+    scrub.value = Math.round((t - X0) * 12);
+    t = tAt(+scrub.value);
+    const r = roleAt(t), org = C.orgs[r.org];
+    cursor.setAttribute('x1', x(t)); cursor.setAttribute('x2', x(t));
+    dot.setAttribute('cx', x(t)); dot.setAttribute('cy', y(r.level));
+    curLbl.setAttribute('x', x(t)); curLbl.textContent = fmtT(t);
+    nodes.forEach(n => n.classList.toggle('on', n.dataset.id === r.id));
+    document.getElementById('tLabel').textContent = fmtT(t);
+    document.getElementById('rT').textContent = fmtT(t);
+    document.getElementById('rRole').textContent = r.title;
+    document.getElementById('rOrg').textContent = `${org.name}${r.location ? ' · ' + r.location : ''} · ${U.range(r)}${r.approx ? ' ≈' : ''}`;
+    document.getElementById('rSummary').textContent = r.summary || '';
+    document.getElementById('rBullets').innerHTML = (r.bullets || []).slice(0, 4).map(b => `<li class="flex gap-2"><span style="color:${org.color}">—</span>${esc(b)}</li>`).join('');
+    const inRole = r.start ? Math.max(0, Math.round((t - U.toYear(r.start)) * 12)) : null;
+    document.getElementById('sDur').textContent = inRole === null ? '—' : `${Math.floor(inRole / 12)}y ${inRole % 12}m`;
+    const exp = Math.max(0, t - U.toYear('2017-07'));
+    document.getElementById('sExp').textContent = `${exp.toFixed(1)} yrs`;
+    const done = C.items.filter(i => i.date && U.toYear(i.date) <= t);
+    document.getElementById('sPubs').textContent = done.filter(i => i.type === 'publication').length;
+    document.getElementById('sAwards').textContent = done.filter(i => i.type === 'award').length;
+    const par = U.activeAt(t).filter(i => i.id !== r.id);
+    document.getElementById('sPar').innerHTML = par.length ? par.map(p => `<li class="flex gap-2"><span class="opacity-50">·</span>${esc(p.title)}</li>`).join('') : '<li class="text-stone-400">∅</li>';
+  };
+
+  scrub.addEventListener('input', () => { stop(); setT(tAt(+scrub.value)); });
+  const toT = (e) => { const p = svg.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; const sp = p.matrixTransform(svg.getScreenCTM().inverse()); return X0 + (sp.x - M.l) / (W - M.l - M.r) * (X1 - X0); };
+  svg.addEventListener('pointermove', e => { if (playing) return; setT(toT(e)); });
+
+  // Play
+  let playing = null;
+  const playBtn = document.getElementById('play');
+  const stop = () => { if (playing) cancelAnimationFrame(playing); playing = null; playBtn.textContent = '▶'; };
+  playBtn.onclick = () => {
+    if (playing) return stop();
+    let v = +scrub.value >= months ? 0 : +scrub.value, last = performance.now();
+    playBtn.textContent = '❚❚';
+    const step = (now) => {
+      v += (now - last) / 1000 * 14; last = now; // ~14 months per second
+      if (v >= months) { setT(tAt(months)); return stop(); }
+      setT(tAt(v)); playing = requestAnimationFrame(step);
+    };
+    playing = requestAnimationFrame(step);
+  };
+
+  setT(NOW - 1 / 12);
+})();
+</script>
+</body>
+</html>
