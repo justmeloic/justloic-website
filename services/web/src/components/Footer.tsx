@@ -20,7 +20,7 @@ export function Footer() {
           GitLab
         </a>
         <a
-          href="#contact"
+          href="/contact"
           className="hover:text-stone-900 dark:hover:text-stone-100 transition"
         >
           Email

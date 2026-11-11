@@ -102,22 +102,15 @@ export function Contact() {
         )}
       </form>
 
-      {/* Back to section links from original site */}
       <div className="flex flex-wrap gap-2 pt-6 border-t border-stone-200 dark:border-stone-800 text-xs font-mono">
-        <Link href="#projects" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
-          back to Projects
+        <Link href="/" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+          back to timeline
         </Link>
-        <Link href="#awards" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
-          back to Awards
-        </Link>
-        <Link href="#art" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+        <Link href="/art" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
           back to art
         </Link>
-        <Link href="#philosophy" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
+        <Link href="/philosophy" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
           back to philosophy
-        </Link>
-        <Link href="#publications" className="px-3 py-1.5 rounded-md border border-stone-200 dark:border-stone-800 hover:border-stone-400 text-stone-500 dark:text-stone-400">
-          back to publications
         </Link>
       </div>
     </section>
