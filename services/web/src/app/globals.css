@@ -157,6 +157,11 @@
   height: 15px;
 }
 
+/* The floating resume sheet replaces the footer divider on that page */
+main:has(.resume-sheet) + div > footer {
+  border-top-width: 0;
+}
+
 /* ── Print / PDF Styles ────────────────────────────────────────── */
 @media print {
   /* Hide interactive chrome */

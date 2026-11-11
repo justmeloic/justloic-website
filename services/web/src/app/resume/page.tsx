@@ -26,7 +26,7 @@ export default function ResumePage() {
   return (
     <div className="mx-auto max-w-4xl py-8 sm:py-12">
       {/* Top Action Bar (hidden in print) */}
-      <div className="no-print mb-8 flex flex-col justify-between gap-4 border-b border-stone-200 pb-6 dark:border-stone-800 sm:flex-row sm:items-center">
+      <div className="no-print mb-8 flex flex-col justify-between gap-4 pb-6 sm:flex-row sm:items-center">
         <Link
           href="/"
           className="inline-flex w-fit items-center gap-2 font-mono text-xs text-stone-500 transition hover:text-stone-900 dark:hover:text-stone-100"
@@ -61,7 +61,7 @@ export default function ResumePage() {
       </div>
 
       {/* Main Resume Sheet / Card */}
-      <article className="resume-sheet space-y-9 rounded-2xl border border-stone-200/90 bg-white p-8 shadow-sm transition-colors dark:border-stone-800/90 dark:bg-[#181615] sm:space-y-10 sm:p-14">
+      <article className="resume-sheet space-y-9 rounded-2xl bg-white p-8 shadow-[0_1px_2px_rgba(36,33,30,0.04),0_10px_30px_-8px_rgba(36,33,30,0.10),0_30px_70px_-20px_rgba(36,33,30,0.18)] transition-colors dark:bg-[#181615] dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),0_12px_32px_-8px_rgba(0,0,0,0.6),0_32px_80px_-20px_rgba(0,0,0,0.75)] sm:space-y-10 sm:p-14">
         {/* Header / Identity */}
         <header className="space-y-3 pb-0">
           <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-baseline">
