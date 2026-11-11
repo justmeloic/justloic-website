@@ -401,8 +401,8 @@ export function Timeline() {
         role="group"
         aria-label="Filter timeline"
       >
-        {/* Row 1: Type */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        {/* Row 1: Type (hidden on mobile) */}
+        <div className="hidden md:flex flex-wrap items-center gap-x-3 gap-y-1.5">
           <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">
             Type
           </span>
@@ -428,9 +428,9 @@ export function Timeline() {
           </div>
         </div>
 
-        {/* Row 2: Organization */}
+        {/* Row 2: Organization (on mobile: no label, no 'All' button) */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">
+          <span className="hidden md:inline-block font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">
             Org
           </span>
           <div className="flex flex-wrap items-center gap-1.5">
@@ -438,7 +438,7 @@ export function Timeline() {
               type="button"
               aria-pressed={activeOrg === "all"}
               onClick={() => setActiveOrg("all")}
-              className={`px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+              className={`hidden md:inline-flex px-3 py-1.5 rounded-full text-xs font-mono border transition ${
                 activeOrg === "all"
                   ? "bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium"
                   : "border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100"
