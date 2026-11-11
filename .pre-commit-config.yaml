@@ -1,0 +1,63 @@
+# Git hooks — installed by `make setup` (runs `pre-commit install`).
+#   pre-commit : file hygiene, Prettier + ESLint on staged files, TypeScript check
+#   commit-msg : Conventional Commits (feat:, fix:, docs:, chore: ...)
+#   pre-push   : unit tests
+# Run all hooks manually: pre-commit run --all-files
+# Skip in an emergency:   git commit --no-verify
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: detect-private-key
+
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.5.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+
+  # Local hooks use the web app's own node_modules, so versions always match package.json.
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        language: system
+        files: ^services/web/
+        types_or: [ts, tsx, javascript, jsx, css, json, markdown, yaml]
+        entry: bash -c 'cd services/web && npx --no-install prettier --write --ignore-unknown --log-level warn "${@#services/web/}"' --
+
+      - id: eslint
+        name: eslint
+        language: system
+        files: ^services/web/.*\.(ts|tsx|js|jsx|mjs|mts)$
+        entry: bash -c 'cd services/web && npx --no-install eslint --fix --max-warnings 0 --no-warn-ignored "${@#services/web/}"' --
+
+      - id: typecheck
+        name: typecheck
+        language: system
+        files: ^services/web/.*\.(ts|tsx|mts)$
+        pass_filenames: false
+        entry: bash -c 'cd services/web && npx --no-install tsc --noEmit'
+
+      - id: test
+        name: unit tests
+        language: system
+        files: ^services/web/
+        pass_filenames: false
+        stages: [pre-push]
+        entry: npm --prefix services/web test
