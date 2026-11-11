@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Download, Copy, Check, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { GITHUB_URL, LINKEDIN_URL } from "@/data/site";
-import { ORG_LOGOS } from "@/data/logos";
+import { GOOGLE_WORDMARK_SVG, ORG_LOGOS } from "@/data/logos";
 
 export default function ResumePage() {
   const [copied, setCopied] = useState(false);
@@ -109,13 +109,13 @@ export default function ResumePage() {
             {/* Google Group */}
             <div className="space-y-6">
               <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center">
                   <span
-                    className="org-logo org-logo-google"
-                    dangerouslySetInnerHTML={{ __html: ORG_LOGOS.google.svg }}
-                    aria-hidden="true"
+                    className="org-logo h-5 sm:h-6"
+                    dangerouslySetInnerHTML={{ __html: GOOGLE_WORDMARK_SVG }}
+                    aria-label="Google"
+                    role="img"
                   />
-                  <h3 className="font-serif text-xl sm:text-2xl text-stone-900 dark:text-stone-100">Google</h3>
                 </div>
                 <span className="font-mono text-xs text-stone-400">Apr 2024 – Present</span>
               </div>
@@ -270,14 +270,14 @@ export default function ResumePage() {
               </p>
             </div>
 
-            {/* uOttawa / UWindsor B.Sc. */}
+            {/* uWindsor B.Sc. */}
             <div className="space-y-1.5 pt-2">
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
                 <div className="flex items-center gap-2">
                   <h3 className="font-sans text-base font-medium text-stone-900 dark:text-stone-100">
                     BSc in Mathematics
                   </h3>
-                  <span className="font-mono text-xs text-stone-500 dark:text-stone-400">· University of Ottawa / University of Windsor</span>
+                  <span className="font-mono text-xs text-stone-500 dark:text-stone-400">· University of Windsor</span>
                 </div>
                 <span className="font-mono text-xs text-stone-400">2012 – 2017</span>
               </div>
@@ -328,7 +328,7 @@ export default function ResumePage() {
         <section className="space-y-6">
           <div className="flex items-baseline justify-between border-b border-stone-200 dark:border-stone-800 pb-2">
             <h2 className="font-mono text-xs uppercase tracking-widest text-stone-400 dark:text-stone-500 font-semibold">
-              04 / Recognition &amp; Honors
+              04 / Awards
             </h2>
           </div>
 
@@ -339,17 +339,17 @@ export default function ResumePage() {
               <p className="text-xs text-stone-500 font-light">Recognized for key business and production impact on enterprise Gemini agents.</p>
             </div>
             <div className="p-3.5 rounded-xl border border-stone-200/80 dark:border-stone-800/80 space-y-1">
-              <span className="font-mono text-[10px] text-stone-400 font-medium">Government of Canada · May 2022</span>
+              <span className="font-mono text-[10px] text-[#B4884D] font-medium">Government of Canada · May 2022</span>
               <h4 className="font-medium text-stone-900 dark:text-stone-100">Agatha Chapman Innovation Award</h4>
               <p className="text-xs text-stone-500 font-light">Recognized by the Deputy Minister for innovative machine learning methodologies.</p>
             </div>
             <div className="p-3.5 rounded-xl border border-stone-200/80 dark:border-stone-800/80 space-y-1">
-              <span className="font-mono text-[10px] text-stone-400 font-medium">Government of Canada · Sep 2021</span>
+              <span className="font-mono text-[10px] text-[#B4884D] font-medium">Government of Canada · Sep 2021</span>
               <h4 className="font-medium text-stone-900 dark:text-stone-100">Performance Recognition Award</h4>
               <p className="text-xs text-stone-500 font-light">Awarded for high-impact technical leadership on production NLP systems.</p>
             </div>
             <div className="p-3.5 rounded-xl border border-stone-200/80 dark:border-stone-800/80 space-y-1">
-              <span className="font-mono text-[10px] text-stone-400 font-medium">NSERC · 2019</span>
+              <span className="font-mono text-[10px] text-[#B4884D] font-medium">NSERC · 2019</span>
               <h4 className="font-medium text-stone-900 dark:text-stone-100">Canada Graduate Scholarship (CGS-M)</h4>
               <p className="text-xs text-stone-500 font-light">National research award recognizing academic excellence in mathematical graduate research.</p>
             </div>
