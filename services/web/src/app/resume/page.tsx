@@ -363,33 +363,61 @@ export default function ResumePage() {
           <div className="space-y-4">
             <div className="flex flex-col justify-between gap-1 text-xs sm:flex-row sm:items-baseline sm:text-sm">
               <span className="text-stone-800 dark:text-stone-200">
-                <strong>
-                  A Generative Approach to Simultaneous Diffeomorphic Registration and Lesion
-                  Segmentation
-                </strong>{" "}
+                <a
+                  href="https://ruor.uottawa.ca/handle/10393/43733"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-red-900 hover:underline dark:hover:text-red-400"
+                >
+                  <strong>
+                    A Generative Approach to Simultaneous Diffeomorphic Registration and Lesion
+                    Segmentation
+                  </strong>
+                </a>{" "}
                 · Master’s Thesis
               </span>
               <span className="shrink-0 font-mono text-xs text-stone-400">2022</span>
             </div>
             <div className="flex flex-col justify-between gap-1 text-xs sm:flex-row sm:items-baseline sm:text-sm">
               <span className="text-stone-800 dark:text-stone-200">
-                <strong>Image Segmentation in Medical Imaging</strong> · Data Science Network for
-                the Federal Public Service
+                <a
+                  href="https://www.statcan.gc.ca/en/data-science/network/image-segmentation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-red-900 hover:underline dark:hover:text-red-400"
+                >
+                  <strong>Image Segmentation in Medical Imaging</strong>
+                </a>{" "}
+                · Data Science Network for the Federal Public Service
               </span>
               <span className="shrink-0 font-mono text-xs text-stone-400">2022</span>
             </div>
             <div className="flex flex-col justify-between gap-1 text-xs sm:flex-row sm:items-baseline sm:text-sm">
               <span className="text-stone-800 dark:text-stone-200">
-                <strong>Topic Modelling and Dynamic Topic Modelling: A Technical Review</strong> ·
-                Federal Data Science Network
+                <a
+                  href="https://www.statcan.gc.ca/en/data-science/network/topic-modelling"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-red-900 hover:underline dark:hover:text-red-400"
+                >
+                  <strong>Topic Modelling and Dynamic Topic Modelling: A Technical Review</strong>
+                </a>{" "}
+                · Federal Data Science Network
               </span>
               <span className="shrink-0 font-mono text-xs text-stone-400">2021</span>
             </div>
             <div className="flex flex-col justify-between gap-1 text-xs sm:flex-row sm:items-baseline sm:text-sm">
               <span className="text-stone-800 dark:text-stone-200">
-                <strong>
-                  Increasing Data Quality for Business Surveys without Impacting Collection Effort
-                </strong>{" "}
+                <a
+                  href="https://nces.ed.gov/FCSM/pdf/C_1_Andrews_2018FCSM.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-red-900 hover:underline dark:hover:text-red-400"
+                >
+                  <strong>
+                    Increasing Data Quality for Business Surveys without Impacting Collection Effort
+                  </strong>
+                </a>{" "}
                 · FCSM Conference
               </span>
               <span className="shrink-0 font-mono text-xs text-stone-400">2018</span>
