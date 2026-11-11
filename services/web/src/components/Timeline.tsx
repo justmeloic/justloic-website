@@ -3,27 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CAREER, ORGS, TYPES, type CareerItem, type OrgKey } from "@/data/career";
 import { ORG_LOGOS } from "@/data/logos";
+import { countItems, filterItems, formatRange, groupByYear } from "@/lib/timeline";
 
 const ORG_ORDER: OrgKey[] = ["google", "goc", "uottawa", "uwindsor"];
-
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-// Fractional year, e.g. "2021-07" -> 2021.5
-const toYear = (s?: string | null) => {
-  if (!s) return null;
-  const [y, m = 1, d = 1] = s.split("-").map(Number);
-  return y + (m - 1) / 12 + (d - 1) / 365;
-};
-const fmt = (s?: string | null) => {
-  if (!s) return "Present";
-  const [y, m] = s.split("-").map(Number);
-  return m ? `${MONTHS[m - 1]} ${y}` : `${y}`;
-};
-const range = (it: CareerItem) =>
-  it.date
-    ? fmt(it.date)
-    : `${it.start ? fmt(it.start) : "Pre"} – ${it.end ? fmt(it.end) : "Present"}`;
-const anchor = (it: CareerItem) => it.date || it.start || null;
 
 function Marker({ it }: { it: CareerItem }) {
   const col = ORGS[it.org].color;
@@ -72,7 +54,7 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
       >
         <div className="flex items-baseline justify-between gap-4">
           <span className="font-mono text-[10px] tracking-wider text-stone-500 dark:text-stone-400">
-            {range(it)}
+            {formatRange(it)}
             {it.approx && (
               <span title="approximate" className="text-[#B4884D]">
                 {" "}
@@ -358,14 +340,7 @@ export function Timeline() {
   const filterKey = `${activeType}:${activeOrg}`;
   const kick = useDock(ledgerRef, fillRef, filterKey);
 
-  const counts = useMemo(() => {
-    const c: Record<string, number> = { all: CAREER.length };
-    for (const it of CAREER) {
-      c[it.type] = (c[it.type] || 0) + 1;
-      c[it.org] = (c[it.org] || 0) + 1;
-    }
-    return c;
-  }, []);
+  const counts = useMemo(() => countItems(CAREER), []);
 
   const typeFilterDefs = useMemo(
     () => [
@@ -390,26 +365,12 @@ export function Timeline() {
     [counts]
   );
 
-  const filtered = useMemo(() => {
-    return CAREER.filter((it) => {
-      const matchType = activeType === "all" || it.type === activeType;
-      const matchOrg = activeOrg === "all" || it.org === activeOrg;
-      return matchType && matchOrg;
-    });
-  }, [activeType, activeOrg]);
+  const filtered = useMemo(
+    () => filterItems(CAREER, activeType, activeOrg),
+    [activeType, activeOrg]
+  );
 
-  const groups = useMemo(() => {
-    const map = new Map<string, CareerItem[]>();
-    [...filtered]
-      .sort((a, b) => (toYear(anchor(b)) ?? 0) - (toYear(anchor(a)) ?? 0))
-      .forEach((it) => {
-        const a = anchor(it);
-        const key = a ? a.slice(0, 4) : "Earlier";
-        if (!map.has(key)) map.set(key, []);
-        map.get(key)!.push(it);
-      });
-    return [...map];
-  }, [filtered]);
+  const groups = useMemo(() => groupByYear(filtered), [filtered]);
 
   useEffect(() => kick.current(), [open, kick, filterKey]);
 
