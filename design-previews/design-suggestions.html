@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Suggestions &amp; Interactivity Lab — Loïc Muhirwa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Source+Code+Pro:wght@300;400;500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sourcesans: ['"Source Sans 3"', '"Source Sans Pro"', 'sans-serif'],
+            sourceserif: ['"Source Serif 4"', 'serif'],
+            sourcecode: ['"Source Code Pro"', 'monospace'],
+            newsreader: ['Newsreader', 'serif'],
+            cormorant: ['"Cormorant Garamond"', 'serif'],
+            instrument: ['"Instrument Serif"', 'serif'],
+            fraunces: ['Fraunces', 'serif'],
+            dmserif: ['"DM Serif Display"', 'serif'],
+            dmsans: ['"DM Sans"', 'sans-serif'],
+            lora: ['Lora', 'serif'],
+            spectral: ['Spectral', 'serif'],
+            jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --bg-color: #FAFAF9;
+      --bg-card: #FFFFFF;
+      --text-main: #1C1917;
+      --text-muted: #78716C;
+      --accent-color: #950D0D;
+      --accent-highlight: #FB7185;
+      --border-color: #E7E5E4;
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-mono: 'Source Code Pro', monospace;
+      --card-radius: 0.75rem;
+      --dock-max: 1.25;
+      --dock-min: 0.75;
+      --dock-fade: 0.35;
+      --card-padding-y: 0.75rem;
+    }
+    .dark {
+      --bg-color: #0F0E0E;
+      --bg-card: #181615;
+      --text-main: #E7E5E4;
+      --text-muted: #A8A29E;
+      --accent-color: #FB7185;
+      --accent-highlight: #FDA4AF;
+      --border-color: #292524;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: clip;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .headline-font { font-family: var(--font-headline); }
+    .body-font { font-family: var(--font-body); }
+    .mono-font { font-family: var(--font-mono); }
+
+    /* Dock magnification */
+    .ledger-entry {
+      transform-origin: 0 50%;
+      will-change: transform, opacity;
+      max-width: calc(100% / var(--dock-max, 1));
+      transition: opacity 0.2s ease;
+    }
+    .ledger-year-slot {
+      transform-origin: 100% 0;
+      will-change: transform, opacity;
+    }
+
+    /* Density modes */
+    .density-compact .ledger-entry { padding-top: 0.35rem; padding-bottom: 0.35rem; }
+    .density-compact .ledger-toggle { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .density-spacious .ledger-entry { padding-top: 1.15rem; padding-bottom: 1.15rem; }
+    .density-spacious .ledger-toggle { padding-top: 1rem; padding-bottom: 1rem; }
+
+    /* Card Style 1: Floating Card */
+    .style-floating .ledger-toggle {
+      border: 1px solid transparent;
+      border-radius: var(--card-radius);
+      transition: all 0.25s ease;
+    }
+    .style-floating .ledger-entry[data-focus] .ledger-toggle {
+      background: var(--bg-card);
+      border-color: var(--border-color);
+      box-shadow: 0 4px 20px -6px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .dark.style-floating .ledger-entry[data-focus] .ledger-toggle {
+      box-shadow: 0 8px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    /* Card Style 2: Ruled Ledger */
+    .style-ledger .ledger-toggle {
+      border-radius: 0;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.85rem;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    .style-ledger .ledger-entry[data-focus] .ledger-toggle {
+      border-bottom-color: var(--accent-color);
+    }
+
+    /* Card Style 3: Frosted Glass */
+    .style-glass .ledger-toggle {
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: var(--card-radius);
+      transition: all 0.25s ease;
+    }
+    .dark.style-glass .ledger-toggle {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(28, 25, 23, 0.5);
+    }
+    .style-glass .ledger-entry[data-focus] .ledger-toggle {
+      border-color: var(--accent-color);
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 8px 32px 0 rgba(136, 19, 55, 0.12);
+    }
+    .dark.style-glass .ledger-entry[data-focus] .ledger-toggle {
+      background: rgba(38, 35, 33, 0.8);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    /* Card Style 4: Minimalist Pure (justloic.com clean style) */
+    .style-minimal .ledger-toggle {
+      border-radius: 0.5rem;
+      background: transparent;
+      transition: all 0.25s ease;
+    }
+    .style-minimal .ledger-entry[data-focus] .ledger-toggle {
+      background: rgba(0, 0, 0, 0.03);
+    }
+    .dark.style-minimal .ledger-entry[data-focus] .ledger-toggle {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Card Style 5: Org Accent Border */
+    .style-orgaccent .ledger-toggle {
+      border-left: 2px solid var(--border-color);
+      border-radius: 0 var(--card-radius) var(--card-radius) 0;
+      padding-left: 1rem;
+      transition: all 0.25s ease;
+    }
+    .style-orgaccent .ledger-entry[data-org="google"][data-focus] .ledger-toggle { border-left-color: #B4884D; background: rgba(180, 136, 77, 0.05); }
+    .style-orgaccent .ledger-entry[data-org="goc"][data-focus] .ledger-toggle { border-left-color: #881337; background: rgba(136, 19, 55, 0.05); }
+    .style-orgaccent .ledger-entry[data-org="uottawa"][data-focus] .ledger-toggle { border-left-color: #8F001A; background: rgba(143, 0, 26, 0.05); }
+    .style-orgaccent .ledger-entry[data-org="uwindsor"][data-focus] .ledger-toggle { border-left-color: #005596; background: rgba(0, 85, 150, 0.05); }
+
+    .ledger-entry[data-focus] h3 {
+      color: var(--accent-color);
+    }
+
+    /* Expandable drawer */
+    .ledger-drawer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ledger-drawer > div {
+      overflow: hidden;
+    }
+    [aria-expanded="true"] + .ledger-drawer {
+      grid-template-rows: 1fr;
+    }
+    [aria-expanded="true"] .ledger-chev {
+      transform: rotate(45deg);
+    }
+
+    /* Ping marker for live roles */
+    .live-pulse::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background: inherit;
+      animation: pulse-ring 1.8s ease-out infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+
+    /* Organisation marks */
+    .org-logo {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: var(--text-main);
+    }
+    .org-logo svg {
+      height: 100%;
+      width: auto;
+    }
+    .org-logo-google { height: 16px; }
+    .org-logo-goc { height: 18px; }
+    .org-logo-uottawa { height: 20px; color: #8f001a; }
+    .dark .org-logo-uottawa { color: var(--text-main); }
+    .org-logo-uwindsor { height: 24px; }
+
+    /* Filter pills */
+    .org-logo-filter {
+      color: inherit;
+      align-items: center;
+    }
+    .org-logo-filter.org-logo-google { height: 14px; }
+    .org-logo-filter.org-logo-goc { height: 13px; }
+    .org-logo-filter.org-logo-uottawa { height: 14px; color: #8f001a; }
+    .dark .org-logo-filter.org-logo-uottawa,
+    [aria-pressed="true"] .org-logo-filter.org-logo-uottawa,
+    [aria-pressed="true"] .org-logo-filter {
+      color: inherit;
+    }
+    .org-logo-filter.org-logo-uwindsor { height: 15px; }
+
+    /* Spotlight gradient on pointer */
+    .spotlight-active {
+      background-image: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(149, 13, 13, 0.05), transparent 40%);
+    }
+    .dark.spotlight-active {
+      background-image: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(251, 113, 133, 0.06), transparent 40%);
+    }
+
+    /* Right margin Year Scrubber */
+    .year-scrubber-btn {
+      transition: all 0.2s ease;
+    }
+    .year-scrubber-btn.is-active {
+      color: var(--accent-color);
+      font-weight: 700;
+      transform: scale(1.25);
+    }
+
+    /* Skill chip interactive highlight */
+    .skill-chip {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .skill-chip:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+  </style>
+</head>
+<body class="style-minimal transition-colors duration-300">
+
+  <!-- ============================================================
+       TOP CONTROL BAR: INTERACTIVE DESIGN LAB
+       ============================================================ -->
+  <header class="sticky top-0 z-50 bg-[#121110]/95 text-stone-200 text-xs backdrop-blur-md border-b border-stone-800 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Presets (5 Curated Directions) -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <a href="index.html" class="font-mono text-[11px] text-stone-400 hover:text-white transition">← Hub</a>
+        <span class="w-px h-3.5 bg-stone-700"></span>
+        <span class="font-mono font-semibold tracking-wider text-rose-400">DESIGN LAB</span>
+        <span class="text-stone-500 hidden sm:inline">|</span>
+        <div class="flex items-center gap-1 font-mono text-[11px] flex-wrap">
+          <button data-preset="original" class="preset-btn px-2 py-0.5 rounded border border-rose-500/80 bg-rose-950/60 text-white font-medium" title="Source Sans 3 (light 300) + Source Serif + #950D0D red from justloic.com">1. justloic.com Pure</button>
+          <button data-preset="atelier" class="preset-btn px-2 py-0.5 rounded border border-stone-700 bg-stone-800/80 text-stone-300 hover:text-white" title="Newsreader + Plus Jakarta Sans + Crimson">2. Atelier</button>
+          <button data-preset="polymath" class="preset-btn px-2 py-0.5 rounded border border-stone-700 bg-stone-800/80 text-stone-300 hover:text-white" title="Cormorant Garamond + Inter + Bronze Ledger">3. Scholar</button>
+          <button data-preset="quantum" class="preset-btn px-2 py-0.5 rounded border border-stone-700 bg-stone-800/80 text-stone-300 hover:text-white" title="Instrument Serif + Frosted Glass + Electric Ruby">4. Quantum</button>
+          <button data-preset="gallery" class="preset-btn px-2 py-0.5 rounded border border-stone-700 bg-stone-800/80 text-stone-300 hover:text-white" title="DM Serif Display + DM Sans + Org Accent Spines">5. Gallery</button>
+        </div>
+      </div>
+
+      <!-- Quick Customizers -->
+      <div class="flex items-center gap-2 flex-wrap">
+        
+        <!-- Headline Font Picker -->
+        <div class="flex items-center gap-1 bg-stone-900 border border-stone-700 rounded px-2 py-0.5">
+          <label for="fontSelect" class="text-[10px] font-mono text-stone-400">Head:</label>
+          <select id="fontSelect" class="bg-transparent text-white font-mono text-[11px] focus:outline-none cursor-pointer">
+            <option value="sourceserif" selected>Source Serif 4 (justloic.com)</option>
+            <option value="sourcesans">Source Sans 3 (justloic.com exact)</option>
+            <option value="newsreader">Newsreader (Literary)</option>
+            <option value="cormorant">Cormorant Garamond (Classical)</option>
+            <option value="instrument">Instrument Serif (Modern Chic)</option>
+            <option value="dmserif">DM Serif Display (Editorial)</option>
+            <option value="lora">Lora (Calligraphic)</option>
+            <option value="fraunces">Fraunces (Optical)</option>
+          </select>
+        </div>
+
+        <!-- Body Font Picker -->
+        <div class="flex items-center gap-1 bg-stone-900 border border-stone-700 rounded px-2 py-0.5">
+          <label for="bodyFontSelect" class="text-[10px] font-mono text-stone-400">Body:</label>
+          <select id="bodyFontSelect" class="bg-transparent text-white font-mono text-[11px] focus:outline-none cursor-pointer">
+            <option value="sourcesans" selected>Source Sans 3 (justloic.com)</option>
+            <option value="jakarta">Plus Jakarta Sans</option>
+            <option value="inter">Inter (Clean)</option>
+            <option value="dmsans">DM Sans</option>
+          </select>
+        </div>
+
+        <!-- Card Style -->
+        <div class="flex items-center gap-1 bg-stone-900 border border-stone-700 rounded px-2 py-0.5">
+          <label for="styleSelect" class="text-[10px] font-mono text-stone-400">Card:</label>
+          <select id="styleSelect" class="bg-transparent text-white font-mono text-[11px] focus:outline-none cursor-pointer">
+            <option value="minimal" selected>Minimal Pure (justloic.com)</option>
+            <option value="floating">Floating Box</option>
+            <option value="ledger">Ruled Ledger</option>
+            <option value="glass">Frosted Glass</option>
+            <option value="orgaccent">Org Accent Spine</option>
+          </select>
+        </div>
+
+        <!-- Spacing Density -->
+        <div class="flex items-center gap-1 bg-stone-900 border border-stone-700 rounded px-2 py-0.5">
+          <label for="densitySelect" class="text-[10px] font-mono text-stone-400">Space:</label>
+          <select id="densitySelect" class="bg-transparent text-white font-mono text-[11px] focus:outline-none cursor-pointer">
+            <option value="compact">Compact</option>
+            <option value="normal" selected>Normal</option>
+            <option value="spacious">Spacious</option>
+          </select>
+        </div>
+
+        <!-- Zoom Slider -->
+        <div class="flex items-center gap-1.5 bg-stone-900 border border-stone-700 rounded px-2 py-0.5">
+          <label for="zoomRange" class="text-[10px] font-mono text-stone-400">Zoom:</label>
+          <input type="range" id="zoomRange" min="1.10" max="1.65" step="0.05" value="1.25" class="w-14 accent-rose-500 cursor-pointer">
+          <span id="zoomLabel" class="font-mono text-[10px] w-8 text-rose-300">1.25×</span>
+        </div>
+
+        <!-- Extra Toggles -->
+        <button id="toggleSpotlight" class="px-2 py-1 rounded border border-stone-700 bg-stone-800 text-[11px] font-mono text-stone-300 hover:text-white" title="Toggle radial spotlight under cursor">
+          💡 Glow: <span id="spotlightState">Off</span>
+        </button>
+
+        <button id="toggleScrubber" class="px-2 py-1 rounded border border-stone-700 bg-stone-800 text-[11px] font-mono text-stone-300 hover:text-white" title="Toggle right margin year scrubber rail">
+          🧭 Rail: <span id="scrubberState">On</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggle" class="px-2.5 py-1 rounded border border-stone-700 bg-stone-800 text-stone-200 font-mono hover:bg-stone-700 transition" title="Toggle Light/Dark">
+          🌓
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       NAVBAR (With 3 Social Icon Buttons)
+       ============================================================ -->
+  <nav class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
+    <a href="#" class="headline-font text-3xl font-light tracking-tight">Loïc</a>
+    <div class="hidden md:flex items-center space-x-6 text-xs font-mono tracking-wider text-stone-600 dark:text-stone-400">
+      <span class="text-stone-950 dark:text-stone-100 underline underline-offset-8 decoration-rose-900 dark:decoration-rose-400">Timeline</span>
+      <span class="hover:text-stone-900 dark:hover:text-stone-100 cursor-pointer">Art</span>
+      <span class="hover:text-stone-900 dark:hover:text-stone-100 cursor-pointer">Philosophy</span>
+      <span class="hover:text-stone-900 dark:hover:text-stone-100 cursor-pointer">Contact</span>
+      <span class="hover:text-stone-900 dark:hover:text-stone-100 cursor-pointer">Resume ↗</span>
+    </div>
+    <div class="flex items-center space-x-2 text-stone-600 dark:text-stone-300">
+      <a href="https://www.linkedin.com/in/lo%C3%AFc-muhirwa-b3a940242/" target="_blank" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center hover:border-stone-900 dark:hover:border-stone-100 transition" title="LinkedIn">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="https://github.com/justmeloic" target="_blank" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center hover:border-stone-900 dark:hover:border-stone-100 transition" title="GitHub">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+      </a>
+      <a href="https://gitlab.com/justloic" target="_blank" class="w-7 h-7 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center hover:border-stone-900 dark:hover:border-stone-100 transition" title="GitLab">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 13.29-3.33-10a.42.42 0 0 0-.14-.18.38.38 0 0 0-.22-.11.39.39 0 0 0-.23.07.42.42 0 0 0-.14.18L2 13.29a.74.74 0 0 0 .27.83L12 21l9.69-6.88a.71.71 0 0 0 .31-.83Z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MAIN CONTENT: TIMELINE
+       ============================================================ -->
+  <main class="max-w-5xl mx-auto px-6 pt-10 pb-24 relative">
+
+    <!-- SEARCH & FILTER SYSTEM -->
+    <section class="space-y-3.5 mb-10 pl-0 md:pl-[8rem]">
+      
+      <!-- Search Input + Topic Quick Chips -->
+      <div class="space-y-2 pb-1">
+        <div class="flex items-center gap-3">
+          <div class="relative w-full max-w-sm">
+            <input type="text" id="keywordSearch" placeholder="Search skills, projects, keywords (e.g. AI, Vision, Bayesian)..."
+                   class="w-full bg-stone-100 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-800 rounded-lg px-3 py-1.5 text-xs font-mono focus:outline-none focus:border-stone-900 dark:focus:border-stone-200 transition">
+            <span class="absolute right-2.5 top-2 text-[10px] font-mono text-stone-400">⌘K</span>
+          </div>
+          <span id="matchCount" class="font-mono text-xs text-stone-400"></span>
+        </div>
+
+        <!-- Topic quick tags -->
+        <div class="flex items-center gap-1.5 flex-wrap font-mono text-[10px] text-stone-500">
+          <span class="text-stone-400">Topics:</span>
+          <button data-quick="Generative AI" class="quick-tag px-2 py-0.5 rounded bg-stone-200/60 dark:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100">Generative AI</button>
+          <button data-quick="Computer Vision" class="quick-tag px-2 py-0.5 rounded bg-stone-200/60 dark:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100">Computer Vision</button>
+          <button data-quick="Agents" class="quick-tag px-2 py-0.5 rounded bg-stone-200/60 dark:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100">Agents</button>
+          <button data-quick="Bayesian" class="quick-tag px-2 py-0.5 rounded bg-stone-200/60 dark:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100">Bayesian</button>
+          <button data-quick="Leadership" class="quick-tag px-2 py-0.5 rounded bg-stone-200/60 dark:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100">Leadership</button>
+        </div>
+      </div>
+
+      <!-- ROW 1: TYPE FILTERS -->
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">Type</span>
+        <div id="typeFilters" class="flex flex-wrap items-center gap-1.5"></div>
+      </div>
+
+      <!-- ROW 2: ORG FILTERS -->
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 w-12 shrink-0">Org</span>
+        <div id="orgFilters" class="flex flex-wrap items-center gap-1.5"></div>
+      </div>
+    </section>
+
+    <!-- TIMELINE LEDGER CONTAINER -->
+    <div id="ledger" class="relative pb-24">
+      <!-- Spine -->
+      <div class="absolute top-0 bottom-16 left-[4.5rem] md:left-[8rem] w-px bg-stone-300 dark:bg-stone-800" aria-hidden="true">
+        <div id="spineFill" class="w-px h-0 bg-rose-900 dark:bg-rose-400 transition-[height] duration-150"></div>
+      </div>
+      <!-- Groups rendered dynamically -->
+      <div id="groups"></div>
+    </div>
+  </main>
+
+  <!-- ============================================================
+       RIGHT-HAND YEAR SCRUBBER RAIL (MINIMAP)
+       ============================================================ -->
+  <aside id="yearScrubber" class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-2 font-mono text-[10px] text-stone-400 select-none">
+    <span class="text-[9px] uppercase tracking-widest text-stone-500 -rotate-90 mb-2">Year</span>
+    <div id="scrubberTicks" class="flex flex-col items-center gap-1.5 py-2 px-1 rounded-full bg-stone-200/50 dark:bg-stone-900/50 backdrop-blur border border-stone-300 dark:border-stone-800"></div>
+  </aside>
+
+  <!-- External Assets -->
+  <script src="timeline-data.js"></script>
+  <script src="logos.js"></script>
+
+  <!-- Interactivity & Customizer Logic -->
+  <script>
+    (() => {
+      const C = window.CAREER;
+      const U = window.CareerUtil;
+      const esc = U.esc;
+
+      // Filter State
+      let activeType = 'all';
+      let activeOrg = 'all';
+      let searchQuery = '';
+      let openDrawers = new Set();
+
+      // Style Presets
+      const PRESETS = {
+        original: {
+          name: 'justloic.com Pure (Light 300)',
+          fontHeadline: "'Source Serif 4', serif",
+          fontBody: "'Source Sans 3', sans-serif",
+          fontMono: "'Source Code Pro', monospace",
+          style: 'minimal',
+          zoom: 1.25,
+          spotlight: false,
+          accent: '#950D0D', // Exact link red from justloic.com main.css
+          density: 'normal'
+        },
+        atelier: {
+          name: 'Architectural Atelier',
+          fontHeadline: "'Newsreader', serif",
+          fontBody: "'Plus Jakarta Sans', sans-serif",
+          fontMono: "'JetBrains Mono', monospace",
+          style: 'floating',
+          zoom: 1.35,
+          spotlight: false,
+          accent: '#881337',
+          density: 'normal'
+        },
+        polymath: {
+          name: 'The Renaissance Scholar',
+          fontHeadline: "'Cormorant Garamond', serif",
+          fontBody: "'Inter', sans-serif",
+          fontMono: "'JetBrains Mono', monospace",
+          style: 'ledger',
+          zoom: 1.25,
+          spotlight: false,
+          accent: '#B4884D',
+          density: 'normal'
+        },
+        quantum: {
+          name: 'Quantum Minimalist (AI Studio)',
+          fontHeadline: "'Instrument Serif', serif",
+          fontBody: "'Source Sans 3', sans-serif",
+          fontMono: "'JetBrains Mono', monospace",
+          style: 'glass',
+          zoom: 1.45,
+          spotlight: true,
+          accent: '#E11D48',
+          density: 'compact'
+        },
+        gallery: {
+          name: 'Editorial Gallery',
+          fontHeadline: "'DM Serif Display', serif",
+          fontBody: "'DM Sans', sans-serif",
+          fontMono: "'JetBrains Mono', monospace",
+          style: 'orgaccent',
+          zoom: 1.30,
+          spotlight: false,
+          accent: '#C2410C',
+          density: 'spacious'
+        }
+      };
+
+      // Apply Preset
+      function applyPreset(key) {
+        const p = PRESETS[key];
+        if (!p) return;
+        document.documentElement.style.setProperty('--font-headline', p.fontHeadline);
+        document.documentElement.style.setProperty('--font-body', p.fontBody);
+        document.documentElement.style.setProperty('--font-mono', p.fontMono || "'JetBrains Mono', monospace");
+        document.documentElement.style.setProperty('--accent-color', p.accent);
+        
+        // Update Card Class
+        document.body.classList.remove('style-floating', 'style-ledger', 'style-glass', 'style-minimal', 'style-orgaccent');
+        document.body.classList.add(`style-${p.style}`);
+
+        // Update Density Class
+        document.body.classList.remove('density-compact', 'density-normal', 'density-spacious');
+        document.body.classList.add(`density-${p.density || 'normal'}`);
+        document.getElementById('densitySelect').value = p.density || 'normal';
+
+        // Update Slider
+        document.getElementById('zoomRange').value = p.zoom;
+        document.getElementById('zoomLabel').textContent = p.zoom + '×';
+        document.documentElement.style.setProperty('--dock-max', p.zoom);
+
+        // Update Selects
+        if (p.fontHeadline.includes('Source Serif')) document.getElementById('fontSelect').value = 'sourceserif';
+        else if (p.fontHeadline.includes('Source Sans')) document.getElementById('fontSelect').value = 'sourcesans';
+        else if (p.fontHeadline.includes('Newsreader')) document.getElementById('fontSelect').value = 'newsreader';
+        else if (p.fontHeadline.includes('Cormorant')) document.getElementById('fontSelect').value = 'cormorant';
+        else if (p.fontHeadline.includes('Instrument')) document.getElementById('fontSelect').value = 'instrument';
+        else if (p.fontHeadline.includes('DM Serif')) document.getElementById('fontSelect').value = 'dmserif';
+        else if (p.fontHeadline.includes('Lora')) document.getElementById('fontSelect').value = 'lora';
+        else document.getElementById('fontSelect').value = 'fraunces';
+
+        if (p.fontBody.includes('Source Sans')) document.getElementById('bodyFontSelect').value = 'sourcesans';
+        else if (p.fontBody.includes('Jakarta')) document.getElementById('bodyFontSelect').value = 'jakarta';
+        else if (p.fontBody.includes('DM Sans')) document.getElementById('bodyFontSelect').value = 'dmsans';
+        else document.getElementById('bodyFontSelect').value = 'inter';
+
+        document.getElementById('styleSelect').value = p.style;
+
+        // Spotlight
+        if (p.spotlight) {
+          document.body.classList.add('spotlight-active');
+          document.getElementById('spotlightState').textContent = 'On';
+        } else {
+          document.body.classList.remove('spotlight-active');
+          document.getElementById('spotlightState').textContent = 'Off';
+        }
+
+        // Active Button styling
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+          const isMe = btn.dataset.preset === key;
+          btn.className = isMe
+            ? 'preset-btn px-2 py-0.5 rounded border border-rose-500/80 bg-rose-950/60 text-white font-medium'
+            : 'preset-btn px-2 py-0.5 rounded border border-stone-700 bg-stone-800/80 text-stone-300 hover:text-white';
+        });
+
+        kick();
+      }
+
+      // Live Controls Listeners
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.onclick = () => applyPreset(btn.dataset.preset);
+      });
+
+      document.getElementById('fontSelect').onchange = (e) => {
+        const map = {
+          sourceserif: "'Source Serif 4', serif",
+          sourcesans: "'Source Sans 3', sans-serif",
+          newsreader: "'Newsreader', serif",
+          cormorant: "'Cormorant Garamond', serif",
+          instrument: "'Instrument Serif', serif",
+          dmserif: "'DM Serif Display', serif",
+          lora: "Lora, serif",
+          fraunces: "'Fraunces', serif"
+        };
+        document.documentElement.style.setProperty('--font-headline', map[e.target.value]);
+      };
+
+      document.getElementById('bodyFontSelect').onchange = (e) => {
+        const map = {
+          sourcesans: "'Source Sans 3', sans-serif",
+          jakarta: "'Plus Jakarta Sans', sans-serif",
+          inter: "Inter, sans-serif",
+          dmsans: "'DM Sans', sans-serif"
+        };
+        document.documentElement.style.setProperty('--font-body', map[e.target.value]);
+      };
+
+      document.getElementById('styleSelect').onchange = (e) => {
+        document.body.classList.remove('style-floating', 'style-ledger', 'style-glass', 'style-minimal', 'style-orgaccent');
+        document.body.classList.add(`style-${e.target.value}`);
+      };
+
+      document.getElementById('densitySelect').onchange = (e) => {
+        document.body.classList.remove('density-compact', 'density-normal', 'density-spacious');
+        document.body.classList.add(`density-${e.target.value}`);
+        tune();
+        kick();
+      };
+
+      document.getElementById('zoomRange').oninput = (e) => {
+        const v = parseFloat(e.target.value);
+        document.getElementById('zoomLabel').textContent = v.toFixed(2) + '×';
+        document.documentElement.style.setProperty('--dock-max', v);
+        tune();
+        kick();
+      };
+
+      document.getElementById('toggleSpotlight').onclick = () => {
+        const has = document.body.classList.toggle('spotlight-active');
+        document.getElementById('spotlightState').textContent = has ? 'On' : 'Off';
+      };
+
+      document.getElementById('toggleScrubber').onclick = () => {
+        const sc = document.getElementById('yearScrubber');
+        sc.classList.toggle('hidden');
+        document.getElementById('scrubberState').textContent = sc.classList.contains('hidden') ? 'Off' : 'On';
+      };
+
+      document.getElementById('themeToggle').onclick = () => {
+        document.documentElement.classList.toggle('dark');
+      };
+
+      // Quick Tag Search Buttons
+      document.querySelectorAll('.quick-tag').forEach(b => {
+        b.onclick = () => {
+          const q = b.dataset.quick;
+          const input = document.getElementById('keywordSearch');
+          if (input.value === q) {
+            input.value = '';
+            searchQuery = '';
+          } else {
+            input.value = q;
+            searchQuery = q.toLowerCase();
+          }
+          renderTimeline();
+        };
+      });
+
+      // Spotlight cursor tracking
+      window.addEventListener('pointermove', (e) => {
+        document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
+        document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+      });
+
+      // Keyboard Shortcut for Search
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          document.getElementById('keywordSearch').focus();
+        }
+      });
+      document.getElementById('keywordSearch').oninput = (e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        renderTimeline();
+      };
+
+      // Counts
+      function computeCounts() {
+        const counts = { all: C.items.length };
+        C.items.forEach(it => {
+          counts[it.type] = (counts[it.type] || 0) + 1;
+          counts[it.org] = (counts[it.org] || 0) + 1;
+        });
+        return counts;
+      }
+
+      // Render Filter Bars
+      function renderFilters() {
+        const counts = computeCounts();
+
+        // Type Filters
+        const typeDefs = [
+          ['all', 'All', counts.all],
+          ...Object.entries(C.types).map(([k, v]) => [k, v.label, counts[k] || 0])
+        ];
+        const tEl = document.getElementById('typeFilters');
+        tEl.innerHTML = typeDefs.map(([k, label, n]) => {
+          const active = activeType === k;
+          return `
+            <button data-type-filter="${k}" aria-pressed="${active}"
+              class="px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+                active
+                  ? 'bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium'
+                  : 'border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100'
+              }">
+              ${label} <span class="opacity-50">${n}</span>
+            </button>`;
+        }).join('');
+
+        // Org Filters
+        const orgOrder = ['google', 'goc', 'uottawa', 'uwindsor'];
+        const oEl = document.getElementById('orgFilters');
+        const orgAllActive = activeOrg === 'all';
+        let orgHTML = `
+          <button data-org-filter="all" aria-pressed="${orgAllActive}"
+            class="px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+              orgAllActive
+                ? 'bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium'
+                : 'border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100'
+            }">
+            All <span class="opacity-50">${counts.all}</span>
+          </button>`;
+
+        orgOrder.forEach(k => {
+          const logo = window.ORG_LOGOS?.[k];
+          const active = activeOrg === k;
+          const count = counts[k] || 0;
+          orgHTML += `
+            <button data-org-filter="${k}" aria-pressed="${active}" aria-label="Filter by ${logo?.label} (${count})" title="Filter by ${logo?.label} (${count})"
+              class="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border transition ${
+                active
+                  ? 'bg-stone-900 text-stone-100 border-stone-900 dark:bg-stone-100 dark:text-stone-900 dark:border-stone-100 font-medium'
+                  : 'border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-stone-900 dark:hover:border-stone-100 hover:text-stone-950 dark:hover:text-stone-100'
+              }">
+              <span class="org-logo org-logo-filter org-logo-${k}" role="img" aria-hidden="true">${logo ? logo.svg : k}</span>
+              <span class="opacity-50">${count}</span>
+            </button>`;
+        });
+        oEl.innerHTML = orgHTML;
+
+        // Click Handlers
+        tEl.querySelectorAll('[data-type-filter]').forEach(b => {
+          b.onclick = () => {
+            const k = b.dataset.typeFilter;
+            activeType = (activeType === k) ? 'all' : k;
+            renderFilters();
+            renderTimeline();
+          };
+        });
+        oEl.querySelectorAll('[data-org-filter]').forEach(b => {
+          b.onclick = () => {
+            const k = b.dataset.orgFilter;
+            activeOrg = (activeOrg === k) ? 'all' : k;
+            renderFilters();
+            renderTimeline();
+          };
+        });
+      }
+
+      // Marker shape by type
+      function marker(it) {
+        const col = C.orgs[it.org].color;
+        const live = !it.date && it.start && !it.end;
+        switch (it.type) {
+          case 'role': return `<span class="relative block w-3 h-3 rounded-full ${live ? 'live-pulse' : ''}" style="background:${col}"></span>`;
+          case 'education': return `<span class="block w-3 h-3 border-2 bg-stone-100 dark:bg-stone-900" style="border-color:${col}"></span>`;
+          case 'project': return `<span class="block w-3 h-3 rounded-full border-2 bg-stone-100 dark:bg-stone-900" style="border-color:${col}"></span>`;
+          case 'publication': return `<span class="block w-2.5 h-2.5 bg-stone-500 dark:bg-stone-400"></span>`;
+          case 'award': return `<span class="block w-3 h-3 rotate-45 bg-[#B4884D]"></span>`;
+        }
+      }
+
+      // Render Timeline Items
+      function renderTimeline() {
+        const anchor = (it) => it.date || it.start;
+        const filtered = C.items.filter(it => {
+          const matchType = activeType === 'all' || it.type === activeType;
+          const matchOrg = activeOrg === 'all' || it.org === activeOrg;
+          let matchSearch = true;
+          if (searchQuery) {
+            const text = `${it.title} ${it.summary || ''} ${(it.skills || []).join(' ')} ${(it.bullets || []).join(' ')}`.toLowerCase();
+            matchSearch = text.includes(searchQuery);
+          }
+          return matchType && matchOrg && matchSearch;
+        });
+
+        // Match count indicator
+        const mc = document.getElementById('matchCount');
+        if (searchQuery) {
+          mc.textContent = `Showing ${filtered.length} of ${C.items.length}`;
+        } else {
+          mc.textContent = '';
+        }
+
+        const groups = new Map();
+        [...filtered]
+          .sort((a, b) => (U.toYear(anchor(b)) ?? 0) - (U.toYear(anchor(a)) ?? 0))
+          .forEach(it => {
+            const key = anchor(it) ? anchor(it).slice(0, 4) : 'Earlier';
+            if (!groups.has(key)) groups.set(key, []);
+            groups.get(key).push(it);
+          });
+
+        const entryHTML = (it) => {
+          const org = C.orgs[it.org];
+          const logo = window.ORG_LOGOS?.[it.org];
+          const metaHTML = logo
+            ? `<span class="org-logo org-logo-${it.org}" role="img" aria-label="${esc(logo.label)}" title="${esc(logo.label)}">${logo.svg}</span>`
+            : esc(org.name);
+          const where = it.date ? it.venue : it.location;
+          const open = openDrawers.has(it.id);
+
+          const details = [
+            where && where !== org.name && `<p class="font-mono text-[10px] uppercase tracking-wider text-stone-400">${esc(where)}</p>`,
+            it.summary && `<p class="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-light">${esc(it.summary)}</p>`,
+            it.bullets?.length && `<ul class="space-y-1 text-xs text-stone-700 dark:text-stone-300">${it.bullets.map(b => `<li class="flex gap-2"><span class="text-rose-900 dark:text-rose-400">—</span><span>${esc(b)}</span></li>`).join('')}</ul>`,
+            it.skills?.length && `<div class="flex flex-wrap gap-1 font-mono text-[10px] text-stone-500">${it.skills.map(s => `<span data-skill="${esc(s)}" class="skill-chip bg-stone-200/60 dark:bg-stone-800 px-2 py-0.5 rounded">${esc(s)}</span>`).join('')}</div>`,
+            it.link && `<a href="${it.link}" target="_blank" rel="noopener" class="inline-block text-[11px] font-mono text-rose-900 dark:text-rose-400 hover:underline">Read more ↗</a>`,
+          ].filter(Boolean).join('');
+
+          return `
+            <article class="ledger-entry relative pl-8 md:pl-10 py-3" data-id="${it.id}" data-org="${it.org}">
+              <span class="absolute -left-[6px] top-[1.35rem] flex items-center justify-center w-3 h-3">${marker(it)}</span>
+              <button aria-expanded="${open}" class="ledger-toggle group w-full text-left px-4 py-3 -mx-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50">
+                <div class="flex items-baseline justify-between gap-4">
+                  <span class="font-mono text-[10px] tracking-wider text-stone-500 dark:text-stone-400">
+                    ${esc(U.range(it))}${it.approx ? ' <span title="approximate" class="text-[#B4884D]">≈</span>' : ''}
+                  </span>
+                  <span class="font-mono text-[9px] uppercase tracking-widest text-stone-400">${C.types[it.type].singular}</span>
+                </div>
+                <div class="flex items-start justify-between gap-4 mt-1">
+                  <h3 class="headline-font ${it.type === 'role' ? 'text-lg md:text-xl' : 'text-base md:text-lg'} font-medium leading-snug text-stone-950 dark:text-stone-100 group-hover:text-rose-900 dark:group-hover:text-rose-400 transition">${esc(it.title)}</h3>
+                  <span class="ledger-chev mt-0.5 text-stone-400 transition-transform text-base leading-none">+</span>
+                </div>
+                <p class="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mt-1">${metaHTML}</p>
+              </button>
+              <div class="ledger-drawer"><div><div class="pt-2 pb-4 space-y-2.5 max-w-2xl">${details}</div></div></div>
+            </article>`;
+        };
+
+        const gEl = document.getElementById('groups');
+        if (!groups.size) {
+          gEl.innerHTML = `
+            <div class="py-16 pl-0 md:pl-[8rem] text-stone-500 dark:text-stone-400 font-mono text-xs space-y-3">
+              <p>No entries match the selected filters or search query.</p>
+              <button id="resetBtn" class="underline text-stone-900 dark:text-stone-100 hover:text-rose-900 dark:hover:text-rose-400 uppercase tracking-wider text-[11px]">Reset all filters</button>
+            </div>`;
+          document.getElementById('resetBtn').onclick = () => {
+            activeType = 'all';
+            activeOrg = 'all';
+            searchQuery = '';
+            document.getElementById('keywordSearch').value = '';
+            renderFilters();
+            renderTimeline();
+          };
+          updateYearScrubber([]);
+          return;
+        }
+
+        gEl.innerHTML = [...groups].map(([year, items]) => `
+          <div class="ledger-year-group grid grid-cols-[4.5rem_1fr] md:grid-cols-[8rem_1fr] pt-6" id="year-${year}">
+            <div class="relative">
+              <div class="ledger-year-slot pt-2 pr-4 text-right">
+                <span class="headline-font ledger-year font-serif ${year === 'Earlier' ? 'text-xl md:text-2xl italic' : 'text-3xl md:text-5xl'} text-stone-300 dark:text-stone-700 tracking-tight">${year}</span>
+              </div>
+            </div>
+            <div>${items.map(entryHTML).join('')}</div>
+          </div>`).join('');
+
+        // Expand / collapse drawer listener
+        gEl.querySelectorAll('.ledger-toggle').forEach(b => {
+          b.onclick = () => {
+            const article = b.closest('.ledger-entry');
+            const id = article.dataset.id;
+            const willOpen = b.getAttribute('aria-expanded') !== 'true';
+            b.setAttribute('aria-expanded', willOpen);
+            if (willOpen) openDrawers.add(id);
+            else openDrawers.delete(id);
+            kick();
+          };
+        });
+
+        // Interactive Skill Tag Click -> Instant Search
+        gEl.querySelectorAll('.skill-chip').forEach(chip => {
+          chip.onclick = (e) => {
+            e.stopPropagation();
+            const s = chip.dataset.skill;
+            document.getElementById('keywordSearch').value = s;
+            searchQuery = s.toLowerCase();
+            renderTimeline();
+          };
+        });
+
+        updateYearScrubber([...groups.keys()]);
+        tune();
+        kick();
+      }
+
+      // Update Year Scrubber Minimap
+      function updateYearScrubber(years) {
+        const sEl = document.getElementById('scrubberTicks');
+        sEl.innerHTML = years.map(y => `
+          <button data-scroll-to="year-${y}" class="year-scrubber-btn px-1.5 py-0.5 hover:text-stone-950 dark:hover:text-stone-100 transition" title="Jump to ${y}">
+            ${y === 'Earlier' ? 'Pre' : y.slice(2)}
+          </button>`).join('');
+
+        sEl.querySelectorAll('[data-scroll-to]').forEach(b => {
+          b.onclick = () => {
+            const target = document.getElementById(b.dataset.scrollTo);
+            if (target) {
+              const rect = target.getBoundingClientRect();
+              window.scrollTo({ top: window.scrollY + rect.top - 90, behavior: 'smooth' });
+            }
+          };
+        });
+      }
+
+      // Dock Magnification Physics
+      let MAX = 1.25, MIN = 0.75, YMAX = 1.25, YMIN = 0.65;
+      const FADE = 0.35, YFADE = 0.35, STICK = 80;
+
+      function tune() {
+        const wide = innerWidth >= 768;
+        const currentZoom = parseFloat(document.getElementById('zoomRange')?.value || 1.25);
+        [MAX, MIN, YMAX, YMIN] = wide
+          ? [currentZoom, 0.75, Math.min(1.5, currentZoom * 0.95), 0.65]
+          : [Math.min(1.2, currentZoom), 0.85, 1.15, 0.75];
+        document.documentElement.style.setProperty('--dock-max', MAX);
+      }
+
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+      let pointerY = null, focusY = innerHeight * 0.45, raf = 0;
+
+      const ledger = document.getElementById('ledger');
+      const fill = document.getElementById('spineFill');
+
+      ledger.addEventListener('pointermove', e => {
+        if (e.pointerType === 'mouse') {
+          pointerY = e.clientY;
+          kick();
+        }
+      });
+      ledger.addEventListener('pointerleave', () => { pointerY = null; kick(); });
+      window.addEventListener('resize', () => { tune(); kick(); });
+      window.addEventListener('scroll', () => kick(), { passive: true });
+
+      function kick() {
+        if (!raf) raf = requestAnimationFrame(frame);
+      }
+
+      function frame() {
+        raf = 0;
+        const entries = [...ledger.querySelectorAll('.ledger-entry')];
+        const years = [...ledger.querySelectorAll('.ledger-year-group')].map(g => ({
+          id: g.id,
+          col: g.firstElementChild,
+          slot: g.querySelector('.ledger-year-slot'),
+          entries: [...g.querySelectorAll('.ledger-entry')],
+          s: 1, o: 1
+        }));
+
+        if (!entries.length) return;
+
+        // Spine progress
+        const lr = ledger.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (innerHeight * 0.55 - lr.top) / lr.height));
+        fill.style.height = `${p * 100}%`;
+
+        if (reduce.matches) {
+          entries.forEach(el => {
+            el.style.transform = '';
+            el.style.opacity = '';
+            delete el.dataset.focus;
+          });
+          years.forEach(y => {
+            y.slot.style.transform = '';
+            y.slot.style.opacity = '';
+            y.slot.style.position = 'sticky';
+            y.slot.style.top = `${STICK}px`;
+          });
+          return;
+        }
+
+        const targetFocus = pointerY ?? (innerHeight * 0.45);
+        focusY += (targetFocus - focusY) * 0.3;
+        const sigma = Math.max(110, innerHeight * 0.17);
+        const base = lr.top;
+
+        // Natural geometry
+        const vis = entries
+          .filter(el => el.offsetParent)
+          .map(el => {
+            const top = base + el.offsetTop, h = el.offsetHeight, c = top + h / 2;
+            const g = Math.exp(-0.5 * ((c - focusY) / sigma) ** 2);
+            const s = MIN + (MAX - MIN) * g;
+            return { el, top, h, c, g, s, d: h * (s - 1), y: 0 };
+          });
+        if (!vis.length) return;
+
+        // Cumulative displacement keeps neighbour gap
+        for (let i = 1; i < vis.length; i++) {
+          vis[i].y = vis[i - 1].y + (vis[i - 1].d + vis[i].d) / 2;
+        }
+
+        // Pin under focus line
+        let k = -1;
+        for (let i = 0; i < vis.length; i++) if (vis[i].top <= focusY) k = i;
+        const off =
+          k < 0
+            ? vis[0].y - vis[0].d / 2
+            : focusY <= vis[k].top + vis[k].h
+              ? vis[k].y + (vis[k].s - 1) * (focusY - vis[k].c)
+              : vis[k].y + vis[k].d / 2;
+
+        let moving = Math.abs(targetFocus - focusY) > 0.5;
+        let best = vis[0];
+        const geo = new Map();
+
+        for (const v of vis) {
+          const ty = v.y - off;
+          const to = FADE + (1 - FADE) * v.g;
+          v.el.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0) scale(${v.s.toFixed(4)})`;
+          v.el.style.opacity = to.toFixed(3);
+          geo.set(v.el, { top: v.c + ty - (v.s * v.h) / 2, bottom: v.c + ty + (v.s * v.h) / 2, g: v.g });
+          if (v.g > best.g) best = v;
+        }
+
+        let activeYearId = null;
+        for (const y of years) {
+          const boxes = y.entries.map(e => geo.get(e)).filter(Boolean);
+          if (!boxes.length) continue;
+          const gMax = Math.max(...boxes.map(b => b.g));
+          const ts = YMIN + (YMAX - YMIN) * gMax;
+          const to = YFADE + (1 - YFADE) * gMax;
+          const natural = base + y.col.offsetTop;
+          const h = y.slot.offsetHeight * ts;
+          const top = Math.min(Math.max(boxes[0].top, STICK), boxes[boxes.length - 1].bottom - h);
+
+          y.slot.style.transform = `translate3d(0, ${(top - natural).toFixed(2)}px, 0) scale(${ts.toFixed(4)})`;
+          y.slot.style.opacity = to.toFixed(3);
+
+          if (y.entries.includes(best.el) && best.g > 0.6) {
+            y.slot.dataset.focus = '';
+            activeYearId = y.id;
+          } else {
+            delete y.slot.dataset.focus;
+          }
+        }
+
+        // Highlight Scrubber Tick
+        if (activeYearId) {
+          document.querySelectorAll('.year-scrubber-btn').forEach(b => {
+            b.classList.toggle('is-active', b.dataset.scrollTo === activeYearId);
+          });
+        }
+
+        entries.forEach(el => {
+          if (el === best.el && best.g > 0.6) el.dataset.focus = '';
+          else delete el.dataset.focus;
+        });
+
+        if (moving) kick();
+      }
+
+      // Initial Boot: Preset 1 (justloic.com Pure)
+      renderFilters();
+      renderTimeline();
+      applyPreset('original');
+    })();
+  </script>
+</body>
+</html>

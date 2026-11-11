@@ -27,7 +27,7 @@ export function Navbar() {
             href={href}
             aria-current={active ? "page" : undefined}
             className={`whitespace-nowrap transition hover:text-stone-900 dark:hover:text-stone-100 ${
-              active ? "text-stone-900 dark:text-stone-100 underline underline-offset-8 decoration-rose-900 dark:decoration-rose-400" : ""
+              active ? "text-stone-900 dark:text-stone-100 underline underline-offset-8 decoration-stone-900 dark:decoration-stone-300" : ""
             }`}
           >
             {label}
@@ -46,7 +46,7 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-40 bg-[#FAFAF9]/90 dark:bg-[#0F0E0E]/90 backdrop-blur border-b border-stone-200/80 dark:border-stone-800/80 transition-colors">
+    <header className="sticky top-0 z-40 bg-[#FBF9F5]/90 dark:bg-[#121211]/90 backdrop-blur transition-colors">
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="font-serif text-2xl tracking-tight font-medium hover:opacity-80 transition">
           Loïc

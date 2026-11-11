@@ -29,9 +29,9 @@ function Marker({ it }: { it: CareerItem }) {
     case "role":
       return <span className={`relative block w-3 h-3 rounded-full ${!it.end ? "live" : ""}`} style={{ background: col }} />;
     case "education":
-      return <span className="block w-3 h-3 border-2 bg-[#FAFAF9] dark:bg-[#0F0E0E]" style={{ borderColor: col }} />;
+      return <span className="block w-3 h-3 border-2 bg-[#FBF9F5] dark:bg-[#121211]" style={{ borderColor: col }} />;
     case "project":
-      return <span className="block w-3 h-3 rounded-full border-2 bg-[#FAFAF9] dark:bg-[#0F0E0E]" style={{ borderColor: col }} />;
+      return <span className="block w-3 h-3 rounded-full border-2 bg-[#FBF9F5] dark:bg-[#121211]" style={{ borderColor: col }} />;
     case "publication":
       return <span className="block w-2.5 h-2.5 bg-stone-500 dark:bg-stone-400" />;
     case "award":
@@ -54,7 +54,7 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
         className="ledger-toggle group w-full text-left rounded-xl px-4 py-3 -mx-4 hover:bg-white dark:hover:bg-stone-900/60"
       >
         <div className="flex items-baseline justify-between gap-4">
-          <span className="font-mono text-[11px] tracking-wide text-stone-500 dark:text-stone-400">
+          <span className="font-mono text-[10px] tracking-wider text-stone-500 dark:text-stone-400">
             {range(it)}
             {it.approx && (
               <span title="approximate" className="text-[#B4884D]">
@@ -62,15 +62,15 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
               </span>
             )}
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400">{TYPES[it.type].singular}</span>
+          <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400">{TYPES[it.type].singular}</span>
         </div>
         <div className="flex items-start justify-between gap-4 mt-1">
           <h3
-            className={`font-serif ${it.type === "role" ? "text-2xl" : "text-xl"} leading-snug text-stone-950 dark:text-stone-100 group-hover:text-rose-900 dark:group-hover:text-rose-400 transition`}
+            className={`font-serif ${it.type === "role" ? "text-lg md:text-xl" : "text-base md:text-lg"} font-medium leading-snug text-stone-950 dark:text-stone-100 group-hover:text-stone-900 dark:group-hover:text-white transition`}
           >
             {it.title}
           </h3>
-          <span className="ledger-chev mt-1 text-stone-400 transition-transform text-lg leading-none">+</span>
+          <span className="ledger-chev mt-0.5 text-stone-400 transition-transform text-base leading-none">+</span>
         </div>
         <p className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400 mt-1">
           <span
@@ -84,25 +84,25 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
       </button>
       <div className="ledger-drawer">
         <div>
-          <div className="pt-2 pb-4 space-y-3 max-w-2xl">
+          <div className="pt-2 pb-4 space-y-2.5 max-w-2xl">
             {where && where !== org.name && (
-              <p className="font-mono text-[11px] uppercase tracking-wider text-stone-400">{where}</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-stone-400">{where}</p>
             )}
             {it.summary && (
-              <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-light">{it.summary}</p>
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-light">{it.summary}</p>
             )}
             {!!it.bullets?.length && (
-              <ul className="space-y-1.5 text-sm text-stone-700 dark:text-stone-300">
+              <ul className="space-y-1 text-xs text-stone-700 dark:text-stone-300">
                 {it.bullets.map((b) => (
                   <li key={b} className="flex gap-2">
-                    <span className="text-rose-900 dark:text-rose-400">—</span>
+                    <span className="text-stone-400 dark:text-stone-500">—</span>
                     <span>{b}</span>
                   </li>
                 ))}
               </ul>
             )}
             {!!it.skills?.length && (
-              <div className="flex flex-wrap gap-1.5 font-mono text-[11px] text-stone-500">
+              <div className="flex flex-wrap gap-1 font-mono text-[10px] text-stone-500">
                 {it.skills.map((s) => (
                   <span key={s} className="bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">
                     {s}
@@ -115,7 +115,7 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
                 href={it.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block text-xs font-mono text-rose-900 dark:text-rose-400 hover:underline"
+                className="inline-block text-[11px] font-mono text-stone-900 dark:text-stone-300 hover:text-black dark:hover:text-white underline underline-offset-2"
               >
                 Read more ↗
               </a>
@@ -485,7 +485,7 @@ export function Timeline() {
               setActiveType("all");
               setActiveOrg("all");
             }}
-            className="text-xs uppercase tracking-wider underline text-rose-900 dark:text-rose-400 hover:opacity-80"
+            className="text-xs uppercase tracking-wider underline text-stone-900 dark:text-stone-300 hover:text-black dark:hover:text-white"
           >
             Reset all filters
           </button>
@@ -497,7 +497,7 @@ export function Timeline() {
           className="absolute top-0 bottom-16 left-[4.5rem] md:left-[8rem] w-px bg-stone-300 dark:bg-stone-800"
           aria-hidden="true"
         >
-          <div ref={fillRef} className="w-px h-0 bg-rose-900 dark:bg-rose-400 transition-[height] duration-150" />
+          <div ref={fillRef} className="w-px h-0 bg-stone-900 dark:bg-stone-300 transition-[height] duration-150" />
         </div>
         {groups.map(([year, items]) => (
           <div key={year} className="ledger-year-group grid grid-cols-[4.5rem_1fr] md:grid-cols-[8rem_1fr] pt-6">

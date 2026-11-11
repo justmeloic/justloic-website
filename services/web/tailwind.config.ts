@@ -17,8 +17,8 @@ const config: Config = {
       colors: {
         atelier: {
           accent: "#991B1B",
-          bg: "#FAFAF9",
-          darkbg: "#0F0E0E",
+          bg: "#FBF9F5",
+          darkbg: "#121211",
         },
       },
     },

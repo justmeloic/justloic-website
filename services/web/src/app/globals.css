@@ -8,14 +8,14 @@
   }
 
   body {
-    background-color: #FAFAF9;
-    color: #1C1917;
+    background-color: #FBF9F5;
+    color: #24211E;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   .dark body {
-    background-color: #0F0E0E;
-    color: #E7E5E4;
+    background-color: #121211;
+    color: #E8E5DF;
   }
 
   /* The magnified timeline entry may extend past the column; never let it cause sideways scroll */
@@ -48,19 +48,19 @@
   box-shadow: none;
 }
 .ledger-entry[data-focus] h3 {
-  color: #881337;
+  color: #1A1816;
 }
 .dark .ledger-entry[data-focus] h3 {
-  color: #fb7185;
+  color: #FFFFFF;
 }
 .ledger-year {
   transition: color 0.3s ease;
 }
 .ledger-year-slot[data-focus] .ledger-year {
-  color: #1c1917;
+  color: #1A1816;
 }
 .dark .ledger-year-slot[data-focus] .ledger-year {
-  color: #e7e5e4;
+  color: #E8E5DF;
 }
 
 /* Expandable details */
