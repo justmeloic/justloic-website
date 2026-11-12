@@ -38,16 +38,19 @@
   transform-origin: 100% 0;
   will-change: transform, opacity;
 }
-.ledger-toggle {
+/* The card holds the summary and its details; it stays lit while open, wherever the focus is */
+.ledger-card {
   transition: background-color 0.25s ease;
 }
-.ledger-entry[data-focus] .ledger-toggle {
+.ledger-entry[data-focus] .ledger-card,
+.ledger-card:has(> [aria-expanded="true"]) {
   background: #fff;
   box-shadow:
     0 1px 2px rgba(26, 24, 22, 0.06),
     0 8px 24px -12px rgba(26, 24, 22, 0.18);
 }
-.dark .ledger-entry[data-focus] .ledger-toggle {
+.dark .ledger-entry[data-focus] .ledger-card,
+.dark .ledger-card:has(> [aria-expanded="true"]) {
   background: rgba(28, 25, 23, 0.7);
   box-shadow: none;
 }

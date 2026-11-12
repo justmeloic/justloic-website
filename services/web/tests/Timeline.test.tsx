@@ -86,4 +86,14 @@ describe("<Timeline />", () => {
     await user.click(toggle);
     expect(toggle).toHaveAttribute("aria-expanded", "false");
   });
+
+  it("keeps an entry's details inside its card", () => {
+    render(<Timeline />);
+
+    for (const entry of entries()) {
+      const card = entry.querySelector(":scope > .ledger-card");
+      expect(card?.querySelector(":scope > button")).toBeInTheDocument();
+      expect(card?.querySelector(":scope > button + .ledger-drawer")).toBeInTheDocument();
+    }
+  });
 });

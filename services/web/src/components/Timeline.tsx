@@ -13,87 +13,90 @@ function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle
   const where = it.date ? it.venue : it.location;
   return (
     <article className="ledger-entry relative py-3 pl-8 md:pl-10">
-      <button
-        aria-expanded={open}
-        onClick={onToggle}
-        className="ledger-toggle group -mx-4 w-full rounded-xl px-4 py-3 text-left hover:bg-white dark:hover:bg-stone-900/60"
-      >
-        <div className="flex items-baseline justify-between gap-4">
-          <span className="font-mono text-[9px] tracking-wider text-stone-500 dark:text-stone-400">
-            {formatRange(it)}
-            {it.approx && (
-              <span title="approximate" className="text-[#B4884D]">
-                {" "}
-                ≈
-              </span>
-            )}
-          </span>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400">
-            {TYPES[it.type].singular}
-          </span>
-        </div>
-        <div className="mt-1 flex items-start justify-between gap-4">
-          <h3
-            className={`font-serif ${it.type === "role" ? "text-lg md:text-xl" : "text-base md:text-lg"} font-medium leading-snug text-stone-950 transition group-hover:text-stone-900 dark:text-stone-100 dark:group-hover:text-white`}
-          >
-            {it.title}
-          </h3>
-          <span className="ledger-chev mt-0.5 text-base leading-none text-stone-400 transition-transform">
-            +
-          </span>
-        </div>
-        <p className="mt-1 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
-          <span
-            className={`org-logo org-logo-${it.org}`}
-            role="img"
-            aria-label={logo?.label ?? org.name}
-            title={logo?.label ?? org.name}
-            dangerouslySetInnerHTML={{ __html: logo?.svg ?? org.name }}
-          />
-        </p>
-      </button>
-      <div className="ledger-drawer">
-        <div>
-          <div className="max-w-2xl space-y-2.5 pb-4 pt-2">
-            {where && where !== org.name && (
-              <p className="font-mono text-[10px] uppercase tracking-wider text-stone-400">
-                {where}
-              </p>
-            )}
-            {it.summary && (
-              <p className="text-xs font-light leading-relaxed text-stone-600 dark:text-stone-400">
-                {it.summary}
-              </p>
-            )}
-            {!!it.bullets?.length && (
-              <ul className="space-y-1 text-xs text-stone-700 dark:text-stone-300">
-                {it.bullets.map((b) => (
-                  <li key={b} className="flex gap-2">
-                    <span className="text-stone-400 dark:text-stone-500">—</span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {!!it.skills?.length && (
-              <div className="flex flex-wrap gap-1 font-mono text-[10px] text-stone-500">
-                {it.skills.map((s) => (
-                  <span key={s} className="rounded bg-stone-100 px-2 py-0.5 dark:bg-stone-800">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            )}
-            {it.link && (
-              <a
-                href={it.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block font-mono text-[11px] text-stone-900 underline underline-offset-2 hover:text-black dark:text-stone-300 dark:hover:text-white"
-              >
-                Read more ↗
-              </a>
-            )}
+      {/* The card wraps the details too, so expanding grows the card itself */}
+      <div className="ledger-card group -mx-4 rounded-xl hover:bg-white dark:hover:bg-stone-900/60">
+        <button
+          aria-expanded={open}
+          onClick={onToggle}
+          className="w-full rounded-xl px-4 py-3 text-left"
+        >
+          <div className="flex items-baseline justify-between gap-4">
+            <span className="font-mono text-[9px] tracking-wider text-stone-500 dark:text-stone-400">
+              {formatRange(it)}
+              {it.approx && (
+                <span title="approximate" className="text-[#B4884D]">
+                  {" "}
+                  ≈
+                </span>
+              )}
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-stone-400">
+              {TYPES[it.type].singular}
+            </span>
+          </div>
+          <div className="mt-1 flex items-start justify-between gap-4">
+            <h3
+              className={`font-serif ${it.type === "role" ? "text-lg md:text-xl" : "text-base md:text-lg"} font-medium leading-snug text-stone-950 transition group-hover:text-stone-900 dark:text-stone-100 dark:group-hover:text-white`}
+            >
+              {it.title}
+            </h3>
+            <span className="ledger-chev mt-0.5 text-base leading-none text-stone-400 transition-transform">
+              +
+            </span>
+          </div>
+          <p className="mt-1 flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
+            <span
+              className={`org-logo org-logo-${it.org}`}
+              role="img"
+              aria-label={logo?.label ?? org.name}
+              title={logo?.label ?? org.name}
+              dangerouslySetInnerHTML={{ __html: logo?.svg ?? org.name }}
+            />
+          </p>
+        </button>
+        <div className="ledger-drawer px-4">
+          <div>
+            <div className="max-w-2xl space-y-2.5 pb-4 pt-2">
+              {where && where !== org.name && (
+                <p className="font-mono text-[10px] uppercase tracking-wider text-stone-400">
+                  {where}
+                </p>
+              )}
+              {it.summary && (
+                <p className="text-xs font-light leading-relaxed text-stone-600 dark:text-stone-400">
+                  {it.summary}
+                </p>
+              )}
+              {!!it.bullets?.length && (
+                <ul className="space-y-1 text-xs text-stone-700 dark:text-stone-300">
+                  {it.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="text-stone-400 dark:text-stone-500">—</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {!!it.skills?.length && (
+                <div className="flex flex-wrap gap-1 font-mono text-[10px] text-stone-500">
+                  {it.skills.map((s) => (
+                    <span key={s} className="rounded bg-stone-100 px-2 py-0.5 dark:bg-stone-800">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {it.link && (
+                <a
+                  href={it.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block font-mono text-[11px] text-stone-900 underline underline-offset-2 hover:text-black dark:text-stone-300 dark:hover:text-white"
+                >
+                  Read more ↗
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
