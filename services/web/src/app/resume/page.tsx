@@ -126,7 +126,7 @@ export default function ResumePage() {
           </div>
 
           {/* Executive Summary */}
-          <p className="max-w-3xl pt-2 text-sm font-light leading-relaxed text-stone-600 dark:text-stone-300">
+          <p className="hyphens-auto pt-2 text-justify text-sm font-light leading-relaxed text-stone-600 dark:text-stone-300">
             Machine Learning Engineer and Applied Researcher with a graduate foundation in
             mathematics and medical computer vision. Specializing in architecting and shipping
             large-scale enterprise Generative AI systems, autonomous agents, and production

@@ -17,7 +17,7 @@ export function Philosophy() {
             </h4>
           </div>
 
-          <p className="text-base font-light leading-relaxed text-stone-600 dark:text-stone-400">
+          <p className="hyphens-auto text-justify text-base font-light leading-relaxed text-stone-600 dark:text-stone-400">
             Much of my thinking about my personal and professional life has been influenced by
             modern and contemporary texts on a present-day understanding of morality, pragmatism,
             self-actualization and the philosophy of science. Most notably{" "}
@@ -41,7 +41,7 @@ export function Philosophy() {
           <h3 className="font-serif text-xl font-medium text-red-900 dark:text-red-400">
             Science & Philosophy
           </h3>
-          <p className="text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
+          <p className="hyphens-auto text-justify text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
             I don&apos;t think there&apos;s an interesting boundary between philosophy and science.
             Science is totally beholden to philosophy. There are philosophical assumptions in
             science and there&apos;s no way to get around that.{" "}
@@ -56,7 +56,7 @@ export function Philosophy() {
           <h3 className="font-serif text-xl font-medium text-red-900 dark:text-red-400">
             Abstraction & Mathematicians
           </h3>
-          <p className="text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
+          <p className="hyphens-auto text-justify text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
             A mathematician is a person who can find analogies between theorems; a better
             mathematician is one who can see analogies between proofs and the best mathematician can
             notice analogies between theories. One can imagine that the ultimate mathematician is
@@ -72,7 +72,7 @@ export function Philosophy() {
           <h3 className="font-serif text-xl font-medium text-red-900 dark:text-red-400">
             Writing & Maintaining Code
           </h3>
-          <p className="text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
+          <p className="hyphens-auto text-justify text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
             Code is more often read than written.{" "}
             <strong className="font-semibold italic text-stone-900 dark:text-stone-100">
               — Guido van Rossum
@@ -85,13 +85,13 @@ export function Philosophy() {
           <h3 className="font-serif text-xl font-medium text-red-900 dark:text-red-400">
             Mind Projection Fallacy
           </h3>
-          <p className="text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
+          <p className="hyphens-auto text-justify text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
             We don&apos;t see things as they are, we see them as we are.{" "}
             <strong className="font-semibold italic text-stone-900 dark:text-stone-100">
               — Anaïs Nin
             </strong>
           </p>
-          <p className="text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
+          <p className="hyphens-auto text-justify text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
             Common language – or, at least, the English language – has an almost universal tendency
             to disguise epistemological statements by putting them into a grammatical form which
             suggests to the unwary an ontological statement. A major source of error in current
@@ -114,7 +114,7 @@ export function Philosophy() {
           <h3 className="font-serif text-xl font-medium text-red-900 dark:text-red-400">
             Privilege & Responsibility
           </h3>
-          <p className="text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
+          <p className="hyphens-auto text-justify text-sm font-light leading-relaxed text-stone-700 dark:text-stone-300">
             When we consider the responsibility of intellectuals, our basic concern must be their
             role in the creation and analysis of ideology.{" "}
             <strong className="font-semibold italic text-stone-900 dark:text-stone-100">
