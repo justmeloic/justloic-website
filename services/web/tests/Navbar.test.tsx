@@ -82,4 +82,19 @@ describe("<Navbar />", () => {
     expect(within(nav()).queryByRole("link", { current: "page" })).not.toBeInTheDocument();
     expect(line().style.opacity).toBe("0");
   });
+
+  it("keeps a theme toggle in the header and floats a second one outside it for phones", () => {
+    render(<Navbar />);
+    const header = screen.getByRole("banner");
+    const toggles = screen.getAllByRole("button", { name: "Toggle theme" });
+    const floating = toggles.filter((toggle) => !header.contains(toggle));
+
+    expect(toggles).toHaveLength(2);
+    expect(floating).toHaveLength(1);
+    expect(floating[0].className).toContain("fixed");
+    expect(floating[0].className).toContain("md:hidden");
+    expect(within(header).getByRole("button", { name: "Toggle theme" }).className).toContain(
+      "md:block"
+    );
+  });
 });

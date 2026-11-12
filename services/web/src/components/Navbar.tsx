@@ -92,41 +92,49 @@ function NavLinks({ className }: { className: string }) {
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-40 bg-[#FBF9F5]/90 backdrop-blur transition-colors dark:bg-[#121211]/90">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          className="font-serif text-2xl font-medium tracking-tight transition hover:opacity-80"
-        >
-          Loïc
-        </Link>
-        <NavLinks className="hidden items-center gap-6 font-mono text-xs tracking-wider text-stone-600 dark:text-stone-400 md:flex" />
-        <div className="flex items-center space-x-2">
-          <ThemeToggle />
-          <span className="mx-0.5 h-4 w-px bg-stone-300 dark:bg-stone-700" aria-hidden="true" />
-          <a
-            href={LINKEDIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full border border-stone-300 p-1.5 text-stone-600 transition hover:border-stone-900 hover:text-stone-900 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
-            aria-label="LinkedIn profile"
-            title="LinkedIn"
+    <>
+      <header className="sticky top-0 z-40 bg-[#FBF9F5]/90 backdrop-blur transition-colors dark:bg-[#121211]/90">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+          <Link
+            href="/"
+            className="font-serif text-2xl font-medium tracking-tight transition hover:opacity-80"
           >
-            <Linkedin size={15} />
-          </a>
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full border border-stone-300 p-1.5 text-stone-600 transition hover:border-stone-900 hover:text-stone-900 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
-            aria-label="GitHub profile"
-            title="GitHub"
-          >
-            <Github size={15} />
-          </a>
+            Loïc
+          </Link>
+          <NavLinks className="hidden items-center gap-6 font-mono text-xs tracking-wider text-stone-600 dark:text-stone-400 md:flex" />
+          <div className="flex items-center space-x-2">
+            <ThemeToggle />
+            <span
+              className="mx-0.5 hidden h-4 w-px bg-stone-300 dark:bg-stone-700 md:block"
+              aria-hidden="true"
+            />
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-stone-300 p-1.5 text-stone-600 transition hover:border-stone-900 hover:text-stone-900 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
+              aria-label="LinkedIn profile"
+              title="LinkedIn"
+            >
+              <Linkedin size={15} />
+            </a>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-stone-300 p-1.5 text-stone-600 transition hover:border-stone-900 hover:text-stone-900 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
+              aria-label="GitHub profile"
+              title="GitHub"
+            >
+              <Github size={15} />
+            </a>
+          </div>
         </div>
-      </div>
-      <NavLinks className="flex items-center gap-5 overflow-x-auto px-6 pb-3 font-mono text-xs tracking-wider text-stone-600 dark:text-stone-400 md:hidden" />
-    </header>
+        {/* Centred; the auto margins give way so the row can still scroll if it ever overflows */}
+        <NavLinks className="flex items-center gap-[clamp(0.625rem,3.5vw,1.25rem)] overflow-x-auto px-4 pb-3 font-mono text-xs tracking-wider text-stone-600 dark:text-stone-400 md:hidden [&>a:first-of-type]:ml-auto [&>a:last-of-type]:mr-auto" />
+      </header>
+      {/* Outside the header: its backdrop blur would otherwise anchor the fixed button to it */}
+      <ThemeToggle floating />
+    </>
   );
 }

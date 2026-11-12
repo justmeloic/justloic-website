@@ -401,11 +401,11 @@ export function Timeline() {
         </div>
 
         {/* Row 2: Organization (on mobile: no label, no 'All' button) */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 md:justify-start">
           <span className="hidden w-12 shrink-0 font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 md:inline-block">
             Org
           </span>
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 md:justify-start">
             <button
               type="button"
               aria-pressed={activeOrg === "all"}
