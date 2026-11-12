@@ -26,7 +26,7 @@ export default function ResumePage() {
   return (
     <div className="mx-auto max-w-4xl py-8 sm:py-12">
       {/* Top Action Bar (hidden in print) */}
-      <div className="no-print mb-8 flex flex-col justify-between gap-4 pb-6 sm:flex-row sm:items-center">
+      <div className="no-print mb-8 flex flex-col items-center justify-between gap-4 pb-6 sm:flex-row">
         <Link
           href="/"
           className="inline-flex w-fit items-center gap-2 font-mono text-xs text-stone-500 transition hover:text-stone-900 dark:hover:text-stone-100"
@@ -73,15 +73,18 @@ export default function ResumePage() {
             </span>
           </div>
 
-          {/* Contact Bar */}
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-0.5 font-mono text-xs text-stone-500 dark:text-stone-400">
+          {/* Contact Bar: one per line on phones, a single dotted row from sm up */}
+          <div className="flex flex-col items-start gap-x-5 gap-y-2 pt-0.5 font-mono text-xs text-stone-500 dark:text-stone-400 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href="mailto:loic.muhirwa@gmail.com"
               className="transition hover:text-stone-900 dark:hover:text-stone-100"
             >
               loic.muhirwa@gmail.com
             </a>
-            <span className="text-stone-300 dark:text-stone-700" aria-hidden="true">
+            <span
+              className="hidden text-stone-300 dark:text-stone-700 sm:inline"
+              aria-hidden="true"
+            >
               •
             </span>
             <a
@@ -92,7 +95,10 @@ export default function ResumePage() {
             >
               justloic.com
             </a>
-            <span className="text-stone-300 dark:text-stone-700" aria-hidden="true">
+            <span
+              className="hidden text-stone-300 dark:text-stone-700 sm:inline"
+              aria-hidden="true"
+            >
               •
             </span>
             <a
@@ -103,7 +109,10 @@ export default function ResumePage() {
             >
               LinkedIn
             </a>
-            <span className="text-stone-300 dark:text-stone-700" aria-hidden="true">
+            <span
+              className="hidden text-stone-300 dark:text-stone-700 sm:inline"
+              aria-hidden="true"
+            >
               •
             </span>
             <a
