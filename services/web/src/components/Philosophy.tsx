@@ -29,7 +29,7 @@ export function Philosophy() {
         </div>
 
         <div className="md:col-span-4">
-          <div className="relative aspect-square overflow-hidden rounded-2xl border border-stone-200 bg-stone-100 dark:border-stone-800 dark:bg-stone-800">
+          <div className="relative aspect-square overflow-hidden rounded-2xl bg-stone-100 dark:bg-stone-800">
             <Image src="/images/philo/cont_art-low-res.jpg" alt="" fill className="object-cover" />
           </div>
         </div>

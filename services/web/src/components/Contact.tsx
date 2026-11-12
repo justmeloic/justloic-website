@@ -3,6 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 
+// Borderless fields: like the resume sheet, they lift off the page with a soft shadow
+const FIELD =
+  "w-full rounded-2xl bg-white px-4 py-2.5 text-sm shadow-[0_1px_2px_rgba(36,33,30,0.05),0_8px_20px_-8px_rgba(36,33,30,0.14)] transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:bg-[#181615] dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),0_10px_24px_-8px_rgba(0,0,0,0.65)] dark:focus:ring-stone-100";
+
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
@@ -57,13 +61,7 @@ export function Contact() {
             >
               Name
             </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              required
-              className="w-full rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
-            />
+            <input type="text" name="name" id="name" required className={FIELD} />
           </div>
           <div className="space-y-1 text-left">
             <label
@@ -72,13 +70,7 @@ export function Contact() {
             >
               Email
             </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              required
-              className="w-full rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
-            />
+            <input type="email" name="email" id="email" required className={FIELD} />
           </div>
         </div>
 
@@ -89,13 +81,7 @@ export function Contact() {
           >
             Message
           </label>
-          <textarea
-            name="message"
-            id="message"
-            rows={6}
-            required
-            className="w-full rounded-2xl border border-stone-300 bg-white px-4 py-2.5 text-sm transition focus:outline-none focus:ring-1 focus:ring-stone-900 dark:border-stone-700 dark:bg-[#181615] dark:focus:ring-stone-100"
-          ></textarea>
+          <textarea name="message" id="message" rows={6} required className={FIELD}></textarea>
         </div>
 
         <div className="flex flex-col items-center gap-2 pt-2">

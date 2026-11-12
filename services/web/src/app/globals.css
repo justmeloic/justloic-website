@@ -207,11 +207,9 @@ main:has(.resume-sheet) + div > footer {
 }
 .cf-face {
   top: 0;
-  outline: 1px solid rgba(26, 24, 22, 0.1);
   box-shadow: 0 24px 40px -22px rgba(26, 24, 22, 0.45);
 }
 .dark .cf-face {
-  outline-color: rgba(255, 255, 255, 0.06);
   box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.9);
 }
 .cf-mirror {
