@@ -1,4 +1,5 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Navbar } from "@/components/Navbar";
 
@@ -96,5 +97,31 @@ describe("<Navbar />", () => {
     expect(within(header).getByRole("button", { name: "Toggle theme" }).className).toContain(
       "md:block"
     );
+  });
+
+  it("animates the mobile menu and closes it with Escape", async () => {
+    const user = userEvent.setup();
+    render(<Navbar />);
+    const trigger = screen.getByRole("button", { name: "Open navigation menu" });
+
+    await user.click(trigger);
+
+    const mobileMenu = document.getElementById("mobile-navigation")!;
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(within(mobileMenu).getAllByRole("link")).toHaveLength(5);
+    expect(mobileMenu.querySelector("nav")).toHaveClass("flex-col");
+    expect(mobileMenu).toHaveClass("translate-y-0", "opacity-100");
+    expect(mobileMenu).toHaveAttribute("aria-hidden", "false");
+    expect(document.body.style.overflow).toBe("hidden");
+
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    expect(screen.getByRole("button", { name: "Open navigation menu" })).toHaveAttribute(
+      "aria-expanded",
+      "false"
+    );
+    expect(mobileMenu).toHaveClass("-translate-y-3", "opacity-0");
+    expect(mobileMenu).toHaveAttribute("aria-hidden", "true");
+    expect(document.body.style.overflow).toBe("");
   });
 });
