@@ -16,7 +16,7 @@ export function ArtGallery() {
               </p>
             )}
           </div>
-          <CoverFlow series={series} eager={k === 0} hint={k === 0} />
+          <CoverFlow series={series} eager={k === 0} />
         </div>
       ))}
     </section>

@@ -11,6 +11,19 @@ describe("<Timeline />", () => {
   it("renders every career item by default", () => {
     render(<Timeline />);
     expect(entries()).toHaveLength(CAREER.length);
+    expect(document.querySelector(".ledger > .absolute > div")).toBeInTheDocument();
+    expect(document.querySelectorAll(".ledger-entry > span.absolute")).toHaveLength(0);
+  });
+
+  it("omits counts from both All filters", () => {
+    render(<Timeline />);
+    const filterGroup = screen.getByRole("group", { name: "Filter timeline" });
+    const allButtons = [...filterGroup.querySelectorAll("button")].filter((button) =>
+      button.textContent?.trim().startsWith("All")
+    );
+
+    expect(allButtons).toHaveLength(2);
+    expect(allButtons.map((button) => button.textContent?.trim())).toEqual(["All", "All"]);
   });
 
   it("filters by type and toggles back to all", async () => {

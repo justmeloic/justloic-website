@@ -1,11 +1,10 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { ArtGallery } from "@/components/ArtGallery";
 import { ART_SERIES } from "@/data/art";
 
 const flow = (title: string) => screen.getByRole("group", { name: new RegExp(`^${title}\\.`) });
-const counts = () => screen.getAllByText(/^\d\d \/ \d\d$/).map((el) => el.textContent);
 
 describe("<ArtGallery />", () => {
   it("renders one cover flow per series, each with its own pieces", () => {
@@ -20,20 +19,23 @@ describe("<ArtGallery />", () => {
   });
 
   it("moves each cover flow independently", async () => {
-    const user = userEvent.setup();
     render(<ArtGallery />);
-    await waitFor(() => expect(counts()).toEqual(["01 / 08", "01 / 04", "01 / 04"]));
 
-    await user.click(screen.getByRole("button", { name: "Next: Figures" }));
-    await waitFor(() => expect(counts()).toEqual(["01 / 08", "02 / 04", "01 / 04"]));
+    const portraits = screen.getByRole("slider", { name: "Scrub through Portraits" });
+    const figures = screen.getByRole("slider", { name: "Scrub through Figures" });
+    const experimental = screen.getByRole("slider", { name: "Scrub through Experimental Pieces" });
 
-    await user.click(screen.getByRole("button", { name: "Next: Portraits" }));
-    await user.click(screen.getByRole("button", { name: "Next: Portraits" }));
-    await waitFor(() => expect(counts()).toEqual(["03 / 08", "02 / 04", "01 / 04"]));
-    expect(screen.getByRole("button", { name: "Previous: Experimental Pieces" })).toHaveAttribute(
-      "aria-disabled",
-      "true"
-    );
+    fireEvent.change(figures, { target: { value: "1" } });
+    await waitFor(() => expect(figures).toHaveValue("1"));
+
+    fireEvent.change(portraits, { target: { value: "2" } });
+    await waitFor(() => expect(portraits).toHaveValue("2"));
+
+    expect(experimental).toHaveValue("0");
+    expect(screen.getAllByRole("slider")).toHaveLength(ART_SERIES.length);
+    expect(screen.queryByRole("button", { name: /previous|next|spin/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/drag · swipe/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/^\d\d \/ \d\d$/)).not.toBeInTheDocument();
   });
 
   it("opens the front piece in a viewer that stays within the series", async () => {
@@ -43,7 +45,9 @@ describe("<ArtGallery />", () => {
 
     stage.focus();
     await user.keyboard("{ArrowRight}");
-    await waitFor(() => expect(counts()[1]).toBe("02 / 04"));
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: "Scrub through Figures" })).toHaveValue("1")
+    );
 
     await user.keyboard("{Enter}");
     const viewer = screen.getByRole("dialog", { name: "Figures viewer" });
@@ -59,6 +63,10 @@ describe("<ArtGallery />", () => {
     await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
     expect(stage).toHaveFocus();
     // The carousel followed the viewer; the other series never moved
-    expect(counts()).toEqual(["01 / 08", "04 / 04", "01 / 04"]);
+    expect(screen.getByRole("slider", { name: "Scrub through Portraits" })).toHaveValue("0");
+    expect(screen.getByRole("slider", { name: "Scrub through Figures" })).toHaveValue("3");
+    expect(screen.getByRole("slider", { name: "Scrub through Experimental Pieces" })).toHaveValue(
+      "0"
+    );
   });
 });

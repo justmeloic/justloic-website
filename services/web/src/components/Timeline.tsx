@@ -7,53 +7,19 @@ import { countItems, filterItems, formatRange, groupByYear } from "@/lib/timelin
 
 const ORG_ORDER: OrgKey[] = ["google", "goc", "uottawa", "uwindsor"];
 
-function Marker({ it }: { it: CareerItem }) {
-  const col = ORGS[it.org].color;
-  switch (it.type) {
-    case "role":
-      return (
-        <span
-          className={`relative block h-3 w-3 rounded-full ${!it.end ? "live" : ""}`}
-          style={{ background: col }}
-        />
-      );
-    case "education":
-      return (
-        <span
-          className="block h-3 w-3 border-2 bg-[#FBF9F5] dark:bg-[#121211]"
-          style={{ borderColor: col }}
-        />
-      );
-    case "project":
-      return (
-        <span
-          className="block h-3 w-3 rounded-full border-2 bg-[#FBF9F5] dark:bg-[#121211]"
-          style={{ borderColor: col }}
-        />
-      );
-    case "publication":
-      return <span className="block h-2.5 w-2.5 bg-stone-500 dark:bg-stone-400" />;
-    case "award":
-      return <span className="block h-3 w-3 rotate-45 bg-[#B4884D]" />;
-  }
-}
-
 function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle: () => void }) {
   const org = ORGS[it.org];
   const logo = ORG_LOGOS[it.org];
   const where = it.date ? it.venue : it.location;
   return (
     <article className="ledger-entry relative py-3 pl-8 md:pl-10">
-      <span className="absolute -left-[6px] top-[1.35rem] flex h-3 w-3 items-center justify-center">
-        <Marker it={it} />
-      </span>
       <button
         aria-expanded={open}
         onClick={onToggle}
         className="ledger-toggle group -mx-4 w-full rounded-xl px-4 py-3 text-left hover:bg-white dark:hover:bg-stone-900/60"
       >
         <div className="flex items-baseline justify-between gap-4">
-          <span className="font-mono text-[10px] tracking-wider text-stone-500 dark:text-stone-400">
+          <span className="font-mono text-[9px] tracking-wider text-stone-500 dark:text-stone-400">
             {formatRange(it)}
             {it.approx && (
               <span title="approximate" className="text-[#B4884D]">
@@ -421,7 +387,13 @@ export function Timeline() {
                       : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-950 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
                   }`}
                 >
-                  {label} <span className="opacity-50">{count}</span>
+                  {label}
+                  {key !== "all" && (
+                    <>
+                      {" "}
+                      <span className="opacity-50">{count}</span>
+                    </>
+                  )}
                 </button>
               );
             })}
@@ -444,7 +416,7 @@ export function Timeline() {
                   : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-950 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-100 dark:hover:text-stone-100"
               }`}
             >
-              All <span className="opacity-50">{counts.all}</span>
+              All
             </button>
             {orgFilterDefs.map(({ key, logo, count }) => {
               const active = activeOrg === key;
