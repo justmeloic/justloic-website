@@ -5,7 +5,7 @@ import { CAREER, ORGS, TYPES, type CareerItem, type OrgKey } from "@/data/career
 import { ORG_LOGOS } from "@/data/logos";
 import { countItems, filterItems, formatRange, groupByYear } from "@/lib/timeline";
 
-const ORG_ORDER: OrgKey[] = ["google", "goc", "uottawa", "uwindsor"];
+const ORG_ORDER: OrgKey[] = ["google", "bell", "goc", "uottawa", "uwindsor"];
 
 function Entry({ it, open, onToggle }: { it: CareerItem; open: boolean; onToggle: () => void }) {
   const org = ORGS[it.org];

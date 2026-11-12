@@ -99,6 +99,9 @@
 .org-logo-google {
   height: 16px;
 }
+.org-logo-bell {
+  height: 16px;
+}
 .org-logo-goc {
   height: 18px;
 }
@@ -121,6 +124,9 @@
 .org-logo-filter.org-logo-google {
   height: 14px;
 }
+.org-logo-filter.org-logo-bell {
+  height: 13px;
+}
 .org-logo-filter.org-logo-goc {
   height: 13px;
 }
@@ -135,6 +141,13 @@
 }
 .org-logo-filter.org-logo-uwindsor {
   height: 15px;
+}
+
+/* Bell keeps its brand blue in both themes and in every pill state.
+   org-logo-brand-bell is colour only, for callers that size the mark themselves (resume). */
+.org-logo.org-logo-bell,
+.org-logo.org-logo-brand-bell {
+  color: #0067a4;
 }
 
 /* The floating resume sheet replaces the footer divider on that page */

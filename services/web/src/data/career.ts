@@ -1,7 +1,7 @@
 // Career timeline content (LinkedIn + justloic.com). Dates are "YYYY-MM" or "YYYY-MM-DD";
 // end: null means "Present". Items marked approx have unconfirmed dates.
 
-export type OrgKey = "google" | "goc" | "uottawa" | "uwindsor";
+export type OrgKey = "google" | "bell" | "goc" | "uottawa" | "uwindsor";
 export type ItemType = "role" | "education" | "project" | "publication" | "award";
 
 export interface Org {
@@ -31,6 +31,10 @@ export const ORGS: Record<OrgKey, Org> = {
   google: {
     name: "Google",
     color: "#B4884D",
+  },
+  bell: {
+    name: "Bell Canada",
+    color: "#0067A4",
   },
   goc: {
     name: "Government of Canada",
@@ -81,6 +85,19 @@ export const CAREER: CareerItem[] = [
     summary: "Tech lead on large-scale enterprise AI engagements, shipping agents to production.",
     bullets: ["Tech lead on $XXXM AI projects", "Agents in production"],
     skills: ["Generative AI", "Agents", "Technical Leadership"],
+  },
+  {
+    id: "bell-ai-post-training",
+    short: "AI Model Post-Training",
+    type: "role",
+    org: "bell",
+    title: "AI Model Post-Training",
+    start: "2023-07",
+    end: "2024-04",
+    location: "Bell Canada - Artificial Intelligence",
+    summary:
+      "Performed post-training for Bell Canada's in-house custom models used in call center operations.",
+    skills: ["Model Post-Training", "Custom AI Models"],
   },
   {
     id: "google-research",

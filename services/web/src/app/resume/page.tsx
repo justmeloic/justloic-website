@@ -203,6 +203,38 @@ export default function ResumePage() {
               </div>
             </div>
 
+            {/* Bell Canada Group */}
+            <div className="space-y-6 pt-4">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center">
+                  <span
+                    className="org-logo org-logo-brand-bell h-4 sm:h-5"
+                    dangerouslySetInnerHTML={{ __html: ORG_LOGOS.bell.svg }}
+                    aria-label="Bell Canada"
+                    role="img"
+                  />
+                </div>
+                <span className="font-mono text-xs text-stone-400">Jul 2023 – Apr 2024</span>
+              </div>
+
+              {/* AI Model Post-Training */}
+              <div className="space-y-2 border-l border-stone-200 pl-6 dark:border-stone-800">
+                <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
+                  <div className="flex items-baseline gap-2">
+                    <h4 className="font-sans text-base font-medium text-stone-900 dark:text-stone-100">
+                      AI Model Post-Training
+                    </h4>
+                    <span className="font-mono text-[10px] text-stone-400">(LLM Engineer)</span>
+                  </div>
+                  <span className="font-mono text-xs text-stone-400">Jul 2023 – Apr 2024</span>
+                </div>
+                <p className="text-xs font-light leading-relaxed text-stone-600 dark:text-stone-400 sm:text-sm">
+                  Post-training of Bell&apos;s in-house custom models used in its call center
+                  operations.
+                </p>
+              </div>
+            </div>
+
             {/* Government of Canada Group */}
             <div className="space-y-6 pt-4">
               <div className="flex items-center justify-between gap-4">

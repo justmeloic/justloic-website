@@ -14,7 +14,7 @@ Each entry is either a **span** (`start` / `end`) or a **point in time** (`date`
   id: "google-fde",            // unique, kebab-case
   short: "FDE, Generative AI", // optional short title
   type: "role",                // role | education | project | publication | award
-  org: "google",               // google | goc | uottawa | uwindsor
+  org: "google",               // google | bell | goc | uottawa | uwindsor
   title: "Forward Deployed Engineer, Generative AI",
   start: "2024-04",            // YYYY, YYYY-MM or YYYY-MM-DD
   end: null,                   // null = "Present"; start: null = "Pre"

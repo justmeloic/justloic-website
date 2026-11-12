@@ -48,6 +48,33 @@ describe("<Timeline />", () => {
     expect(entries()).toHaveLength(CAREER.filter((it) => it.org === "google").length);
   });
 
+  it("shows the Bell Canada AI post-training role with its date range and summary", async () => {
+    const user = userEvent.setup();
+    render(<Timeline />);
+    const card = screen.getByRole("button", { name: /AI Model Post-Training/ });
+    const entry = card.closest("article");
+
+    expect(card).toHaveTextContent("Jul 2023 – Apr 2024");
+    await user.click(card);
+    expect(
+      within(entry as HTMLElement).getByText("Bell Canada - Artificial Intelligence")
+    ).toBeInTheDocument();
+    expect(
+      within(entry as HTMLElement).getByText(/post-training.*call center operations/i)
+    ).toBeInTheDocument();
+  });
+
+  it("filters by Bell Canada", async () => {
+    const user = userEvent.setup();
+    render(<Timeline />);
+
+    await user.click(filters().getByRole("button", { name: /^Filter by Bell Canada/ }));
+    expect(entries()).toHaveLength(1);
+    expect(within(entries()[0] as HTMLElement).getByRole("button")).toHaveTextContent(
+      "AI Model Post-Training"
+    );
+  });
+
   it("expands and collapses an entry", async () => {
     const user = userEvent.setup();
     render(<Timeline />);
