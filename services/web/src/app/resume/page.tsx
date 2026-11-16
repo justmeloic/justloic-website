@@ -127,12 +127,11 @@ export default function ResumePage() {
 
           {/* Executive Summary */}
           <p className="hyphens-auto pt-2 text-justify text-sm font-light leading-relaxed text-stone-600 dark:text-stone-300">
-            Machine Learning Engineer and Applied Researcher with a graduate foundation in
-            mathematics and medical computer vision. Specializing in architecting and shipping
-            large-scale enterprise Generative AI systems, autonomous agents, and production
-            inference platforms. Previously a Tech Lead Manager in the Government of Canada, leading
-            the delivery of national-scale machine learning systems, from public health analytics
-            across the Canadian population to economic statistics across the country’s businesses.
+            Machine Learning Engineer and Applied AI Researcher, currently designing and deploying
+            enterprise-ready agentic AI at Google. Previously, I was a Tech Lead Manager in the
+            Government of Canada, leading an interdisciplinary team of research engineers delivering
+            national-scale machine learning systems across public health analytics and economic
+            statistics.
           </p>
         </header>
 
