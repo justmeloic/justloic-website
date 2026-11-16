@@ -6,6 +6,14 @@ fully static site and hosted on [Netlify](https://www.netlify.com).
 
 [![CI](https://github.com/justmeloic/justloic-website/actions/workflows/ci.yml/badge.svg)](https://github.com/justmeloic/justloic-website/actions/workflows/ci.yml)
 
+[![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![Vitest](https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev)
+[![Netlify](https://img.shields.io/badge/Netlify-00C7B7?logo=netlify&logoColor=white)](https://www.netlify.com)
+
 ## Quick start
 
 Requirements: Node 22 (see [`.nvmrc`](.nvmrc)) and [pre-commit](https://pre-commit.com)
