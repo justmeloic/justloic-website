@@ -6,6 +6,19 @@ import { useState } from "react";
 import { GITHUB_URL, LINKEDIN_URL } from "@/data/site";
 import { GOOGLE_WORDMARK_SVG, ORG_LOGOS } from "@/data/logos";
 
+const CERTIFICATIONS = [
+  { name: "Professional Cloud Architect", issuer: "Google", year: "2026" },
+  { name: "Gemini Enterprise Expert (Level 400)", issuer: "Google", year: "2025" },
+  { name: "Professional Machine Learning Engineer", issuer: "Google", year: "2024" },
+  {
+    name: "Exam MFE (Models for Financial Economics)",
+    issuer: "Society of Actuaries",
+    year: "2017",
+  },
+  { name: "Exam FM (Financial Mathematics)", issuer: "Society of Actuaries", year: "2016" },
+  { name: "Exam P (Probability)", issuer: "Society of Actuaries", year: "2016" },
+];
+
 export default function ResumePage() {
   const [copied, setCopied] = useState(false);
 
@@ -390,6 +403,29 @@ export default function ResumePage() {
                 coursework across Computer Science, Biology, and Chemistry.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Licenses & Certifications */}
+        <section className="space-y-6">
+          <div className="flex items-baseline justify-between border-b border-stone-200 pb-2 dark:border-stone-800">
+            <h2 className="font-mono text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
+              Licenses &amp; Certifications
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {CERTIFICATIONS.map(({ name, issuer, year }) => (
+              <div
+                key={name}
+                className="flex flex-col justify-between gap-1 text-xs sm:flex-row sm:items-baseline sm:text-sm"
+              >
+                <span className="text-stone-800 dark:text-stone-200">
+                  <strong>{name}</strong> · {issuer}
+                </span>
+                <span className="shrink-0 font-mono text-xs text-stone-400">{year}</span>
+              </div>
+            ))}
           </div>
         </section>
 
