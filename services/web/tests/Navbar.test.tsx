@@ -84,6 +84,18 @@ describe("<Navbar />", () => {
     expect(line().style.opacity).toBe("0");
   });
 
+  it("places Contact last in desktop and mobile navigation", () => {
+    render(<Navbar />);
+
+    for (const navigation of screen.getAllByRole("navigation", { hidden: true })) {
+      expect(
+        within(navigation)
+          .getAllByRole("link", { hidden: true })
+          .map((link) => link.textContent)
+      ).toEqual(["Timeline", "Art", "Philosophy", "Resume", "Contact"]);
+    }
+  });
+
   it("keeps a theme toggle in the header and floats a second one outside it for phones", () => {
     render(<Navbar />);
     const header = screen.getByRole("banner");

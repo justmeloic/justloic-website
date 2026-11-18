@@ -11,8 +11,8 @@ const LINKS = [
   { href: "/", label: "Timeline" },
   { href: "/art", label: "Art" },
   { href: "/philosophy", label: "Philosophy" },
-  { href: "/contact", label: "Contact" },
   { href: "/resume", label: "Resume" },
+  { href: "/contact", label: "Contact" },
 ];
 
 /** The links plus a single underline that slides to whichever one is current. */
